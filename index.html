@@ -7,32 +7,70 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		
 		<style>
+			/* 語言切換器樣式 - 參考 Image 3 並確保清晰度 */
 			.lang-switcher {
 				text-align: center;
 				margin-bottom: 20px;
-				padding-top: 1.5em;
+				padding-top: 1.5em; 
 				font-size: 1.1em;
-				/* 解決問題 2: 使用模板的次要文字顏色，確保可見性 */
-				color: #888; 
+				/* 確保文字顏色在淺色背景下清晰 */
+				color: #555; /* 使用較深的灰色，更清晰 */
 			}
 			.lang-switcher button {
-				/* 解決問題 3: 看起來像純文字 */
 				background: none;
-				border: none;
-				font-family: inherit; /* 繼承網頁字體 */
-				font-size: inherit; /* 繼承 .lang-switcher 的字體大小 */
-				color: inherit; /* 繼承 .lang-switcher 的顏色 */
+				/* 移除邊框，符合需求 */
+				border: none; 
+				font-family: inherit;
+				font-size: inherit;
+				color: inherit; /* 繼承父元素的顏色 */
 				cursor: pointer;
-				padding: 0 5px; /* 輕微的點擊區域 */
+				padding: 0 5px;
 				transition: color 0.2s;
 			}
 			.lang-switcher button:hover {
-				color: #333; /* 滑鼠懸停時變深 */
+				color: #333; /* 滑鼠懸停時變更深 */
 			}
-			/* 被選中的語言按鈕會高亮 */
 			.lang-switcher button.active {
 				color: #5865F2; /* Discord 藍色 (高亮) */
 				font-weight: bold;
+			}
+
+			/* 其他輔助樣式（保持不變或微調） */
+			code {
+				background: #eee;
+				border-radius: 4px;
+				padding: 3px 6px;
+				font-family: 'Courier New', Courier, monospace;
+			}
+			.box.style1 p {
+				margin: 0; 
+			}
+			.box.style1 .icon {
+				font-size: 3em;
+			}
+			/* 調整 contact 區塊列表樣式，移除實心點 */
+			#contact ul {
+				list-style: none; /* 移除預設列表樣式 */
+				padding-left: 0; /* 移除預設內邊距 */
+			}
+			#contact ul li {
+				margin-bottom: 5px; /* 增加行間距 */
+			}
+			/* 回饋表單的巢狀清單樣式 */
+			#contact ul ul {
+				list-style-type: disc; /* 重新設定為實心點 */
+				margin-top: 10px;
+				margin-left: 20px;
+			}
+			#contact ul ul li {
+				margin-bottom: 5px;
+			}
+			/* 獨立的副標題樣式 */
+			#contact h3.subsection-title {
+				margin-top: 2em; /* 增加上方間距 */
+				margin-bottom: 0.8em; /* 調整下方間距 */
+				font-size: 1.2em; /* 略小於主標題 */
+				color: #333; /* 確保清晰度 */
 			}
 		</style>
 	</head>
@@ -41,7 +79,7 @@
 
 		<nav id="nav">
 			<ul class="container">
-				<li><a href="#top" class="scrolly" data-key="nav_top">頂部</a></li>
+				<li><a href="#top" class="scrolly" data-key="nav_home">首頁</a></li>
 				<li><a href="#work" class="scrolly" data-key="nav_features">主要功能</a></li>
 				<li><a href="#portfolio" class="scrolly" data-key="nav_how_to">如何使用</a></li>
 				<li><a href="#contact" class="scrolly" data-key="nav_support">支持與回饋</a></li>
@@ -166,15 +204,17 @@
 						
 						<hr />
 						
-						<h3 data-key="support_feedback_title">聯絡與回饋</h3>
-						<p data-key="support_feedback_desc">遇到 Bug 或是您有很棒的功能建議嗎？歡迎透過以下方式聯繫我：</p>
+						<h3 class="subsection-title" data-key="contact_email_title">Email:</h3>
 						<ul>
-							<li><strong>Email:</strong> a34159@gmail.com</li>
+							<li>a34159@gmail.com</li>
+						</ul>
+						
+						<h3 class="subsection-title" data-key="contact_feedback_title">填寫回饋表單:</h3>
+						<ul>
 							<li><a href="https://discord.gg/r8grruws" target="_blank" data-key="support_feedback_discord">
 								加入我們的 Discord 支援伺服器 (推薦)
 							</a></li>
 							<li>
-								<strong data-key="support_feedback_form">填寫回饋表單:</strong>
 								<ul>
 									<li><a href="https://forms.gle/xawXwNruVatAVDJN8" target="_blank">繁體中文 (Traditional Chinese)</a></li>
 									<li><a href="https://forms.gle/w1GCr1TSt5FHokhm6" target="_blank">English</a></li>
@@ -188,7 +228,7 @@
 				<footer>
 					<ul id="copyright">
 						<li>
-							<span data-key="footer_credit">由 a34159@gmail.com 開發 | 蓬蓬Bot 2025</span>
+							<span data-key="footer_credit">由 Hijiri 開發 | 蓬蓬 Bot v0.1</span>
 						</li>
 						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
@@ -209,7 +249,7 @@
 				// 繁體中文
 				zh: {
 					page_title: "蓬蓬 - 您的 Discord 翻譯與匯率助理",
-					nav_top: "頂部",
+					nav_home: "首頁",
 					nav_features: "主要功能",
 					nav_how_to: "如何使用",
 					nav_support: "支持與回饋",
@@ -241,16 +281,15 @@
 					support_donate_title: "支持「蓬蓬」",
 					support_donate_desc: "「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！",
 					support_donate_btn: "請我喝杯咖啡 (Buy Me a Coffee)",
-					support_feedback_title: "聯絡與回饋",
-					support_feedback_desc: "遇到 Bug 或是您有很棒的功能建議嗎？歡迎透過以下方式聯繫我：",
+					contact_email_title: "Email:",
+					contact_feedback_title: "填寫回饋表單:",
 					support_feedback_discord: "加入我們的 Discord 支援伺服器 (推薦)",
-					support_feedback_form: "填寫回饋表單:",
-					footer_credit: "由 a34159@gmail.com 開發 | 蓬蓬Bot 2025"
+					footer_credit: "由 Hijiri 開發 | 蓬蓬 Bot v0.1"
 				},
 				// 英文
 				en: {
 					page_title: "Pong Pong - Your Discord Translation & Currency Bot",
-					nav_top: "Top",
+					nav_home: "Home",
 					nav_features: "Features",
 					nav_how_to: "How to Use",
 					nav_support: "Support & Feedback",
@@ -282,16 +321,15 @@
 					support_donate_title: "Support \"Pong Pong\"",
 					support_donate_desc: "\"Pong Pong\" is a 24/7 bot relying on cloud servers and paid APIs. If you find it helpful, please consider supporting its costs!",
 					support_donate_btn: "Buy Me a Coffee",
-					support_feedback_title: "Contact & Feedback",
-					support_feedback_desc: "Found a bug or have a great feature idea? Feel free to contact me:",
+					contact_email_title: "Email:",
+					contact_feedback_title: "Submit Feedback Form:",
 					support_feedback_discord: "Join our Discord Support Server (Recommended)",
-					support_feedback_form: "Submit Feedback Form:",
-					footer_credit: "Developed by a34159@gmail.com | Pong Pong Bot 2025"
+					footer_credit: "Developed by Hijiri | Pong Pong Bot v0.1"
 				},
 				// 日文
 				ja: {
 					page_title: "ポンポン - Discord 翻訳＆為替ボット",
-					nav_top: "トップ",
+					nav_home: "ホーム",
 					nav_features: "主な機能",
 					nav_how_to: "使い方",
 					nav_support: "サポート",
@@ -323,38 +361,30 @@
 					support_donate_title: "「ポンポン」をサポート",
 					support_donate_desc: "「ポンポン」はクラウドサーバーと有料APIで24時間稼働しています。もしこのボットが役に立つと感じたら、運営コストのサポートをご検討ください！",
 					support_donate_btn: "コーヒーをご馳走する (Buy Me a Coffee)",
-					support_feedback_title: "連絡先 & フィードバック",
-					support_feedback_desc: "バグを発見した場合、または新機能の提案がありますか？ 以下の方法でお気軽にご連絡ください：",
+					contact_email_title: "Email:",
+					contact_feedback_title: "フィードバックフォーム:",
 					support_feedback_discord: "Discordサポートサーバーに参加 (推奨)",
-					support_feedback_form: "フィードバックフォーム:",
-					footer_credit: "開発者: a34159@gmail.com | ポンポンBot 2025"
+					footer_credit: "開発者: Hijiri | ポンポン Bot v0.1"
 				}
 			};
 
-			// --- 2. 我們的切換函式 (已重構) ---
 			function switchLang(lang) {
-				// (a) 更新所有帶有 data-key 的元素
 				document.querySelectorAll('[data-key]').forEach(el => {
 					const key = el.getAttribute('data-key');
 					if (translations[lang] && translations[lang][key]) {
-						// 使用 innerHTML 才能正確渲染 <code> 標籤
 						el.innerHTML = translations[lang][key]; 
 					}
 				});
 
-				// (b) 更新 <html> 標籤的語言
 				document.documentElement.lang = lang;
 
-				// (c) 更新按鈕的 'active' 狀態
 				document.getElementById('lang-btn-zh').classList.toggle('active', lang === 'zh');
 				document.getElementById('lang-btn-en').classList.toggle('active', lang === 'en');
 				document.getElementById('lang-btn-ja').classList.toggle('active', lang === 'ja');
 
-				// (d) 更新網頁標題
 				document.title = translations[lang].page_title || "蓬蓬 Bot";
 			}
 			
-			// --- 3. 頁面載入時，預設為中文 ---
 			document.addEventListener('DOMContentLoaded', () => {
 				switchLang('zh');
 			});
