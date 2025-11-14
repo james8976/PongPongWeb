@@ -11,12 +11,12 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 		
 		<style>
-			/* 【修正】強制套用 Google Fonts 字體到整個網頁 */
+			/* 1. 強制套用 Google Fonts 字體 */
 			body {
 				font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important;
 			}
 		
-			/* 語言切換器 (在 Header 中) */
+			/* 2. 語言切換器 (在 Header 中) */
 			.wrapper.style1 .lang-switcher {
 				text-align: center;
 				margin-bottom: 20px; 
@@ -24,7 +24,7 @@
 				font-size: 0.9em; /* 縮小字體 */
 			}
 			
-			/* 【【【強制修正：您最在意的按鈕樣式】】】 */
+			/* 3. 【強制修正】按鈕樣式 (顏色、無邊框、字體) */
 			.wrapper.style1 .lang-switcher button {
 				/* 強制移除模板樣式 */
 				background: none !important; 
@@ -44,30 +44,34 @@
 				display: inline-block;
 				line-height: 1.5; 
 			}
-			/* 滑鼠懸停 (Hover) 時的顏色改為藍色 */
+			/* 4. 滑鼠懸停 (Hover) 時的顏色改為藍色 */
 			.wrapper.style1 .lang-switcher button:hover {
 				color: #5865F2 !important; 
 			}
-			/* 被選中的語言按鈕會高亮 */
+			/* 5. 被選中的語言按鈕會高亮 */
 			.wrapper.style1 .lang-switcher button.active {
 				color: #5865F2 !important; 
 				font-weight: bold !important; 
 			}
-			/* 分隔線的樣式 */
+			/* 6. 分隔線的樣式 */
 			.wrapper.style1 .lang-switcher span {
 				color: #aaa;
 				font-size: 0.9em;
 				margin: 0 5px;
 			}
-			/* 【修正】確保所有圖示（包括智慧翻譯）的容器大小和內容顯示一致 */
+
+			/* 【【【核心修正：所有 .icon 的尺寸和位置】】】 */
 			.box.style1 .icon {
-				/* 確保圖示容器有足夠的高度和寬度 */
-				width: 100px !important; /* 強制寬度，確保與其他圖示一致 */
-				height: 100px !important; /* 強制高度，確保與其他圖示一致 */
-				line-height: 100px !important; /* 強制行高，確保內容垂直置中 */
-				font-size: 4em !important; /* 統一圖示大小，與模板預設匹配 */
+				/* 強制重置所有 .icon 的基本尺寸和居中 */
+				width: 100px !important;    /* 固定寬度 */
+				height: 100px !important;   /* 固定高度 */
+				line-height: 100px !important; /* 行高與高度相同，確保內容垂直居中 */
+				font-size: 4em !important;  /* 統一圖示基礎大小 */
+				margin: 0 auto 20px auto !important; /* 水平居中，並設定底部間距 */
+				border-radius: 100% !important; /* 強制圓形背景 */
+				box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15) !important; /* 強制邊框樣式 */
 			}
-			/* 針對智慧翻譯圖示內的文字進行微調 */
+			/* 針對智慧翻譯圖示內的文字進行微調 (A文) */
 			.box.style1 .icon.solid.featured.fa-language::before {
 				font-size: 0.8em !important; /* 微調文字大小，讓其在框內顯示 */
 				line-height: 1.2em !important; /* 微調文字行高，讓其垂直置中 */
@@ -76,7 +80,6 @@
 			/* (其他輔助樣式，保持不變) */
 			code { background: #eee; border-radius: 4px; padding: 3px 6px; font-family: 'Courier New', Courier, monospace; }
 			.box.style1 p { margin: 0; }
-			.box.style1 .icon { font-size: 3em; }
 			#contact ul { list-style: none; padding-left: 0; }
 			#contact ul li { margin-bottom: 5px; }
 			#contact ul ul { list-style-type: disc; margin-top: 10px; margin-left: 20px; }
@@ -136,7 +139,7 @@
 					<div class="col-4 col-6-medium col-12-small">
 						<section class="box style1">
 							<span class="icon solid featured fa-language"></span>
-							<h3 data-key="feature_1_title">智慧翻譯</h3>
+							<h3 data-key="feature_1_title">智能翻譯</h3>
 							<p data-key="feature_1_desc">支援 <code>!tr</code> 指令，自動偵測或指定語言 (en-jp) 進行翻譯。</p>
 						</section>
 					</div>
@@ -163,6 +166,7 @@
 				</footer>
 			</div>
 		</article>
+
 		<article id="portfolio" class="wrapper style3">
 			<div class="container">
 				<header>
@@ -265,7 +269,7 @@
 					header_button: "邀請「蓬蓬」到您的伺服器",
 					features_title: "主要功能",
 					features_subtitle: "「蓬蓬」是一個多功能 Discord 助理",
-					feature_1_title: "智慧翻譯",
+					feature_1_title: "智能翻譯",
 					feature_1_desc: "支援 <code>!tr</code> 指令，自動偵測或指定語言 (en-jp) 進行翻譯。",
 					feature_2_title: "表情符號翻譯",
 					feature_2_desc: "對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗，蓬蓬就會立刻為您翻譯。",
@@ -357,7 +361,7 @@
 					how_to_subtitle: "シンプルなコマンド、強力な機能。",
 					how_to_tr_title: "翻訳コマンド (<code>!tr</code>)",
 					how_to_tr_1: "<code>!tr Hello world</code> (自動検出して繁体字中国語に翻訳)",
-					how_to_tr_2: "<code>!tr en-jp Hello world</code> (英語を日本語に翻訳)",
+					how_to_tr_2: "<code>!tr en-jp Hello world</code> (將英文翻譯成日文)",
 					how_to_cc_title: "為替コマンド (<code>!cc</code>)",
 					how_to_cc_1: "<code>!cc</code> (デフォルトで 1 JPY から TWD へのレートを照会)",
 					how_to_cc_2: "<code>!cc 100</code> (100 JPY から TWD へのレートを照会)",
@@ -397,6 +401,3 @@
 		</script>
 	</body>
 </html>
-
-
-
