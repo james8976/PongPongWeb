@@ -12,30 +12,26 @@
 				text-align: center;
 				margin-bottom: 20px; 
 				padding-top: 1em;
-				/* 縮小字體 */
-				font-size: 0.9em; 
-				/* 解決 Image 2: 顏色不清楚的問題 */
-				color: #555; 
+				font-size: 0.9em; /* 縮小字體 */
+				color: #555; /* 確保在淺色背景上清晰可見 */
 			}
 			.lang-switcher button {
 				background: none;
-				/* 解決 Image 2: 移除邊框 */
-				border: none; 
+				border: none; /* 移除邊框 */
 				font: inherit; 
 				color: inherit; 
 				cursor: pointer;
 				padding: 0 5px;
 				transition: color 0.2s;
-				/* 解決 Image 2: 統一字體 (非粗體) */
-				font-weight: normal; 
+				font-weight: normal; /* 統一字體樣式 (非粗體) */
 			}
 			.lang-switcher button:hover {
 				color: #333; /* 滑鼠懸停時變深 */
 			}
-			/* 被選中的語言按鈕會高亮 (如 Image 3 所示) */
+			/* 被選中的語言按鈕會高亮 */
 			.lang-switcher button.active {
 				color: #5865F2; /* Discord 藍色 (高亮) */
-				font-weight: bold;
+				font-weight: bold; /* 選中時加粗 */
 			}
 
 			/* (其他輔助樣式，保持不變) */
@@ -43,7 +39,7 @@
 			.box.style1 p { margin: 0; }
 			.box.style1 .icon { font-size: 3em; }
 			
-			/* 解決 Image 1: 移除聯絡區的「・」列表點 */
+			/* 【修正】移除聯絡區的「・」列表點 */
 			#contact ul {
 				list-style: none;
 				padding-left: 0;
@@ -60,7 +56,7 @@
 			#contact ul ul li {
 				margin-bottom: 5px;
 			}
-			/* 解決 Image 1: 副標題樣式 */
+			/* 【修正】副標題樣式 */
 			#contact h3.subsection-title {
 				margin-top: 2em; 
 				margin-bottom: 0.8em; 
@@ -372,7 +368,7 @@
 
 				document.documentElement.lang = lang;
 
-				// 【修改】使用 class 'lang-button' 來選擇
+				// 【修正】使用 class 'lang-button' 來選擇
 				document.getElementById('lang-btn-zh').classList.toggle('active', lang === 'zh');
 				document.getElementById('lang-btn-en').classList.toggle('active', lang === 'en');
 				document.getElementById('lang-btn-ja').classList.toggle('active', lang === 'ja');
