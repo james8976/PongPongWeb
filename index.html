@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-	
 	<head>
 		<title id="pageTitle">蓬蓬 - 您的 Discord 翻譯與匯率助理</title>
 		<meta charset="utf-8" />
@@ -12,14 +11,9 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 		
 		<style>
-			/* 【新增】套用 Google Fonts 字體到整個網頁 */
+			/* 【修正】強制套用 Google Fonts 字體到整個網頁 */
 			body {
-				/* 字體堆疊：
-				   1. 優先用 'Open Sans' (英文)
-				   2. 遇到中文/日文，自動改用 'Noto Sans TC'
-				   3. 如果都失敗，使用系統預設字體
-				*/
-				font-family: 'Open Sans', 'Noto Sans TC', sans-serif;
+				font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important;
 			}
 		
 			/* 語言切換器 (在 Header 中) */
@@ -28,20 +22,25 @@
 				margin-bottom: 20px; 
 				padding-top: 1em;
 				font-size: 0.9em; /* 縮小字體 */
-				color: #333; /* 非選中顏色 (深灰) */
 			}
-			/* 強制修改按鈕樣式 */
+			
+			/* 【【【強制修正：您最在意的按鈕樣式】】】 */
 			.wrapper.style1 .lang-switcher button {
+				/* 強制移除模板樣式 */
 				background: none !important; 
 				border: none !important; 
 				box-shadow: none !important; 
 				padding: 0 5px !important; 
-				margin: 0; 
-				font: inherit; 
-				color: inherit; /* 繼承 .lang-switcher 的 #333 顏色 */
+				margin: 0 !important; 
+				
+				/* 強制設定字體和顏色 */
+				font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important; /* 確保字體一致 */
+				font-weight: normal !important; /* 統一字體 (非粗體) */
+				color: #333 !important; /* 【【強制設定非選中顏色為深灰色】】 */
+				
+				/* 保持功能性 */
 				cursor: pointer;
 				transition: color 0.2s;
-				font-weight: normal !important; 
 				display: inline-block;
 				line-height: 1.5; 
 			}
@@ -385,5 +384,3 @@
 		</script>
 	</body>
 </html>
-
-
