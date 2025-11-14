@@ -18,18 +18,19 @@
 			}
 			/* 強制修改按鈕樣式 */
 			.wrapper.style1 .lang-switcher button {
-				background: none !important; 
-				border: none !important; 
-				box-shadow: none !important; 
-				padding: 0 5px !important; 
-				margin: 0; 
-				font: inherit; 
+				background: none !important; /* 強制移除背景 */
+				border: none !important; /* 強制移除邊框 */
+				box-shadow: none !important; /* 強制移除陰影 */
+				padding: 0 5px !important; /* 調整內距 */
+				margin: 0; /* 移除外距 */
+				font: inherit; /* 繼承字體 */
 				color: inherit; /* 繼承 .lang-switcher 的 #333 顏色 */
 				cursor: pointer;
 				transition: color 0.2s;
-				font-weight: normal !important; 
+				font-weight: normal !important; /* 強制統一字體 (非粗體) */
+				/* 確保按鈕在模板中正確顯示 */
 				display: inline-block;
-				line-height: 1.5; 
+				line-height: 1.5; /* 重新設定行高 */
 			}
 			/* 【修改】滑鼠懸停 (Hover) 時的顏色改為藍色 */
 			.wrapper.style1 .lang-switcher button:hover {
@@ -178,7 +179,7 @@
 				<div class="row">
 					<div class="col-12">
 						<h3 data-key="support_donate_title">支持「蓬蓬」</h3>
-						<p data-key="support_donate_desc">「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運TEST成本！</p>
+						<p data-key="support_donate_desc">「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！</p>
 						<a href="https://buymeacoffee.com/hijiri4005" class="button" target="_blank" data-key="support_donate_btn">
 							請我喝杯咖啡 (Buy Me a Coffee)
 						</a>
@@ -340,7 +341,7 @@
 					how_to_footer_btn: "お問い合わせ",
 					support_title: "サポート & フィードバック",
 					support_donate_title: "「ポンポン」をサポート",
-					support_donate_desc: "「ポンポン」はクラウドサーバーと有料APIで24時間稼働しています。もしこのボットが役に立つと感じたら、運営コストのサポートをご検討ください！",
+					support_donate_desc: "「ポンポン」はクラウドサーバーと有料APIで24時間稼動しています。もしこのボットが役に立つと感じたら、運営コストのサポートをご検討ください！",
 					support_donate_btn: "コーヒーをご馳走する (Buy Me a Coffee)",
 					contact_email_title: "Email:",
 					contact_feedback_title: "フィードバックフォーム:",
