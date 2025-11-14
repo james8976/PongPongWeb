@@ -85,6 +85,54 @@
 			#contact ul ul { list-style-type: disc; margin-top: 10px; margin-left: 20px; }
 			#contact ul ul li { margin-bottom: 5px; }
 			#contact h3.subsection-title { margin-top: 2em; margin-bottom: 0.8em; font-size: 1.2em; color: #333; }
+
+			/* 1. 統一所有「功能方塊」的基礎樣式 */
+			.box.style1 {
+				text-align: center !important; /* 強制文字居中 */
+			}
+
+			/* 2. 統一所有「圖示圓圈」的尺寸和外觀 */
+			.box.style1 .icon.featured {
+				/* 尺寸和外觀 (與模板保持一致) */
+				width: 100px !important;
+				height: 100px !important;
+				border-radius: 100% !important;
+				
+				/* 【關鍵修正】強制內容置中 */
+				display: flex !important;
+				align-items: center;
+				justify-content: center;
+				
+				/* 字體大小 (這是給 glyphs 用的基礎) */
+				font-size: 4em !important; 
+				
+				/* 修正外距 */
+				margin: 0 auto 1em auto !important;
+				
+				/* 確保繼承模板的粉色背景和陰影 */
+				background: #f77777; /* 模板的粉色 */
+				box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+				color: #fff !important; /* 確保圖示內文字/圖案為白色 */
+			}
+
+			/* 3. 單獨微調「智能翻譯」的 "A文" 文字 */
+			.box.style1 .icon.featured.fa-language::before {
+				/* 讓 "A文" 文字縮小到適合 100px 方框的大小 */
+				font-size: 0.8em !important; /* (相對於 4em) */
+				line-height: 1 !important; /* 移除多餘行高 */
+			}
+
+			/* 4. 單獨微調「國旗」和「金錢」圖示 (確保它們置中) */
+			.box.style1 .icon.featured.fa-flag::before,
+			.box.style1 .icon.featured.fa-dollar-sign::before {
+				line-height: 1 !important; /* 移除多餘行高 */
+				font-size: 1em !important; /* 繼承 4em 的大小 */
+			}
+
+			/* (您其他的 code, 語言切換器等樣式保持不變) */
+			code { background: #eee; border-radius: 4px; padding: 3px 6px; font-family: 'Courier New', Courier, monospace; }
+			#contact ul { list-style: none; padding-left: 0; }
+			#contact ul li { margin-bottom: 5px; }
 		</style>
 	</head>
 	
@@ -401,3 +449,4 @@
 		</script>
 	</body>
 </html>
+
