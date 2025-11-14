@@ -13,26 +13,27 @@
 				margin-bottom: 20px; 
 				padding-top: 1em;
 				font-size: 0.9em; /* 縮小字體 */
-				/* 【修改】非選中顏色改為 #333 (深灰)，更明顯 */
-				color: #333; 
 			}
 			/* 強制修改按鈕樣式 */
 			.wrapper.style1 .lang-switcher button {
-				background: none !important; /* 強制移除背景 */
-				border: none !important; /* 強制移除邊框 */
-				box-shadow: none !important; /* 強制移除陰影 */
-				padding: 0 5px !important; /* 調整內距 */
-				margin: 0; /* 移除外距 */
-				font: inherit; /* 繼承字體 */
-				color: inherit; /* 繼承 .lang-switcher 的 #333 顏色 */
+				background: none !important; 
+				border: none !important; 
+				box-shadow: none !important; 
+				padding: 0 5px !important; 
+				margin: 0; 
+				font: inherit; 
 				cursor: pointer;
 				transition: color 0.2s;
-				font-weight: normal !important; /* 強制統一字體 (非粗體) */
-				/* 確保按鈕在模板中正確顯示 */
+				font-weight: normal !important; 
 				display: inline-block;
-				line-height: 1.5; /* 重新設定行高 */
+				line-height: 1.5;
+
+				/* 【【【這就是您要的修改】】】
+				   強制設定非選中顏色為深灰色，覆蓋模板的預設值 
+				*/
+				color: #333 !important; 
 			}
-			/* 【修改】滑鼠懸停 (Hover) 時的顏色改為藍色 */
+			/* 滑鼠懸停 (Hover) 時的顏色改為藍色 */
 			.wrapper.style1 .lang-switcher button:hover {
 				color: #5865F2 !important; 
 			}
@@ -372,3 +373,4 @@
 		</script>
 	</body>
 </html>
+
