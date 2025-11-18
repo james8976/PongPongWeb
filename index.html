@@ -11,12 +11,15 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 		
 		<style>
-			/* 1. 強制套用 Google Fonts 字體 */
-			body {
+			/* --- 第 1 點：防止左右滑動 (保留，確保手機版穩定) --- */
+			html, body {
+				overflow-x: hidden !important;
+				max-width: 100% !important;
+				position: relative;
 				font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important;
 			}
 		
-			/* 2. 語言切換器 (電腦版預設) */
+			/* --- 第 2 點：語言切換器位置 (電腦版基礎) --- */
 			.wrapper.style1 .lang-switcher {
 				text-align: center;
 				margin-bottom: 20px; 
@@ -24,7 +27,7 @@
 				font-size: 0.9em; 
 			}
 			
-			/* 3. 按鈕樣式 (電腦版) */
+			/* --- 第 3 點：按鈕樣式 (無邊框、深灰字、藍色Hover) --- */
 			.wrapper.style1 .lang-switcher button {
 				background: none !important; 
 				border: none !important; 
@@ -32,7 +35,7 @@
 				padding: 0 5px !important; 
 				margin: 0 !important; 
 				font: inherit; 
-				color: #333 !important; 
+				color: #333 !important; /* 深灰色 */
 				cursor: pointer;
 				transition: color 0.2s;
 				font-weight: normal !important; 
@@ -41,63 +44,54 @@
 			}
 			.wrapper.style1 .lang-switcher button:hover { color: #5865F2 !important; }
 			.wrapper.style1 .lang-switcher button.active { color: #5865F2 !important; font-weight: bold !important; }
-			.wrapper.style1 .lang-switcher span { color: #aaa; font-size: 0.9em; margin: 0 1px; }
+			.wrapper.style1 .lang-switcher span { color: #aaa; font-size: 0.9em; margin: 0 5px; }
 
-			/* 4. 圖示修正 */
-			.box.style1 .icon.featured { width: 100px !important; height: 100px !important; line-height: 100px !important; font-size: 4em !important; margin: 0 auto 1em auto !important; border-radius: 100% !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15) !important; display: flex !important; align-items: center; justify-content: center; background: #f77777; color: #fff !important; }
+			/* --- 第 4 點：圖示大小統一 --- */
+			.box.style1 .icon.featured {
+				width: 100px !important; height: 100px !important; line-height: 100px !important;
+				font-size: 4em !important; margin: 0 auto 1em auto !important;
+				border-radius: 100% !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15) !important;
+				display: flex !important; align-items: center; justify-content: center;
+				background: #f77777; color: #fff !important; 
+			}
 			.box.style1 .icon.solid.featured.fa-language::before { font-size: 0.8em !important; line-height: 1.2em !important; }
 			.box.style1 .icon.featured.fa-flag::before, .box.style1 .icon.featured.fa-dollar-sign::before { line-height: 1 !important; font-size: 1em !important; }
 			
-			/* 5. 其他樣式 */
+			/* --- 第 5 點：圖片圓角 (保留) --- */
+			.wrapper.style1 .image.fit {
+				margin: 0 !important; border-radius: 8px !important; overflow: hidden !important; box-shadow: none !important;
+			}
+			.wrapper.style1 .image.fit img {
+				width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border: none !important; padding: 0 !important; background: none !important;
+			}
+
+			/* 其他必要的排版修正 */
 			code { background: #eee; border-radius: 4px; padding: 3px 6px; font-family: 'Courier New', Courier, monospace; }
 			.box.style1 p { margin: 0; }
-			.wrapper.style4 .container.medium { text-align: center !important; }
 			#contact ul { list-style: none; padding-left: 0; }
 			#contact ul li { margin-bottom: 5px; }
 			#contact ul ul { list-style-type: none !important; margin-top: 10px; margin-left: 0 !important; padding-left: 0 !important; }
 			#contact ul ul li { margin-bottom: 5px; }
 			#contact h3.subsection-title { margin-top: 2em; margin-bottom: 0.8em; font-size: 1.2em; color: #FFFFFF !important; }
-			.wrapper.style1 .image.fit { margin: 0 !important; border-radius: 8px !important; overflow: hidden !important; box-shadow: none !important; }
-			.wrapper.style1 .image.fit img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border: none !important; padding: 0 !important; background: none !important; }
 
-			/* 6. 【【【手機版專用修正】】】 */
-			/* 當螢幕寬度小於 736px 時 (手機) */
+			/* --- 第 7 點：手機版專用修正 (只針對 736px 以下螢幕生效) --- */
+			/* 這裡會強制縮小按鈕間距，讓它們在手機上能排成一行 */
 			@media (max-width: 736px) { 
-				
-				/* 針對切換器容器 */
 				.wrapper.style1 .lang-switcher {
-					/* 強制不換行，讓三個按鈕死守在同一行 */
-					white-space: nowrap !important; 
-					/* 減少與上方圖片的距離 */
-					padding-top: 0.5em !important; 
+					font-size: 0.75em; /* 字體縮小 */
+					padding-top: 1.5em;
+					white-space: nowrap; /* 不換行 */
+					width: 100%; 
+					display: flex; 
+					justify-content: center;
+					align-items: center;
 				}
-
-				/* 針對按鈕 */
 				.wrapper.style1 .lang-switcher button {
-					/* 【關鍵】縮小字體 (0.8em 約等於 13px) */
-					font-size: 0.8em !important; 
-					/* 【關鍵】減少左右內距，讓它們靠得更近 */
-					padding: 0 2px !important; 
-					
-					background: none !important; 
-					border: none !important; 
-					box-shadow: none !important; 
-					font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important; 
-					font-weight: normal !important; 
-					color: #333 !important; 
-					cursor: pointer;
-					display: inline-block;
-					line-height: 1.5; 
+					padding: 0 2px !important; /* 間距縮小 */
+					font-size: 1em !important;
 				}
-				
-				.wrapper.style1 .lang-switcher button:hover { color: #5865F2 !important; }
-				.wrapper.style1 .lang-switcher button.active { color: #5865F2 !important; font-weight: bold !important; }
-				
-				/* 針對分隔線 | */
 				.wrapper.style1 .lang-switcher span {
-					color: #aaa;
-					font-size: 0.8em !important; /* 分隔線也跟著縮小 */
-					margin: 0 2px !important; /* 減少分隔線左右間距 */
+					margin: 0 2px !important; /* 分隔線間距縮小 */
 				}
 			}
 		</style>
@@ -430,6 +424,7 @@
 		</script>
 	</body>
 </html>
+
 
 
 
