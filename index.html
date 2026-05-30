@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-		<title id="pageTitle">蓬蓬 - 您的 Discord 翻譯與匯率助理</title>
+		<title id="pageTitle">蓬蓬 - 您的 Discord 多功能助理</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	
-		<meta name="description" content="蓬蓬 (Pong Pong) 是一個多功能的 Discord 翻譯與匯率機器人。支援即時多語言翻譯、表情符號翻譯以及各國匯率轉換，讓您的社群溝通無障礙！">
-		<meta name="keywords" content="Discord機器人, 翻譯機器人, 匯率機器人, Discord Bot, Translation Bot, Currency Bot, 蓬蓬, Pong Pong, 即時翻譯, 匯率查詢">
+		<meta name="description" content="蓬蓬 (Pong Pong) 是一個多功能的 Discord 機器人。支援即時翻譯、匯率轉換、股票查詢、天氣預報、旅遊資訊、國旗問答等豐富功能！">
+		<meta name="keywords" content="Discord機器人, 翻譯機器人, 匯率機器人, 股票查詢, 天氣預報, Discord Bot, Translation Bot, Currency Bot, 蓬蓬, Pong Pong">
 		<meta name="author" content="Hijiri">
 
 		<meta property="og:type" content="website">
-		<meta property="og:title" content="蓬蓬 - 您的 Discord 翻譯與匯率助理">
-		<meta property="og:description" content="支援指令翻譯、國旗表情符號翻譯與即時匯率查詢。立即邀請蓬蓬加入您的伺服器！">
+		<meta property="og:title" content="蓬蓬 - 您的 Discord 多功能助理">
+		<meta property="og:description" content="支援翻譯、匯率、股票、天氣、旅遊、國旗問答等功能。立即邀請蓬蓬加入您的伺服器！">
 		<meta property="og:url" content="https://yangpongpong.vercel.app/">
 		<meta property="og:image" content="https://yangpongpong.vercel.app/images/pic00.jpg">
 	
@@ -21,15 +21,126 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 		
 		<style>
-			/* --- 第 1 點：防止左右滑動 (保留，確保手機版穩定) --- */
+			/* ===== CSS Custom Properties (Light Theme Default) ===== */
+			:root {
+				--bg-primary: #ffffff;
+				--bg-secondary: #f5f5f5;
+				--bg-card: #ffffff;
+				--text-primary: #333333;
+				--text-secondary: #666666;
+				--text-muted: #999999;
+				--border-color: rgba(0,0,0,0.15);
+				--code-bg: #eee;
+				--code-color: #333;
+				--shadow-card: 0 2px 15px rgba(0,0,0,0.08);
+				--accent-color: #5865F2;
+				--accent-hover: #4752c4;
+				--transition-speed: 0.3s;
+				--nav-bg: rgba(255,255,255,0.95);
+			}
+
+			/* ===== Dark Theme ===== */
+			[data-theme='dark'] {
+				--bg-primary: #1a1625;
+				--bg-secondary: #0f0d1a;
+				--bg-card: rgba(255,255,255,0.05);
+				--text-primary: #e0e0e0;
+				--text-secondary: #b0b0b0;
+				--text-muted: #777777;
+				--border-color: rgba(255,255,255,0.1);
+				--code-bg: rgba(255,255,255,0.1);
+				--code-color: #e0e0e0;
+				--shadow-card: 0 2px 15px rgba(0,0,0,0.3);
+				--accent-color: #7289da;
+				--accent-hover: #5b6eae;
+				--nav-bg: rgba(15,13,26,0.95);
+			}
+
+			/* ===== Global Transitions for Theme Switch ===== */
+			html, body, article, section, div, header, footer, nav, h1, h2, h3, h4, p, a, span, li, ul, code {
+				transition: background-color var(--transition-speed) ease,
+							color var(--transition-speed) ease,
+							border-color var(--transition-speed) ease,
+							box-shadow var(--transition-speed) ease;
+			}
+
+			/* --- Prevent horizontal scroll & base font --- */
 			html, body {
 				overflow-x: hidden !important;
 				max-width: 100% !important;
 				position: relative;
 				font-family: 'Open Sans', 'Noto Sans TC', sans-serif !important;
 			}
-		
-			/* --- 第 2 點：語言切換器位置 (電腦版基礎) --- */
+
+			/* --- Dark mode overrides for template elements --- */
+			[data-theme='dark'] #nav {
+				background: var(--nav-bg) !important;
+			}
+			[data-theme='dark'] #nav a {
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style1 {
+				background: var(--bg-primary) !important;
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style2 {
+				background: var(--bg-secondary) !important;
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style2 header h2,
+			[data-theme='dark'] .wrapper.style2 header p {
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style3 {
+				background: var(--bg-primary) !important;
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style4 {
+				background: var(--bg-secondary) !important;
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper.style4 h2,
+			[data-theme='dark'] .wrapper.style4 h3 {
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .wrapper h1,
+			[data-theme='dark'] .wrapper h2,
+			[data-theme='dark'] .wrapper h3,
+			[data-theme='dark'] .wrapper p {
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .box.style1 {
+				background: var(--bg-card) !important;
+				border-color: var(--border-color) !important;
+			}
+			[data-theme='dark'] .box.style1 h3,
+			[data-theme='dark'] .box.style1 p {
+				color: var(--text-primary) !important;
+			}
+			[data-theme='dark'] .button {
+				color: var(--text-primary) !important;
+				border-color: var(--border-color) !important;
+			}
+			[data-theme='dark'] .button:hover {
+				background: var(--accent-color) !important;
+				color: #fff !important;
+			}
+			[data-theme='dark'] a {
+				color: var(--accent-color) !important;
+			}
+			[data-theme='dark'] hr {
+				border-color: var(--border-color) !important;
+			}
+			[data-theme='dark'] code {
+				background: var(--code-bg) !important;
+				color: var(--code-color) !important;
+			}
+			[data-theme='dark'] #copyright li {
+				color: var(--text-muted) !important;
+				border-color: var(--border-color) !important;
+			}
+
+			/* --- Language Switcher --- */
 			.wrapper.style1 .lang-switcher {
 				text-align: center;
 				margin-bottom: 20px; 
@@ -37,7 +148,6 @@
 				font-size: 0.9em; 
 			}
 			
-			/* --- 第 3 點：按鈕樣式 (無邊框、深灰字、藍色Hover) --- */
 			.wrapper.style1 .lang-switcher button {
 				background: none !important; 
 				border: none !important; 
@@ -45,29 +155,127 @@
 				padding: 0 5px !important; 
 				margin: 0 !important; 
 				font: inherit; 
-				color: #333 !important; /* 深灰色 */
+				color: var(--text-primary) !important;
 				cursor: pointer;
 				transition: color 0.2s;
 				font-weight: normal !important; 
 				display: inline-block;
 				line-height: 1.5; 
 			}
-			.wrapper.style1 .lang-switcher button:hover { color: #5865F2 !important; }
-			.wrapper.style1 .lang-switcher button.active { color: #5865F2 !important; font-weight: bold !important; }
-			.wrapper.style1 .lang-switcher span { color: #aaa; font-size: 0.9em; margin: 0 5px; }
+			.wrapper.style1 .lang-switcher button:hover { color: var(--accent-color) !important; }
+			.wrapper.style1 .lang-switcher button.active { color: var(--accent-color) !important; font-weight: bold !important; }
+			.wrapper.style1 .lang-switcher span { color: var(--text-muted); font-size: 0.9em; margin: 0 5px; }
 
-			/* --- 第 4 點：圖示大小統一 --- */
+			/* --- Dark Mode Toggle Button --- */
+			.theme-toggle {
+				background: none !important;
+				border: 2px solid var(--border-color) !important;
+				border-radius: 50px !important;
+				padding: 6px 14px !important;
+				margin-left: 12px !important;
+				cursor: pointer;
+				font-size: 1.1em;
+				color: var(--text-primary) !important;
+				transition: all 0.3s ease;
+				display: inline-flex;
+				align-items: center;
+				gap: 4px;
+				vertical-align: middle;
+				box-shadow: none !important;
+				line-height: 1;
+			}
+			.theme-toggle:hover {
+				border-color: var(--accent-color) !important;
+				background: rgba(88,101,242,0.1) !important;
+			}
+			.theme-toggle-label {
+				font-size: 0.75em;
+				font-weight: 500;
+			}
+
+			/* --- Bot Status Badge --- */
+			.status-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 6px 16px;
+				border-radius: 50px;
+				background: rgba(87,242,135,0.1);
+				border: 1px solid rgba(87,242,135,0.3);
+				font-size: 0.85em;
+				margin-bottom: 1em;
+				color: #57F287;
+				font-weight: 600;
+			}
+			.status-dot {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: #57F287;
+				display: inline-block;
+				animation: pulse-dot 2s infinite;
+			}
+			@keyframes pulse-dot {
+				0%, 100% { box-shadow: 0 0 0 0 rgba(87,242,135,0.6); }
+				50% { box-shadow: 0 0 0 8px rgba(87,242,135,0); }
+			}
+
+			/* --- Icon sizes --- */
 			.box.style1 .icon.featured {
 				width: 100px !important; height: 100px !important; line-height: 100px !important;
 				font-size: 4em !important; margin: 0 auto 1em auto !important;
-				border-radius: 100% !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15) !important;
+				border-radius: 100% !important; box-shadow: inset 0 0 0 1px var(--border-color) !important;
 				display: flex !important; align-items: center; justify-content: center;
 				background: #f77777; color: #fff !important; 
 			}
 			.box.style1 .icon.solid.featured.fa-language::before { font-size: 0.8em !important; line-height: 1.2em !important; }
 			.box.style1 .icon.featured.fa-flag::before, .box.style1 .icon.featured.fa-dollar-sign::before { line-height: 1 !important; font-size: 1em !important; }
 			
-			/* --- 第 5 點：圖片圓角 (保留) --- */
+			/* --- Feature Cards Emoji Icons --- */
+			.feature-emoji-icon {
+				width: 80px;
+				height: 80px;
+				line-height: 80px;
+				font-size: 2.5em;
+				margin: 0 auto 1em auto;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--accent-color), #7289da);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 4px 20px rgba(88,101,242,0.3);
+				transition: transform 0.3s ease;
+			}
+			.box.style1:hover .feature-emoji-icon {
+				transform: scale(1.1);
+			}
+
+			/* --- Feature Grid (3x3) --- */
+			.features-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 24px;
+				margin-top: 2em;
+			}
+			.features-grid .box.style1 {
+				border-radius: 12px;
+				padding: 2em 1.5em;
+				box-shadow: var(--shadow-card);
+				border: 1px solid var(--border-color);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+			.features-grid .box.style1:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 30px rgba(88,101,242,0.15);
+			}
+			@media (max-width: 980px) {
+				.features-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+			@media (max-width: 600px) {
+				.features-grid { grid-template-columns: 1fr; }
+			}
+
+			/* --- Image fit --- */
 			.wrapper.style1 .image.fit {
 				margin: 0 !important; border-radius: 8px !important; overflow: hidden !important; box-shadow: none !important;
 			}
@@ -75,41 +283,319 @@
 				width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border: none !important; padding: 0 !important; background: none !important;
 			}
 
-			/* 其他必要的排版修正 */
-			code { background: #eee; border-radius: 4px; padding: 3px 6px; font-family: 'Courier New', Courier, monospace; }
+			/* --- Code & misc --- */
+			code { background: var(--code-bg); border-radius: 4px; padding: 3px 6px; font-family: 'Courier New', Courier, monospace; color: var(--code-color); }
 			.box.style1 p { margin: 0; }
 			#contact ul { list-style: none; padding-left: 0; }
 			#contact ul li { margin-bottom: 5px; }
 			#contact ul ul { list-style-type: none !important; margin-top: 10px; margin-left: 0 !important; padding-left: 0 !important; }
 			#contact ul ul li { margin-bottom: 5px; }
-			#contact h3.subsection-title { margin-top: 2em; margin-bottom: 0.8em; font-size: 1.2em; color: #FFFFFF !important; }
+			#contact h3.subsection-title { margin-top: 2em; margin-bottom: 0.8em; font-size: 1.2em; }
 
-			/* --- 第 7 點：手機版專用修正 (只針對 736px 以下螢幕生效) --- */
-			/* 這裡會強制縮小按鈕間距，讓它們在手機上能排成一行 */
+			/* --- Commands Section Styling --- */
+			.cmd-categories {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 24px;
+				margin-top: 2em;
+			}
+			.cmd-category {
+				background: var(--bg-card);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				padding: 1.5em;
+				box-shadow: var(--shadow-card);
+			}
+			.cmd-category h4 {
+				margin: 0 0 0.8em 0;
+				font-size: 1.1em;
+				color: var(--accent-color) !important;
+			}
+			.cmd-category .cmd-item {
+				margin-bottom: 0.6em;
+				font-size: 0.9em;
+			}
+			.cmd-category .cmd-item code {
+				font-weight: bold;
+			}
+			[data-theme='dark'] .cmd-category {
+				background: var(--bg-card);
+				border-color: var(--border-color);
+			}
+			@media (max-width: 736px) {
+				.cmd-categories { grid-template-columns: 1fr; }
+			}
+
+			/* ===== Interactive Demo Section ===== */
+			.demo-chat-container {
+				max-width: 600px;
+				margin: 2em auto;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+				background: #36393f;
+				font-family: 'Open Sans', sans-serif;
+			}
+			.demo-chat-header {
+				background: #2f3136;
+				padding: 12px 16px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				border-bottom: 1px solid rgba(255,255,255,0.06);
+			}
+			.demo-chat-header .channel-hash {
+				color: #72767d;
+				font-size: 1.4em;
+				font-weight: bold;
+			}
+			.demo-chat-header .channel-name {
+				color: #fff;
+				font-weight: 600;
+				font-size: 1em;
+			}
+			.demo-chat-messages {
+				padding: 16px;
+				min-height: 300px;
+				max-height: 400px;
+				overflow-y: auto;
+			}
+			.demo-message {
+				display: flex;
+				gap: 12px;
+				margin-bottom: 16px;
+				animation: msgFadeIn 0.3s ease;
+			}
+			@keyframes msgFadeIn {
+				from { opacity: 0; transform: translateY(10px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+			.demo-avatar {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				flex-shrink: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.2em;
+			}
+			.demo-avatar.user-avatar {
+				background: #5865F2;
+			}
+			.demo-avatar.bot-avatar {
+				background: #57F287;
+			}
+			.demo-msg-content {
+				flex: 1;
+			}
+			.demo-msg-author {
+				font-weight: 600;
+				font-size: 0.9em;
+				margin-bottom: 4px;
+			}
+			.demo-msg-author.user-name { color: #5865F2; }
+			.demo-msg-author.bot-name { color: #57F287; }
+			.demo-msg-author .bot-tag {
+				background: #5865F2;
+				color: #fff;
+				font-size: 0.65em;
+				padding: 1px 5px;
+				border-radius: 3px;
+				margin-left: 6px;
+				vertical-align: middle;
+				font-weight: 500;
+			}
+			.demo-msg-text {
+				color: #dcddde;
+				font-size: 0.9em;
+				line-height: 1.4;
+			}
+			/* Discord-like embed */
+			.demo-embed {
+				border-left: 4px solid #5865F2;
+				background: #2f3136;
+				border-radius: 4px;
+				padding: 12px;
+				margin-top: 6px;
+				max-width: 400px;
+			}
+			.demo-embed-title {
+				color: #fff;
+				font-weight: 700;
+				font-size: 0.9em;
+				margin-bottom: 8px;
+			}
+			.demo-embed-field {
+				margin-bottom: 6px;
+			}
+			.demo-embed-field-name {
+				color: #b9bbbe;
+				font-size: 0.75em;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+			.demo-embed-field-value {
+				color: #dcddde;
+				font-size: 0.85em;
+			}
+			.demo-embed-footer {
+				color: #72767d;
+				font-size: 0.7em;
+				margin-top: 8px;
+				padding-top: 8px;
+				border-top: 1px solid rgba(255,255,255,0.06);
+			}
+			.demo-chat-input-area {
+				background: #40444b;
+				padding: 12px 16px;
+				display: flex;
+				gap: 8px;
+				align-items: center;
+			}
+			.demo-chat-input {
+				flex: 1;
+				background: transparent;
+				border: none;
+				color: #dcddde;
+				font-size: 0.9em;
+				outline: none;
+				font-family: inherit;
+			}
+			.demo-chat-input::placeholder {
+				color: #72767d;
+			}
+			.demo-send-btn {
+				background: var(--accent-color) !important;
+				border: none !important;
+				color: #fff !important;
+				padding: 8px 16px !important;
+				border-radius: 6px !important;
+				cursor: pointer;
+				font-size: 0.85em;
+				font-weight: 600;
+				transition: background 0.2s;
+				box-shadow: none !important;
+			}
+			.demo-send-btn:hover {
+				background: var(--accent-hover) !important;
+			}
+			.demo-hint {
+				text-align: center;
+				margin-top: 1em;
+				font-size: 0.85em;
+				color: var(--text-muted);
+			}
+			.demo-hint code {
+				font-size: 0.9em;
+			}
+
+			/* ===== Changelog Timeline ===== */
+			.changelog-timeline {
+				position: relative;
+				max-width: 700px;
+				margin: 2em auto;
+				padding-left: 40px;
+			}
+			.changelog-timeline::before {
+				content: '';
+				position: absolute;
+				left: 15px;
+				top: 0;
+				bottom: 0;
+				width: 3px;
+				background: var(--accent-color);
+				border-radius: 3px;
+			}
+			.changelog-entry {
+				position: relative;
+				margin-bottom: 2.5em;
+				padding-left: 1.5em;
+			}
+			.changelog-entry::before {
+				content: '';
+				position: absolute;
+				left: -32px;
+				top: 5px;
+				width: 14px;
+				height: 14px;
+				border-radius: 50%;
+				background: var(--accent-color);
+				border: 3px solid var(--bg-primary);
+				box-shadow: 0 0 0 3px var(--accent-color);
+			}
+			.changelog-version {
+				font-size: 1.3em;
+				font-weight: 700;
+				color: var(--accent-color) !important;
+				margin-bottom: 0.2em;
+			}
+			.changelog-date {
+				font-size: 0.85em;
+				color: var(--text-muted) !important;
+				margin-bottom: 0.5em;
+			}
+			.changelog-changes {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.changelog-changes li {
+				position: relative;
+				padding-left: 1.2em;
+				margin-bottom: 0.4em;
+				font-size: 0.95em;
+				color: var(--text-secondary) !important;
+			}
+			.changelog-changes li::before {
+				content: '✦';
+				position: absolute;
+				left: 0;
+				color: var(--accent-color);
+			}
+			[data-theme='dark'] .changelog-entry::before {
+				border-color: var(--bg-secondary);
+			}
+
+			/* --- Mobile Responsive --- */
 			@media (max-width: 736px) { 
 				.wrapper.style1 .lang-switcher {
-					font-size: 0.75em; /* 字體縮小 */
+					font-size: 0.75em;
 					padding-top: 1.5em;
-					white-space: nowrap; /* 不換行 */
+					white-space: nowrap;
 					width: 100%; 
 					display: flex; 
 					justify-content: center;
 					align-items: center;
+					flex-wrap: wrap;
+					gap: 4px;
 				}
 				.wrapper.style1 .lang-switcher button {
-					padding: 0 2px !important; /* 間距縮小 */
+					padding: 0 2px !important;
 					font-size: 1em !important;
 				}
 				.wrapper.style1 .lang-switcher span {
-					margin: 0 2px !important; /* 分隔線間距縮小 */
+					margin: 0 2px !important;
+				}
+				.theme-toggle {
+					margin-left: 6px !important;
+					margin-top: 0 !important;
+					padding: 4px 10px !important;
+					font-size: 0.95em;
+				}
+				.theme-toggle-label {
+					display: none;
+				}
+				.demo-chat-container {
+					margin: 1em auto;
+				}
+				.demo-chat-messages {
+					min-height: 200px;
 				}
 			}
 		</style>
 	</head>
-	
-	<body>
-		</body>
-</html>	
+
 	<body class="is-preload">
 
 		<nav id="nav">
@@ -117,10 +603,13 @@
 				<li><a href="#top" class="scrolly" data-key="nav_home">首頁</a></li>
 				<li><a href="#work" class="scrolly" data-key="nav_features">主要功能</a></li>
 				<li><a href="#portfolio" class="scrolly" data-key="nav_how_to">如何使用</a></li>
+				<li><a href="#demo" class="scrolly" data-key="nav_demo">互動體驗</a></li>
+				<li><a href="#changelog" class="scrolly" data-key="nav_changelog">更新日誌</a></li>
 				<li><a href="#contact" class="scrolly" data-key="nav_support">支持與回饋</a></li>
 			</ul>
 		</nav>
 
+		<!-- ===== HERO SECTION ===== -->
 		<article id="top" class="wrapper style1">
 			<div class="container">
 				<div class="row">
@@ -134,11 +623,19 @@
 							<button id="lang-btn-en" class="lang-button" onclick="switchLang('en')">English</button>
 							<span>|</span>
 							<button id="lang-btn-ja" class="lang-button" onclick="switchLang('ja')">日本語</button>
+							<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+								<span id="themeIcon">🌙</span>
+								<span class="theme-toggle-label" data-key="dark_mode_label">深色模式</span>
+							</button>
+						</div>
+						<div class="status-badge">
+							<span class="status-dot"></span>
+							<span data-key="status_online">🟢 線上運行中</span>
 						</div>
 						<header>
 							<h1 data-key="header_title">蓬蓬</h1>
 						</header>
-						<p data-key="header_tagline">跨越語言隔閡，即時掌握全球匯率！</p>
+						<p data-key="header_tagline">跨越語言隔閡，您的 Discord 全能助理！</p>
 						<a href="https://discord.com/oauth2/authorize?client_id=1433681262584926228&permissions=68672&integration_type=0&scope=bot" class="button large" target="_blank" data-key="header_button">
 							邀請「蓬蓬」到您的伺服器
 						</a>
@@ -147,76 +644,166 @@
 			</div>
 		</article>
 
+		<!-- ===== FEATURES SECTION (9 cards) ===== -->
 		<article id="work" class="wrapper style2">
 			<div class="container">
 				<header>
 					<h2 data-key="features_title">主要功能</h2>
-					<p data-key="features_subtitle">「蓬蓬」是一個多功能 Discord 助理</p>
+					<p data-key="features_subtitle">「蓬蓬」是您的全方位 Discord 助理</p>
 				</header>
-				<div class="row aln-center">
-					<div class="col-4 col-6-medium col-12-small">
-						<section class="box style1">
-							<span class="icon solid featured fa-language"></span>
-							<h3 data-key="feature_1_title">智能翻譯</h3>
-							<p data-key="feature_1_desc">支援 <code>!tr</code> 指令，自動偵測或指定語言 (en-jp) 進行翻譯。</p>
-						</section>
-					</div>
-					<div class="col-4 col-6-medium col-12-small">
-						<section class="box style1">
-							<span class="icon solid featured fa-flag"></span>
-							<h3 data-key="feature_2_title">表情符號翻譯</h3>
-							<p data-key="feature_2_desc">對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗，蓬蓬就會立刻為您翻譯。</p>
-						</section>
-					</div>
-					<div class="col-4 col-6-medium col-12-small">
-						<section class="box style1">
-							<span class="icon solid featured fa-dollar-sign"></span>
-							<h3 data-key="feature_3_title">即時匯率轉換</h3>
-							<p data-key="feature_3_desc">使用 <code>!cc</code> 指令快速查詢匯率，支援 <code>!cc 100 usd-twd</code> 精確查詢。</p>
-						</section>
-					</div>
+				<div class="features-grid">
+					<section class="box style1">
+						<div class="feature-emoji-icon">🌐</div>
+						<h3 data-key="feature_1_title">智能翻譯</h3>
+						<p data-key="feature_1_desc">使用 <code>/tr</code> 指令，自動偵測語言並翻譯，支援指定語言對。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">🏳️</div>
+						<h3 data-key="feature_2_title">國旗表情翻譯</h3>
+						<p data-key="feature_2_desc">對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">💱</div>
+						<h3 data-key="feature_3_title">即時匯率轉換</h3>
+						<p data-key="feature_3_desc">使用 <code>/cc</code> 指令查詢匯率，支援全球貨幣，內建快取加速。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">📈</div>
+						<h3 data-key="feature_4_title">股票與加密貨幣</h3>
+						<p data-key="feature_4_desc">使用 <code>/stock</code> 查詢台股、美股和加密貨幣的即時價格與走勢。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">🌤️</div>
+						<h3 data-key="feature_5_title">天氣預報</h3>
+						<p data-key="feature_5_desc">使用 <code>/weather</code> 查詢全球天氣，支援多語言城市名稱搜尋。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">✈️</div>
+						<h3 data-key="feature_6_title">旅遊助手</h3>
+						<p data-key="feature_6_desc">使用 <code>/travel</code> 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">🏁</div>
+						<h3 data-key="feature_7_title">國旗問答</h3>
+						<p data-key="feature_7_desc">使用 <code>/flagquiz</code> 開始多人國旗猜謎遊戲，測試您的地理知識！</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">📅</div>
+						<h3 data-key="feature_8_title">每日單字</h3>
+						<p data-key="feature_8_desc">自動每日推送外語單字到指定頻道，輕鬆學習新語言。</p>
+					</section>
+					<section class="box style1">
+						<div class="feature-emoji-icon">🎲</div>
+						<h3 data-key="feature_9_title">骰子與隨機選擇</h3>
+						<p data-key="feature_9_desc">使用 <code>/roll</code> 擲骰子、<code>/pick</code> 從選項中隨機選擇，趣味互動！</p>
+					</section>
 				</div>
-				<footer>
-					<p data-key="features_footer_p">還有更多功能正在開發中！</p>
+				<footer style="margin-top: 2em;">
+					<p data-key="features_footer_p">更多功能持續開發中！</p>
 					<a href="#portfolio" class="button large scrolly" data-key="features_footer_btn">
-						查看如何使用
+						查看所有指令
 					</a>
 				</footer>
 			</div>
 		</article>
+
+		<!-- ===== COMMANDS SECTION ===== -->
 		<article id="portfolio" class="wrapper style3">
 			<div class="container">
 				<header>
-					<h2 data-key="how_to_title">如何使用？</h2>
-					<p data-key="how_to_subtitle">簡單的指令，強大的功能。</p>
+					<h2 data-key="how_to_title">指令一覽</h2>
+					<p data-key="how_to_subtitle">所有斜線指令，一目了然。</p>
 				</header>
-				<div class="row">
-					<div class="col-6 col-12-medium">
-						<h3 data-key="how_to_tr_title">翻譯指令 (<code>!tr</code>)</h3>
-						<ul>
-							<li data-key="how_to_tr_1"><code>!tr Hello world</code> (自動偵測並翻譯成繁體中文)</li>
-							<li data-key="how_to_tr_2"><code>!tr en-jp Hello world</code> (將英文翻譯成日文)</li>
-						</ul>
+				<div class="cmd-categories">
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_translate">🌐 翻譯</h4>
+						<div class="cmd-item"><code>/tr</code> <span data-key="cmd_tr_desc">— 翻譯文字，自動偵測或指定語言</span></div>
+						<div class="cmd-item"><code>/setlang</code> <span data-key="cmd_setlang_desc">— 設定個人預設翻譯語言</span></div>
+						<div class="cmd-item"><code>/history</code> <span data-key="cmd_history_desc">— 查看翻譯歷史紀錄</span></div>
 					</div>
-					<div class="col-6 col-12-medium">
-						<h3 data-key="how_to_cc_title">匯率指令 (<code>!cc</code>)</h3>
-						<ul>
-							<li data-key="how_to_cc_1"><code>!cc</code> (查詢預設 1 JPY 兌換 TWD)</li>
-							<li data-key="how_to_cc_2"><code>!cc 100</code> (查詢 100 JPY 兌換 TWD)</li>
-							<li data-key="how_to_cc_3"><code>!cc usd-twd 50</code> (查詢 50 USD 兌換 TWD)</li>
-						</ul>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_currency">💱 匯率</h4>
+						<div class="cmd-item"><code>/cc</code> <span data-key="cmd_cc_desc">— 查詢匯率轉換，如 <code>/cc 100 USD TWD</code></span></div>
+					</div>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_stock">📈 股票</h4>
+						<div class="cmd-item"><code>/stock</code> <span data-key="cmd_stock_desc">— 查詢台股、美股、加密貨幣價格</span></div>
+						<div class="cmd-item"><code>/chart</code> <span data-key="cmd_chart_desc">— 查看股票或加密貨幣走勢圖</span></div>
+					</div>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_weather">🌤️ 天氣</h4>
+						<div class="cmd-item"><code>/weather</code> <span data-key="cmd_weather_desc">— 查詢城市天氣預報</span></div>
+					</div>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_travel">✈️ 旅遊</h4>
+						<div class="cmd-item"><code>/travel</code> <span data-key="cmd_travel_desc">— 查詢城市旅遊資訊總覽</span></div>
+					</div>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_fun">🎮 趣味</h4>
+						<div class="cmd-item"><code>/flagquiz</code> <span data-key="cmd_flagquiz_desc">— 開始國旗猜謎遊戲</span></div>
+						<div class="cmd-item"><code>/quizrank</code> <span data-key="cmd_quizrank_desc">— 查看國旗問答排行榜</span></div>
+						<div class="cmd-item"><code>/roll</code> <span data-key="cmd_roll_desc">— 擲骰子</span></div>
+						<div class="cmd-item"><code>/pick</code> <span data-key="cmd_pick_desc">— 從選項中隨機選擇</span></div>
+					</div>
+					<div class="cmd-category">
+						<h4 data-key="cmd_cat_daily">📅 每日</h4>
+						<div class="cmd-item"><code>/setdaily</code> <span data-key="cmd_setdaily_desc">— 設定每日單字推送頻道</span></div>
+						<div class="cmd-item"><code>/stopdaily</code> <span data-key="cmd_stopdaily_desc">— 停止每日單字推送</span></div>
 					</div>
 				</div>
-				<footer>
-					<p data-key="how_to_footer_p">有任何問題嗎？</p>
-					<a href="#contact" class="button large scrolly" data-key="how_to_footer_btn">
-						聯絡我
+				<footer style="margin-top: 2em;">
+					<p data-key="how_to_footer_p">想要試試看嗎？</p>
+					<a href="#demo" class="button large scrolly" data-key="how_to_footer_btn">
+						互動體驗
 					</a>
 				</footer>
 			</div>
 		</article>
 
+		<!-- ===== INTERACTIVE DEMO SECTION ===== -->
+		<article id="demo" class="wrapper style2">
+			<div class="container">
+				<header>
+					<h2 data-key="demo_title">互動體驗</h2>
+					<p data-key="demo_subtitle">在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！</p>
+				</header>
+				<div class="demo-chat-container">
+					<div class="demo-chat-header">
+						<span class="channel-hash">#</span>
+						<span class="channel-name" data-key="demo_channel">一般聊天</span>
+					</div>
+					<div class="demo-chat-messages" id="demoChatMessages">
+						<div class="demo-message">
+							<div class="demo-avatar bot-avatar">🏓</div>
+							<div class="demo-msg-content">
+								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
+								<div class="demo-msg-text" data-key="demo_welcome">👋 歡迎！試試輸入指令，例如 <code>/tr hello</code> 或 <code>/weather Tokyo</code></div>
+							</div>
+						</div>
+					</div>
+					<div class="demo-chat-input-area">
+						<input type="text" class="demo-chat-input" id="demoChatInput" data-key-placeholder="demo_input_placeholder" placeholder="輸入指令，例如 /tr hello ..." onkeydown="if(event.key==='Enter')sendDemoCommand()">
+						<button class="demo-send-btn" onclick="sendDemoCommand()" data-key="demo_send">送出</button>
+					</div>
+				</div>
+				<p class="demo-hint" data-key="demo_hint">💡 試試：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code></p>
+			</div>
+		</article>
 
+		<!-- ===== CHANGELOG SECTION ===== -->
+		<article id="changelog" class="wrapper style3">
+			<div class="container">
+				<header>
+					<h2 data-key="changelog_title">更新日誌</h2>
+					<p data-key="changelog_subtitle">蓬蓬的成長歷程</p>
+				</header>
+				<div class="changelog-timeline" id="changelogTimeline">
+					<!-- Rendered by JS -->
+				</div>
+			</div>
+		</article>
+
+		<!-- ===== SUPPORT & FEEDBACK ===== -->
 		<article id="contact" class="wrapper style4">
 			<div class="container medium">
 				<header>
@@ -260,7 +847,7 @@
 				<footer>
 					<ul id="copyright">
 						<li>
-							<span data-key="footer_credit">由 Hijiri 開發 | 蓬蓬 Bot v0.1</span>
+							<span data-key="footer_credit">由 Hijiri 開發 | 蓬蓬 Bot v2.0</span>
 						</li>
 						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
@@ -276,148 +863,345 @@
 		<script src="assets/js/main.js"></script>
 
 		<script>
-			// --- 1. 我們的「翻譯字典」 ---
+			// ===== TRANSLATIONS =====
 			const translations = {
-				// 繁體中文
 				zh: {
-					page_title: "蓬蓬 - 您的 Discord 翻譯與匯率助理",
+					page_title: "蓬蓬 - 您的 Discord 多功能助理",
 					nav_home: "首頁",
 					nav_features: "主要功能",
-					nav_how_to: "如何使用",
+					nav_how_to: "指令一覽",
+					nav_demo: "互動體驗",
+					nav_changelog: "更新日誌",
 					nav_support: "支持與回饋",
+					dark_mode_label: "深色模式",
+					status_online: "🟢 線上運行中",
 					header_title: "蓬蓬",
-					header_tagline: "跨越語言隔閡，即時掌握全球匯率！",
+					header_tagline: "跨越語言隔閡，您的 Discord 全能助理！",
 					header_button: "邀請「蓬蓬」到您的伺服器",
 					features_title: "主要功能",
-					features_subtitle: "「蓬蓬」是一個多功能 Discord 助理",
+					features_subtitle: "「蓬蓬」是您的全方位 Discord 助理",
 					feature_1_title: "智能翻譯",
-					feature_1_desc: "支援 <code>!tr</code> 指令，自動偵測或指定語言 (en-jp) 進行翻譯。",
-					feature_2_title: "表情符號翻譯",
-					feature_2_desc: "對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗，蓬蓬就會立刻為您翻譯。",
+					feature_1_desc: "使用 <code>/tr</code> 指令，自動偵測語言並翻譯，支援指定語言對。",
+					feature_2_title: "國旗表情翻譯",
+					feature_2_desc: "對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。",
 					feature_3_title: "即時匯率轉換",
-					feature_3_desc: "使用 <code>!cc</code> 指令快速查詢匯率，支援 <code>!cc 100 usd-twd</code> 精確查詢。",
-					features_footer_p: "還有更多功能正在開發中！",
-					features_footer_btn: "查看如何使用",
-					how_to_title: "如何使用？",
-					how_to_subtitle: "簡單的指令，強大的功能。",
-					how_to_tr_title: "翻譯指令 (<code>!tr</code>)",
-					how_to_tr_1: "<code>!tr Hello world</code> (自動偵測並翻譯成繁體中文)",
-					how_to_tr_2: "<code>!tr en-jp Hello world</code> (將英文翻譯成日文)",
-					how_to_cc_title: "匯率指令 (<code>!cc</code>)",
-					how_to_cc_1: "<code>!cc</code> (查詢預設 1 JPY 兌換 TWD)",
-					how_to_cc_2: "<code>!cc 100</code> (查詢 100 JPY 兌換 TWD)",
-					how_to_cc_3: "<code>!cc usd-twd 50</code> (查詢 50 USD 兌換 TWD)",
-					how_to_footer_p: "有任何問題嗎？",
-					how_to_footer_btn: "聯絡我",
+					feature_3_desc: "使用 <code>/cc</code> 指令查詢匯率，支援全球貨幣，內建快取加速。",
+					feature_4_title: "股票與加密貨幣",
+					feature_4_desc: "使用 <code>/stock</code> 查詢台股、美股和加密貨幣的即時價格與走勢。",
+					feature_5_title: "天氣預報",
+					feature_5_desc: "使用 <code>/weather</code> 查詢全球天氣，支援多語言城市名稱搜尋。",
+					feature_6_title: "旅遊助手",
+					feature_6_desc: "使用 <code>/travel</code> 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。",
+					feature_7_title: "國旗問答",
+					feature_7_desc: "使用 <code>/flagquiz</code> 開始多人國旗猜謎遊戲，測試您的地理知識！",
+					feature_8_title: "每日單字",
+					feature_8_desc: "自動每日推送外語單字到指定頻道，輕鬆學習新語言。",
+					feature_9_title: "骰子與隨機選擇",
+					feature_9_desc: "使用 <code>/roll</code> 擲骰子、<code>/pick</code> 從選項中隨機選擇，趣味互動！",
+					features_footer_p: "更多功能持續開發中！",
+					features_footer_btn: "查看所有指令",
+					how_to_title: "指令一覽",
+					how_to_subtitle: "所有斜線指令，一目了然。",
+					cmd_cat_translate: "🌐 翻譯",
+					cmd_tr_desc: "— 翻譯文字，自動偵測或指定語言",
+					cmd_setlang_desc: "— 設定個人預設翻譯語言",
+					cmd_history_desc: "— 查看翻譯歷史紀錄",
+					cmd_cat_currency: "💱 匯率",
+					cmd_cc_desc: "— 查詢匯率轉換，如 <code>/cc 100 USD TWD</code>",
+					cmd_cat_stock: "📈 股票",
+					cmd_stock_desc: "— 查詢台股、美股、加密貨幣價格",
+					cmd_chart_desc: "— 查看股票或加密貨幣走勢圖",
+					cmd_cat_weather: "🌤️ 天氣",
+					cmd_weather_desc: "— 查詢城市天氣預報",
+					cmd_cat_travel: "✈️ 旅遊",
+					cmd_travel_desc: "— 查詢城市旅遊資訊總覽",
+					cmd_cat_fun: "🎮 趣味",
+					cmd_flagquiz_desc: "— 開始國旗猜謎遊戲",
+					cmd_quizrank_desc: "— 查看國旗問答排行榜",
+					cmd_roll_desc: "— 擲骰子",
+					cmd_pick_desc: "— 從選項中隨機選擇",
+					cmd_cat_daily: "📅 每日",
+					cmd_setdaily_desc: "— 設定每日單字推送頻道",
+					cmd_stopdaily_desc: "— 停止每日單字推送",
+					how_to_footer_p: "想要試試看嗎？",
+					how_to_footer_btn: "互動體驗",
+					demo_title: "互動體驗",
+					demo_subtitle: "在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！",
+					demo_channel: "一般聊天",
+					demo_welcome: "👋 歡迎！試試輸入指令，例如 <code>/tr hello</code> 或 <code>/weather Tokyo</code>",
+					demo_input_placeholder: "輸入指令，例如 /tr hello ...",
+					demo_send: "送出",
+					demo_hint: "💡 試試：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code>",
+					changelog_title: "更新日誌",
+					changelog_subtitle: "蓬蓬的成長歷程",
+					changelog_v2_title: "v2.0 — 全面升級",
+					changelog_v2_date: "2025-05-30",
+					changelog_v2_1: "全面升級為斜線指令 (Slash Commands)",
+					changelog_v2_2: "新增股票與加密貨幣查詢 (/stock, /chart)",
+					changelog_v2_3: "新增天氣預報功能 (/weather)",
+					changelog_v2_4: "新增旅遊助手 (/travel)",
+					changelog_v2_5: "新增國旗問答遊戲 (/flagquiz)",
+					changelog_v2_6: "新增每日單字推送 (/setdaily)",
+					changelog_v2_7: "網站新增深色模式與互動體驗",
+					changelog_v1_title: "v1.0 — 初始發佈",
+					changelog_v1_date: "2025-01-01",
+					changelog_v1_1: "基礎翻譯功能 (!tr 指令)",
+					changelog_v1_2: "國旗表情符號翻譯",
+					changelog_v1_3: "匯率查詢功能 (!cc 指令)",
 					support_title: "支持與回饋",
 					support_donate_title: "支持「蓬蓬」",
 					support_donate_desc: "「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！",
 					support_donate_btn: "請我喝杯咖啡 (Buy Me a Coffee)",
-					contact_discord_title: "Discord 支援伺服器", // <-- 修改
-					contact_email_title: "Email", // <-- 修改
-					contact_form_title: "需要您的回饋", // <-- 修改
-					support_feedback_discord: "加入我們的 Discord 支援伺服器", // <-- 修改
-					form_zh: "繁體中文", // <-- 修改
-					form_en: "English", // <-- 修改
-					form_ja: "日本語", // <-- 修改
-					footer_credit: "由 Hijiri 開發 | 蓬蓬 Bot v0.1"
+					contact_discord_title: "Discord 支援伺服器",
+					contact_email_title: "Email",
+					contact_form_title: "需要您的回饋",
+					support_feedback_discord: "加入我們的 Discord 支援伺服器",
+					form_zh: "繁體中文",
+					form_en: "English",
+					form_ja: "日本語",
+					footer_credit: "由 Hijiri 開發 | 蓬蓬 Bot v2.0"
 				},
-				// 英文
 				en: {
-					page_title: "Pong Pong - Your Discord Translation & Currency Bot",
+					page_title: "Pong Pong - Your All-in-One Discord Bot",
 					nav_home: "Home",
 					nav_features: "Features",
-					nav_how_to: "How to Use",
+					nav_how_to: "Commands",
+					nav_demo: "Try It",
+					nav_changelog: "Changelog",
 					nav_support: "Support & Feedback",
+					dark_mode_label: "Dark Mode",
+					status_online: "🟢 Online",
 					header_title: "Pong Pong",
-					header_tagline: "Break language barriers & get real-time currency rates!",
+					header_tagline: "Break language barriers — your all-in-one Discord assistant!",
 					header_button: "Invite \"Pong Pong\" to Your Server",
-					features_title: "Main Features",
-					features_subtitle: "\"Pong Pong\" is your multi-functional Discord assistant",
+					features_title: "Features",
+					features_subtitle: "\"Pong Pong\" is your all-in-one Discord assistant",
 					feature_1_title: "Smart Translation",
-					feature_1_desc: "Supports <code>!tr</code> command for auto-detection or specific pairs like <code>en-jp</code>.",
+					feature_1_desc: "Use <code>/tr</code> command with auto-detection or specify language pairs for translation.",
 					feature_2_title: "Reaction Translation",
 					feature_2_desc: "React to any message with 🇹🇼 🇯🇵 🇺🇸 flag emojis, and the bot will translate it instantly.",
-					feature_3_title: "Real-Time Currency",
-					feature_3_desc: "Use <code>!cc</code> to check rates. Supports precise queries like <code>!cc 100 usd-twd</code>.",
-					features_footer_p: "More features are currently in development!",
-					features_footer_btn: "See how to use it",
-					how_to_title: "How to Use?",
-					how_to_subtitle: "Simple commands, powerful features.",
-					how_to_tr_title: "Translation (<code>!tr</code>)",
-					how_to_tr_1: "<code>!tr Hello world</code> (Auto-detects and translates to Traditional Chinese)",
-					how_to_tr_2: "<code>!tr en-jp Hello world</code> (Translates English to Japanese)",
-					how_to_cc_title: "Currency (<code>!cc</code>)",
-					how_to_cc_1: "<code>!cc</code> (Checks the default rate for 1 JPY to TWD)",
-					how_to_cc_2: "<code>!cc 100</code> (Checks the rate for 100 JPY to TWD)",
-					how_to_cc_3: "<code>!cc usd-twd 50</code> (Checks the rate for 50 USD to TWD)",
-					how_to_footer_p: "Any questions?",
-					how_to_footer_btn: "Get in touch",
+					feature_3_title: "Currency Exchange",
+					feature_3_desc: "Use <code>/cc</code> to check exchange rates worldwide with built-in caching for speed.",
+					feature_4_title: "Stock & Crypto",
+					feature_4_desc: "Use <code>/stock</code> to check Taiwan/US stocks and cryptocurrency prices in real-time.",
+					feature_5_title: "Weather Forecast",
+					feature_5_desc: "Use <code>/weather</code> to check global weather with multi-language city name support.",
+					feature_6_title: "Travel Assistant",
+					feature_6_desc: "Use <code>/travel</code> for complete city info including weather, currency, and attractions.",
+					feature_7_title: "Flag Quiz",
+					feature_7_desc: "Use <code>/flagquiz</code> to start a multiplayer flag guessing game. Test your geography!",
+					feature_8_title: "Daily Words",
+					feature_8_desc: "Automated daily vocabulary push to a specified channel. Learn new languages effortlessly.",
+					feature_9_title: "Dice & Pick",
+					feature_9_desc: "Use <code>/roll</code> for dice and <code>/pick</code> to randomly choose from options. Fun interactions!",
+					features_footer_p: "More features are in development!",
+					features_footer_btn: "View All Commands",
+					how_to_title: "Commands",
+					how_to_subtitle: "All slash commands at a glance.",
+					cmd_cat_translate: "🌐 Translation",
+					cmd_tr_desc: "— Translate text with auto-detection or specified languages",
+					cmd_setlang_desc: "— Set your default translation language",
+					cmd_history_desc: "— View your translation history",
+					cmd_cat_currency: "💱 Currency",
+					cmd_cc_desc: "— Convert currencies, e.g. <code>/cc 100 USD TWD</code>",
+					cmd_cat_stock: "📈 Stocks",
+					cmd_stock_desc: "— Check Taiwan/US stock and crypto prices",
+					cmd_chart_desc: "— View stock or crypto charts",
+					cmd_cat_weather: "🌤️ Weather",
+					cmd_weather_desc: "— Check weather forecast for any city",
+					cmd_cat_travel: "✈️ Travel",
+					cmd_travel_desc: "— Get a complete travel info overview for a city",
+					cmd_cat_fun: "🎮 Fun",
+					cmd_flagquiz_desc: "— Start a flag guessing game",
+					cmd_quizrank_desc: "— View flag quiz leaderboard",
+					cmd_roll_desc: "— Roll dice",
+					cmd_pick_desc: "— Randomly pick from options",
+					cmd_cat_daily: "📅 Daily",
+					cmd_setdaily_desc: "— Set daily vocabulary push channel",
+					cmd_stopdaily_desc: "— Stop daily vocabulary push",
+					how_to_footer_p: "Want to give it a try?",
+					how_to_footer_btn: "Try It Now",
+					demo_title: "Interactive Demo",
+					demo_subtitle: "Try out Pong Pong's commands in this simulated Discord chat!",
+					demo_channel: "general",
+					demo_welcome: "👋 Welcome! Try typing a command, like <code>/tr hello</code> or <code>/weather Tokyo</code>",
+					demo_input_placeholder: "Type a command, e.g. /tr hello ...",
+					demo_send: "Send",
+					demo_hint: "💡 Try: <code>/tr hello</code>, <code>/cc 100 USD TWD</code>, <code>/stock TSLA</code>, <code>/weather Tokyo</code>, <code>/roll</code>",
+					changelog_title: "Changelog",
+					changelog_subtitle: "Pong Pong's journey of growth",
+					changelog_v2_title: "v2.0 — Major Upgrade",
+					changelog_v2_date: "2025-05-30",
+					changelog_v2_1: "Full migration to Slash Commands",
+					changelog_v2_2: "Added stock & crypto tracking (/stock, /chart)",
+					changelog_v2_3: "Added weather forecast (/weather)",
+					changelog_v2_4: "Added travel assistant (/travel)",
+					changelog_v2_5: "Added flag quiz game (/flagquiz)",
+					changelog_v2_6: "Added daily vocabulary push (/setdaily)",
+					changelog_v2_7: "Website dark mode and interactive demo",
+					changelog_v1_title: "v1.0 — Initial Release",
+					changelog_v1_date: "2025-01-01",
+					changelog_v1_1: "Basic translation (!tr command)",
+					changelog_v1_2: "Flag emoji reaction translation",
+					changelog_v1_3: "Currency conversion (!cc command)",
 					support_title: "Support & Feedback",
 					support_donate_title: "Support \"Pong Pong\"",
 					support_donate_desc: "\"Pong Pong\" is a 24/7 bot relying on cloud servers and paid APIs. If you find it helpful, please consider supporting its costs!",
 					support_donate_btn: "Buy Me a Coffee",
-					contact_discord_title: "Discord Support Server", // <-- 修改
-					contact_email_title: "Email", // <-- 修改
-					contact_form_title: "We Need Your Feedback", // <-- 修改
-					support_feedback_discord: "Join our Discord Support Server", // <-- 修改
-					form_zh: "繁體中文", // <-- 修改
-					form_en: "English", // <-- 修改
-					form_ja: "日本語", // <-- 修改
-					footer_credit: "Developed by Hijiri | Pong Pong Bot v0.1"
+					contact_discord_title: "Discord Support Server",
+					contact_email_title: "Email",
+					contact_form_title: "We Need Your Feedback",
+					support_feedback_discord: "Join our Discord Support Server",
+					form_zh: "繁體中文",
+					form_en: "English",
+					form_ja: "日本語",
+					footer_credit: "Developed by Hijiri | Pong Pong Bot v2.0"
 				},
-				// 日文
 				ja: {
-					page_title: "ポンポン - Discord 翻訳＆為替ボット",
+					page_title: "ポンポン - Discord 多機能アシスタント",
 					nav_home: "ホーム",
 					nav_features: "主な機能",
-					nav_how_to: "使い方",
+					nav_how_to: "コマンド一覧",
+					nav_demo: "体験する",
+					nav_changelog: "更新履歴",
 					nav_support: "サポート",
+					dark_mode_label: "ダークモード",
+					status_online: "🟢 オンライン",
 					header_title: "ポンポン",
-					header_tagline: "言葉の壁を越え、リアルタイムの為替レートを把握！",
+					header_tagline: "言葉の壁を越え、Discordの万能アシスタント！",
 					header_button: "「ポンポン」をサーバーに招待",
 					features_title: "主な機能",
-					features_subtitle: "「ポンポン」は多機能Discordアシスタントです",
+					features_subtitle: "「ポンポン」はあなたの万能Discordアシスタント",
 					feature_1_title: "スマート翻訳",
-					feature_1_desc: "</code>!tr</code> コマンド対応。自動検出または言語ペア (en-jp) 指定で翻訳します。",
-					feature_2_title: "絵文字翻訳",
+					feature_1_desc: "<code>/tr</code> コマンドで自動言語検出、または言語ペア指定で翻訳します。",
+					feature_2_title: "リアクション翻訳",
 					feature_2_desc: "メッセージに 🇹🇼 🇯🇵 🇺🇸 などの国旗でリアクションすると、すぐに翻訳します。",
 					feature_3_title: "リアルタイム為替",
-					feature_3_desc: "<code>!cc</code> コマンドで為替レートを照会。</code>!cc 100 usd-twd</code> のような詳細検索も可能。",
-					features_footer_p: "さらに多くの機能を開発中です！",
-					features_footer_btn: "使い方を見る",
-					how_to_title: "使い方",
-					how_to_subtitle: "シンプルなコマンド、強力な機能。",
-					how_to_tr_title: "翻訳コマンド (<code>!tr</code>)",
-					how_to_tr_1: "<code>!tr Hello world</code> (自動検出して繁体字中国語に翻訳)",
-					how_to_tr_2: "<code>!tr en-jp Hello world</code> (英語を日本語に翻訳)",
-					how_to_cc_title: "為替コマンド (<code>!cc</code>)",
-					how_to_cc_1: "<code>!cc</code> (デフォルトで 1 JPY から TWD へのレートを照会)",
-					how_to_cc_2: "<code>!cc 100</code> (100 JPY から TWD へのレートを照会)",
-					how_to_cc_3: "<code>!cc usd-twd 50</code> (50 USD から TWD へのレートを照会)",
-					how_to_footer_p: "何かご質問は？",
-					how_to_footer_btn: "お問い合わせ",
-					support_title: "サポート & フィードバック",
+					feature_3_desc: "<code>/cc</code> コマンドで世界中の為替レートを照会。キャッシュで高速化。",
+					feature_4_title: "株式＆仮想通貨",
+					feature_4_desc: "<code>/stock</code> で台湾・米国株式と仮想通貨のリアルタイム価格を照会。",
+					feature_5_title: "天気予報",
+					feature_5_desc: "<code>/weather</code> で世界の天気を照会。多言語の都市名検索対応。",
+					feature_6_title: "旅行アシスタント",
+					feature_6_desc: "<code>/travel</code> で天気・為替・観光地など都市の総合旅行情報を取得。",
+					feature_7_title: "国旗クイズ",
+					feature_7_desc: "<code>/flagquiz</code> でマルチプレイヤー国旗当てゲームを開始。地理力を試そう！",
+					feature_8_title: "毎日の単語",
+					feature_8_desc: "指定チャンネルに毎日自動で外国語の単語を配信。楽しく新言語を学習。",
+					feature_9_title: "サイコロ＆ランダム選択",
+					feature_9_desc: "<code>/roll</code> でサイコロ、<code>/pick</code> で選択肢からランダムに選択。楽しいインタラクション！",
+					features_footer_p: "さらに多くの機能を開発中！",
+					features_footer_btn: "全コマンドを見る",
+					how_to_title: "コマンド一覧",
+					how_to_subtitle: "すべてのスラッシュコマンドを一覧で。",
+					cmd_cat_translate: "🌐 翻訳",
+					cmd_tr_desc: "— テキスト翻訳、自動検出または言語指定",
+					cmd_setlang_desc: "— 個人のデフォルト翻訳言語を設定",
+					cmd_history_desc: "— 翻訳履歴を表示",
+					cmd_cat_currency: "💱 為替",
+					cmd_cc_desc: "— 為替レート変換、例：<code>/cc 100 USD TWD</code>",
+					cmd_cat_stock: "📈 株式",
+					cmd_stock_desc: "— 台湾・米国株式、仮想通貨価格を照会",
+					cmd_chart_desc: "— 株式・仮想通貨チャートを表示",
+					cmd_cat_weather: "🌤️ 天気",
+					cmd_weather_desc: "— 都市の天気予報を照会",
+					cmd_cat_travel: "✈️ 旅行",
+					cmd_travel_desc: "— 都市の旅行情報総覧を取得",
+					cmd_cat_fun: "🎮 お楽しみ",
+					cmd_flagquiz_desc: "— 国旗当てゲームを開始",
+					cmd_quizrank_desc: "— 国旗クイズランキングを表示",
+					cmd_roll_desc: "— サイコロを振る",
+					cmd_pick_desc: "— 選択肢からランダムに選ぶ",
+					cmd_cat_daily: "📅 毎日",
+					cmd_setdaily_desc: "— 毎日の単語配信チャンネルを設定",
+					cmd_stopdaily_desc: "— 毎日の単語配信を停止",
+					how_to_footer_p: "試してみたいですか？",
+					how_to_footer_btn: "体験する",
+					demo_title: "インタラクティブ体験",
+					demo_subtitle: "下のDiscordチャットシミュレーターでポンポンのコマンドを試そう！",
+					demo_channel: "一般チャット",
+					demo_welcome: "👋 ようこそ！コマンドを入力してみてください。例：<code>/tr hello</code> や <code>/weather Tokyo</code>",
+					demo_input_placeholder: "コマンドを入力、例：/tr hello ...",
+					demo_send: "送信",
+					demo_hint: "💡 試してみよう：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code>",
+					changelog_title: "更新履歴",
+					changelog_subtitle: "ポンポンの成長の軌跡",
+					changelog_v2_title: "v2.0 — メジャーアップグレード",
+					changelog_v2_date: "2025-05-30",
+					changelog_v2_1: "スラッシュコマンドに全面移行",
+					changelog_v2_2: "株式＆仮想通貨追跡を追加 (/stock, /chart)",
+					changelog_v2_3: "天気予報機能を追加 (/weather)",
+					changelog_v2_4: "旅行アシスタントを追加 (/travel)",
+					changelog_v2_5: "国旗クイズゲームを追加 (/flagquiz)",
+					changelog_v2_6: "毎日の単語配信を追加 (/setdaily)",
+					changelog_v2_7: "ウェブサイトにダークモードとインタラクティブデモを追加",
+					changelog_v1_title: "v1.0 — 初回リリース",
+					changelog_v1_date: "2025-01-01",
+					changelog_v1_1: "基本翻訳機能 (!tr コマンド)",
+					changelog_v1_2: "国旗絵文字リアクション翻訳",
+					changelog_v1_3: "為替変換機能 (!cc コマンド)",
+					support_title: "サポート＆フィードバック",
 					support_donate_title: "「ポンポン」をサポート",
 					support_donate_desc: "「ポンポン」はクラウドサーバーと有料APIで24時間稼動しています。もしこのボットが役に立つと感じたら、運営コストのサポートをご検討ください！",
 					support_donate_btn: "コーヒーをご馳走する (Buy Me a Coffee)",
-					contact_discord_title: "Discordサポートサーバー", // <-- 修改
-					contact_email_title: "Email", // <-- 修改
-					contact_form_title: "フィードバックのお願い", // <-- 修改
-					support_feedback_discord: "Discordサポートサーバーに参加", // <-- 修改
-					form_zh: "繁體中文", // <-- 修改
-					form_en: "English", // <-- 修改
-					form_ja: "日本語", // <-- 修改
-					footer_credit: "開発者: Hijiri | ポンポン Bot v0.1"
+					contact_discord_title: "Discordサポートサーバー",
+					contact_email_title: "Email",
+					contact_form_title: "フィードバックのお願い",
+					support_feedback_discord: "Discordサポートサーバーに参加",
+					form_zh: "繁體中文",
+					form_en: "English",
+					form_ja: "日本語",
+					footer_credit: "開発者: Hijiri | ポンポン Bot v2.0"
 				}
 			};
 
-			// --- 2. 我們的切換函式 (保持不變) ---
+			// ===== CHANGELOG DATA =====
+			const changelogData = [
+				{
+					versionKey: 'changelog_v2_title',
+					dateKey: 'changelog_v2_date',
+					changesKeys: ['changelog_v2_1','changelog_v2_2','changelog_v2_3','changelog_v2_4','changelog_v2_5','changelog_v2_6','changelog_v2_7']
+				},
+				{
+					versionKey: 'changelog_v1_title',
+					dateKey: 'changelog_v1_date',
+					changesKeys: ['changelog_v1_1','changelog_v1_2','changelog_v1_3']
+				}
+			];
+
+			// ===== RENDER CHANGELOG =====
+			function renderChangelog(lang) {
+				const container = document.getElementById('changelogTimeline');
+				const t = translations[lang] || translations.en;
+				let html = '';
+				changelogData.forEach(entry => {
+					html += `<div class="changelog-entry">
+						<div class="changelog-version">${t[entry.versionKey] || entry.versionKey}</div>
+						<div class="changelog-date">${t[entry.dateKey] || entry.dateKey}</div>
+						<ul class="changelog-changes">`;
+					entry.changesKeys.forEach(ck => {
+						html += `<li>${t[ck] || ck}</li>`;
+					});
+					html += `</ul></div>`;
+				});
+				container.innerHTML = html;
+			}
+
+			// ===== LANGUAGE SWITCHER =====
+			let currentLang = 'en';
 			function switchLang(lang) {
+				currentLang = lang;
 				document.querySelectorAll('[data-key]').forEach(el => {
 					const key = el.getAttribute('data-key');
 					if (translations[lang] && translations[lang][key]) {
-						el.innerHTML = translations[lang][key]; 
+						el.innerHTML = translations[lang][key];
+					}
+				});
+				// Handle placeholder attributes
+				document.querySelectorAll('[data-key-placeholder]').forEach(el => {
+					const key = el.getAttribute('data-key-placeholder');
+					if (translations[lang] && translations[lang][key]) {
+						el.placeholder = translations[lang][key];
 					}
 				});
 				document.documentElement.lang = lang;
@@ -425,22 +1209,188 @@
 				document.getElementById('lang-btn-en').classList.toggle('active', lang === 'en');
 				document.getElementById('lang-btn-ja').classList.toggle('active', lang === 'ja');
 				document.title = translations[lang].page_title || "蓬蓬 Bot";
+				renderChangelog(lang);
 			}
-			
-			// --- 3. 頁面載入時，預設為中文 ---
+
+			// ===== DARK MODE TOGGLE =====
+			function toggleTheme() {
+				const html = document.documentElement;
+				const isDark = html.getAttribute('data-theme') === 'dark';
+				if (isDark) {
+					html.removeAttribute('data-theme');
+					document.getElementById('themeIcon').textContent = '🌙';
+					localStorage.setItem('pongpong-theme', 'light');
+				} else {
+					html.setAttribute('data-theme', 'dark');
+					document.getElementById('themeIcon').textContent = '☀️';
+					localStorage.setItem('pongpong-theme', 'dark');
+				}
+			}
+
+			// Initialize theme from localStorage
+			(function initTheme() {
+				const saved = localStorage.getItem('pongpong-theme');
+				if (saved === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+					const icon = document.getElementById('themeIcon');
+					if (icon) icon.textContent = '☀️';
+				}
+			})();
+
+			// ===== INTERACTIVE DEMO =====
+			const demoResponses = {
+				'/tr': function(args) {
+					const text = args.join(' ') || 'Hello World';
+					return {
+						embed: true,
+						color: '#5865F2',
+						title: '🌐 Translation',
+						fields: [
+							{ name: 'Original', value: text },
+							{ name: 'Translated (zh-TW)', value: text === 'Hello World' || text.toLowerCase() === 'hello' ? '你好世界' : '（翻譯結果）' },
+							{ name: 'Detected Language', value: 'English → Traditional Chinese' }
+						],
+						footer: 'PongPong Translation • Powered by Google Translate'
+					};
+				},
+				'/cc': function(args) {
+					const amount = args[0] || '1';
+					const from = (args[1] || 'USD').toUpperCase();
+					const to = (args[2] || 'TWD').toUpperCase();
+					const rate = from === 'USD' && to === 'TWD' ? 32.15 : from === 'JPY' && to === 'TWD' ? 0.213 : 1.00;
+					const result = (parseFloat(amount) * rate).toFixed(2);
+					return {
+						embed: true,
+						color: '#57F287',
+						title: '💱 Currency Exchange',
+						fields: [
+							{ name: 'Amount', value: `${amount} ${from}` },
+							{ name: 'Result', value: `${result} ${to}` },
+							{ name: 'Rate', value: `1 ${from} = ${rate} ${to}` }
+						],
+						footer: 'PongPong Currency • Rates may vary'
+					};
+				},
+				'/stock': function(args) {
+					const symbol = (args[0] || 'TSLA').toUpperCase();
+					const prices = { 'TSLA': { p: '248.50', c: '+3.2%' }, 'AAPL': { p: '195.20', c: '+0.8%' }, 'BTC': { p: '67,450', c: '+1.5%' } };
+					const data = prices[symbol] || { p: '150.00', c: '+0.5%' };
+					return {
+						embed: true,
+						color: '#FAA61A',
+						title: `📈 ${symbol}`,
+						fields: [
+							{ name: 'Price', value: `$${data.p}` },
+							{ name: 'Change', value: data.c },
+							{ name: 'Market', value: symbol === 'BTC' ? 'Crypto' : 'NASDAQ' }
+						],
+						footer: 'PongPong Stocks • Data for demo purposes'
+					};
+				},
+				'/weather': function(args) {
+					const city = args.join(' ') || 'Tokyo';
+					return {
+						embed: true,
+						color: '#3498DB',
+						title: `🌤️ Weather — ${city}`,
+						fields: [
+							{ name: 'Temperature', value: '26°C / 79°F' },
+							{ name: 'Condition', value: '☀️ Clear Sky' },
+							{ name: 'Humidity', value: '55%' },
+							{ name: 'Wind', value: '12 km/h NE' }
+						],
+						footer: 'PongPong Weather • Data for demo purposes'
+					};
+				},
+				'/roll': function(args) {
+					const max = parseInt(args[0]) || 6;
+					const result = Math.floor(Math.random() * max) + 1;
+					return {
+						text: `🎲 You rolled a **${result}** (1-${max})`
+					};
+				}
+			};
+
+			function sendDemoCommand() {
+				const input = document.getElementById('demoChatInput');
+				const rawValue = input.value.trim();
+				if (!rawValue) return;
+				input.value = '';
+
+				const messagesEl = document.getElementById('demoChatMessages');
+
+				// Add user message
+				const userMsg = document.createElement('div');
+				userMsg.className = 'demo-message';
+				userMsg.innerHTML = `
+					<div class="demo-avatar user-avatar">👤</div>
+					<div class="demo-msg-content">
+						<div class="demo-msg-author user-name">User</div>
+						<div class="demo-msg-text">${escapeHtml(rawValue)}</div>
+					</div>`;
+				messagesEl.appendChild(userMsg);
+
+				// Parse command
+				const parts = rawValue.split(/\s+/);
+				const cmd = parts[0].toLowerCase();
+				const args = parts.slice(1);
+
+				// Generate bot response
+				setTimeout(() => {
+					const botMsg = document.createElement('div');
+					botMsg.className = 'demo-message';
+
+					const handler = demoResponses[cmd];
+					if (handler) {
+						const resp = handler(args);
+						let contentHtml = '';
+						if (resp.embed) {
+							let fieldsHtml = '';
+							resp.fields.forEach(f => {
+								fieldsHtml += `<div class="demo-embed-field">
+									<div class="demo-embed-field-name">${f.name}</div>
+									<div class="demo-embed-field-value">${f.value}</div>
+								</div>`;
+							});
+							contentHtml = `<div class="demo-embed" style="border-left-color:${resp.color}">
+								<div class="demo-embed-title">${resp.title}</div>
+								${fieldsHtml}
+								<div class="demo-embed-footer">${resp.footer}</div>
+							</div>`;
+						} else {
+							contentHtml = `<div class="demo-msg-text">${resp.text}</div>`;
+						}
+						botMsg.innerHTML = `
+							<div class="demo-avatar bot-avatar">🏓</div>
+							<div class="demo-msg-content">
+								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
+								${contentHtml}
+							</div>`;
+					} else {
+						botMsg.innerHTML = `
+							<div class="demo-avatar bot-avatar">🏓</div>
+							<div class="demo-msg-content">
+								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
+								<div class="demo-msg-text">❓ Unknown command. Try <code>/tr</code>, <code>/cc</code>, <code>/stock</code>, <code>/weather</code>, or <code>/roll</code></div>
+							</div>`;
+					}
+					messagesEl.appendChild(botMsg);
+					messagesEl.scrollTop = messagesEl.scrollHeight;
+				}, 600);
+
+				messagesEl.scrollTop = messagesEl.scrollHeight;
+			}
+
+			function escapeHtml(text) {
+				const div = document.createElement('div');
+				div.textContent = text;
+				return div.innerHTML;
+			}
+
+			// ===== INIT ON DOM READY =====
 			document.addEventListener('DOMContentLoaded', () => {
 				switchLang('en');
 			});
 		</script>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
