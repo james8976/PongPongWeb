@@ -8,7 +8,8 @@
 <meta property="og:title" content="蓬蓬 PongPong Bot">
 <meta property="og:description" content="跨越語言隔閡，您的 Discord 全能助理！">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://cdn.discordapp.com/embed/avatars/0.png">
+<meta property="og:image" content="images/pongpongicon.jpg">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
 <meta name="theme-color" content="#0a0a1a">
 <link rel="sitemap" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,10 +171,123 @@ section {
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
 }
-.nav-logo span { font-size: 1.6rem; }
+.nav-logo img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(88,101,242,0.4);
+}
+.nav-logo span { font-size: 1.4rem; }
+
+/* Stats clickable */
+.stat-item.clickable { cursor: pointer; transition: transform 0.2s; }
+.stat-item.clickable:hover { transform: translateY(-3px); }
+.stat-item.clickable .stat-value { text-decoration: none; }
+.stat-item.clickable:hover .stat-value { color: var(--accent); }
+
+/* Overview Section */
+#overview { padding: 100px 0; }
+.overview-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.overview-tab {
+  padding: 10px 28px;
+  border-radius: 30px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.overview-tab:hover, .overview-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(88,101,242,0.3);
+}
+.overview-panel { display: none; }
+.overview-panel.active { display: block; }
+.overview-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.overview-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.overview-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.overview-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 30px rgba(88,101,242,0.1);
+}
+.overview-card .ov-icon { font-size: 1.8em; margin-bottom: 8px; }
+.overview-card .ov-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+.overview-card .ov-name code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(88,101,242,0.15);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.85em;
+}
+.overview-card .ov-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.lang-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.lang-badge:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.lang-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .overview-grid-3 { grid-template-columns: 1fr; }
+  .overview-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .overview-tabs { flex-wrap: wrap; }
+}
 .nav-links {
   display: flex;
   align-items: center;
@@ -998,7 +1112,7 @@ section {
      ============================================ -->
 <nav class="navbar" id="navbar">
   <div class="container">
-    <a href="#hero" class="nav-logo"><span>🏓</span> <span data-i18n="header_title">蓬蓬</span></a>
+    <a href="#hero" class="nav-logo"><img src="images/pongpongicon.jpg" alt="蓬蓬"> <span data-i18n="header_title">蓬蓬</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#hero" data-i18n="nav_home">首頁</a></li>
       <li><a href="#features" data-i18n="nav_features">主要功能</a></li>
@@ -1057,17 +1171,17 @@ section {
       <span data-i18n="header_button">邀請「蓬蓬」到您的伺服器</span>
     </a>
     <div class="hero-stats">
-      <div class="stat-item">
+      <div class="stat-item clickable" onclick="scrollToTab('commands-tab')">
         <div class="stat-value" data-count="15">0</div>
         <div class="stat-label" data-i18n="stat_commands">指令</div>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item">
+      <div class="stat-item clickable" onclick="scrollToTab('modules-tab')">
         <div class="stat-value" data-count="8">0</div>
         <div class="stat-label" data-i18n="stat_modules">模組</div>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item">
+      <div class="stat-item clickable" onclick="scrollToTab('languages-tab')">
         <div class="stat-value" data-count="20">0</div>
         <div class="stat-label" data-i18n="stat_languages">語言</div>
       </div>
@@ -1132,6 +1246,83 @@ section {
         <span class="feature-icon">🎲</span>
         <h3 data-i18n="feature_9_title">骰子與隨機選擇</h3>
         <p data-i18n="feature_9_desc">使用 /roll 擲骰子、/pick 從選項中隨機選擇，趣味互動！</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     OVERVIEW SECTION (Commands / Modules / Languages)
+     ============================================ -->
+<section id="overview">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="overview_title">一目了然</h2>
+    <p class="section-subtitle reveal" data-i18n="overview_subtitle">深入了解蓬蓬的所有指令、模組與支援語言</p>
+
+    <div class="overview-tabs reveal">
+      <button class="overview-tab active" id="commands-tab" onclick="switchOverviewTab('commands')">📋 <span data-i18n="stat_commands">指令</span> (15)</button>
+      <button class="overview-tab" id="modules-tab" onclick="switchOverviewTab('modules')">🧩 <span data-i18n="stat_modules">模組</span> (8)</button>
+      <button class="overview-tab" id="languages-tab" onclick="switchOverviewTab('languages')">🌍 <span data-i18n="stat_languages">語言</span> (20+)</button>
+    </div>
+
+    <!-- Commands Panel -->
+    <div class="overview-panel active" id="panel-commands">
+      <div class="overview-grid-3 reveal">
+        <div class="overview-card"><div class="ov-icon">🌐</div><div class="ov-name"><code>/tr</code></div><div class="ov-desc" data-i18n="ov_tr">翻譯文字，自動偵測語言或手動指定語言對</div></div>
+        <div class="overview-card"><div class="ov-icon">⚙️</div><div class="ov-name"><code>/setlang</code></div><div class="ov-desc" data-i18n="ov_setlang">設定您的預設翻譯語言，下次使用更方便</div></div>
+        <div class="overview-card"><div class="ov-icon">📜</div><div class="ov-name"><code>/history</code></div><div class="ov-desc" data-i18n="ov_history">查看您最近的翻譯紀錄（最多 5 筆）</div></div>
+        <div class="overview-card"><div class="ov-icon">💱</div><div class="ov-name"><code>/cc</code></div><div class="ov-desc" data-i18n="ov_cc">即時匯率換算，支援 24 種國際貨幣</div></div>
+        <div class="overview-card"><div class="ov-icon">📈</div><div class="ov-name"><code>/stock</code></div><div class="ov-desc" data-i18n="ov_stock">查詢台股、美股、加密貨幣的即時價格</div></div>
+        <div class="overview-card"><div class="ov-icon">📊</div><div class="ov-name"><code>/chart</code></div><div class="ov-desc" data-i18n="ov_chart">查看股票或加密貨幣的走勢圖表</div></div>
+        <div class="overview-card"><div class="ov-icon">🌤️</div><div class="ov-name"><code>/weather</code></div><div class="ov-desc" data-i18n="ov_weather">查詢全球城市天氣，支援中文城市名</div></div>
+        <div class="overview-card"><div class="ov-icon">✈️</div><div class="ov-name"><code>/travel</code></div><div class="ov-desc" data-i18n="ov_travel">一次取得城市的天氣、匯率、時間與常用語</div></div>
+        <div class="overview-card"><div class="ov-icon">🏁</div><div class="ov-name"><code>/flagquiz</code></div><div class="ov-desc" data-i18n="ov_flagquiz">5 題國旗猜謎互動遊戲，支援多人搶答</div></div>
+        <div class="overview-card"><div class="ov-icon">🏆</div><div class="ov-name"><code>/quizrank</code></div><div class="ov-desc" data-i18n="ov_quizrank">查看伺服器的國旗猜謎排行榜</div></div>
+        <div class="overview-card"><div class="ov-icon">📅</div><div class="ov-name"><code>/setdaily</code></div><div class="ov-desc" data-i18n="ov_setdaily">設定每日單字推播頻道，每天早上 8 點推送</div></div>
+        <div class="overview-card"><div class="ov-icon">🔕</div><div class="ov-name"><code>/stopdaily</code></div><div class="ov-desc" data-i18n="ov_stopdaily">停止每日單字推播功能</div></div>
+        <div class="overview-card"><div class="ov-icon">📖</div><div class="ov-name"><code>/word</code></div><div class="ov-desc" data-i18n="ov_word">立即隨機取得一個四語對照的旅遊單字</div></div>
+        <div class="overview-card"><div class="ov-icon">🎲</div><div class="ov-name"><code>/roll</code></div><div class="ov-desc" data-i18n="ov_roll">擲骰子，可自訂最大值</div></div>
+        <div class="overview-card"><div class="ov-icon">🎰</div><div class="ov-name"><code>/pick</code></div><div class="ov-desc" data-i18n="ov_pick">從多個選項中隨機抽籤</div></div>
+      </div>
+    </div>
+
+    <!-- Modules Panel -->
+    <div class="overview-panel" id="panel-modules">
+      <div class="overview-grid-4 reveal">
+        <div class="overview-card"><div class="ov-icon">🌐</div><div class="ov-name" data-i18n="mod_translate">translate.py</div><div class="ov-desc" data-i18n="mod_translate_desc">翻譯核心：Slash/Prefix 指令、國旗反應翻譯、翻譯紀錄與偏好設定</div></div>
+        <div class="overview-card"><div class="ov-icon">💱</div><div class="ov-name" data-i18n="mod_currency">currency.py</div><div class="ov-desc" data-i18n="mod_currency_desc">匯率換算：ExchangeRate API、5 分鐘 TTL 快取、24 種貨幣</div></div>
+        <div class="overview-card"><div class="ov-icon">📈</div><div class="ov-name" data-i18n="mod_stock">stock.py</div><div class="ov-desc" data-i18n="mod_stock_desc">股市查詢：台股(yfinance)、美股、加密貨幣(CoinGecko)、走勢圖</div></div>
+        <div class="overview-card"><div class="ov-icon">🌤️</div><div class="ov-name" data-i18n="mod_weather">weather.py</div><div class="ov-desc" data-i18n="mod_weather_desc">天氣預報：OpenWeatherMap API、中文城市名自動翻譯</div></div>
+        <div class="overview-card"><div class="ov-icon">✈️</div><div class="ov-name" data-i18n="mod_travel">travel.py</div><div class="ov-desc" data-i18n="mod_travel_desc">旅遊助手：整合天氣、時間、匯率、常用語。內建 25+ 城市</div></div>
+        <div class="overview-card"><div class="ov-icon">🏁</div><div class="ov-name" data-i18n="mod_flagquiz">flagquiz.py</div><div class="ov-desc" data-i18n="mod_flagquiz_desc">國旗猜謎：30 國資料庫、多人搶答、SQLite 排行榜</div></div>
+        <div class="overview-card"><div class="ov-icon">📅</div><div class="ov-name" data-i18n="mod_daily">daily_word.py</div><div class="ov-desc" data-i18n="mod_daily_desc">每日單字：55+ 旅遊單字庫、四語對照、排程推播</div></div>
+        <div class="overview-card"><div class="ov-icon">🎲</div><div class="ov-name" data-i18n="mod_fun">fun.py</div><div class="ov-desc" data-i18n="mod_fun_desc">趣味功能：骰子、抽籤。增加伺服器互動趣味</div></div>
+      </div>
+    </div>
+
+    <!-- Languages Panel -->
+    <div class="overview-panel" id="panel-languages">
+      <div class="lang-grid reveal">
+        <div class="lang-badge">🇹🇼 繁體中文</div>
+        <div class="lang-badge">🇨🇳 简体中文</div>
+        <div class="lang-badge">🇯🇵 日本語</div>
+        <div class="lang-badge">🇺🇸 English</div>
+        <div class="lang-badge">🇰🇷 한국어</div>
+        <div class="lang-badge">🇫🇷 Français</div>
+        <div class="lang-badge">🇩🇪 Deutsch</div>
+        <div class="lang-badge">🇪🇸 Español</div>
+        <div class="lang-badge">🇻🇳 Tiếng Việt</div>
+        <div class="lang-badge">🇮🇹 Italiano</div>
+        <div class="lang-badge">🇷🇺 Русский</div>
+        <div class="lang-badge">🇵🇹 Português</div>
+        <div class="lang-badge">🇹🇭 ภาษาไทย</div>
+        <div class="lang-badge">🇮🇩 Bahasa Indonesia</div>
+        <div class="lang-badge">🇮🇳 हिन्दी</div>
+        <div class="lang-badge">🇸🇦 العربية</div>
+        <div class="lang-badge">🇳🇱 Nederlands</div>
+        <div class="lang-badge">🇸🇪 Svenska</div>
+        <div class="lang-badge">🇹🇷 Türkçe</div>
+        <div class="lang-badge">🇵🇱 Polski</div>
       </div>
     </div>
   </div>
@@ -1212,7 +1403,7 @@ section {
       </div>
       <div class="demo-messages" id="demoMessages">
         <div class="demo-msg">
-          <div class="demo-avatar">🏓</div>
+          <div class="demo-avatar"><img src="images/pongpongicon.jpg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></div>
           <div class="demo-msg-content">
             <div class="demo-msg-author bot-color">蓬蓬 <span class="bot-tag">BOT</span></div>
             <div class="demo-msg-text" data-i18n="demo_welcome">👋 歡迎！試試輸入指令，例如 /tr hello 或 /weather Tokyo</div>
@@ -1895,7 +2086,7 @@ section {
     const div = document.createElement('div');
     div.className = 'demo-msg';
     div.innerHTML = `
-      <div class="demo-avatar">🏓</div>
+      <div class="demo-avatar"><img src="images/pongpongicon.jpg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></div>
       <div class="demo-msg-content">
         <div class="demo-msg-author bot-color">${i18n[currentLang].header_title || '蓬蓬'} <span class="bot-tag">BOT</span></div>
         ${html}
@@ -1908,7 +2099,7 @@ section {
     const div = document.createElement('div');
     div.className = 'demo-msg typing-msg';
     div.innerHTML = `
-      <div class="demo-avatar">🏓</div>
+      <div class="demo-avatar"><img src="images/pongpongicon.jpg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"></div>
       <div class="demo-msg-content">
         <div class="typing-indicator">
           <div class="typing-dots"><span></span><span></span><span></span></div>
@@ -2020,6 +2211,25 @@ section {
   });
 
 })();
+
+// ===== OVERVIEW TABS =====
+function switchOverviewTab(tab) {
+  document.querySelectorAll('.overview-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.overview-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + tab);
+  const tabBtn = document.getElementById(tab + '-tab');
+  if (panel) panel.classList.add('active');
+  if (tabBtn) tabBtn.classList.add('active');
+}
+
+function scrollToTab(tabId) {
+  const tabName = tabId.replace('-tab', '');
+  switchOverviewTab(tabName);
+  const section = document.getElementById('overview');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 </script>
 </body>
 </html>
