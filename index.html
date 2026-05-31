@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="zh">
 <head>
 		<title id="pageTitle">蓬蓬 - 您的 Discord 多功能助理</title>
 		<meta charset="utf-8" />
@@ -18,7 +18,7 @@
 	
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 		
 		<style>
 			/* ===== CSS Custom Properties (Light Theme Default) ===== */
@@ -69,11 +69,49 @@
 				overflow-x: hidden !important;
 				max-width: 100% !important;
 				position: relative;
-				font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif !important;
-				letter-spacing: 0.01em;
-				line-height: 1.8;
+				font-family: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+				font-weight: 400;
+				letter-spacing: 0.02em;
+				line-height: 1.85;
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
+			}
+
+			/* --- Per-language font settings --- */
+			html[lang='zh'], html[lang='zh'] body {
+				font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif !important;
+				font-weight: 400;
+				letter-spacing: 0.04em;
+			}
+			html[lang='zh'] h1, html[lang='zh'] h2, html[lang='zh'] h3, html[lang='zh'] h4 {
+				font-weight: 700 !important;
+			}
+			html[lang='zh'] p, html[lang='zh'] span, html[lang='zh'] li, html[lang='zh'] div {
+				font-weight: 400;
+			}
+
+			html[lang='en'], html[lang='en'] body {
+				font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+				font-weight: 400;
+				letter-spacing: 0.01em;
+			}
+			html[lang='en'] h1, html[lang='en'] h2, html[lang='en'] h3, html[lang='en'] h4 {
+				font-weight: 700 !important;
+			}
+			html[lang='en'] p, html[lang='en'] span, html[lang='en'] li, html[lang='en'] div {
+				font-weight: 400;
+			}
+
+			html[lang='ja'], html[lang='ja'] body {
+				font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif !important;
+				font-weight: 400;
+				letter-spacing: 0.03em;
+			}
+			html[lang='ja'] h1, html[lang='ja'] h2, html[lang='ja'] h3, html[lang='ja'] h4 {
+				font-weight: 700 !important;
+			}
+			html[lang='ja'] p, html[lang='ja'] span, html[lang='ja'] li, html[lang='ja'] div {
+				font-weight: 400;
 			}
 
 			/* --- Dark mode overrides for template elements --- */
@@ -1218,7 +1256,7 @@
 			}
 
 			// ===== LANGUAGE SWITCHER =====
-			let currentLang = 'en';
+			let currentLang = 'zh';
 			function switchLang(lang) {
 				currentLang = lang;
 				document.querySelectorAll('[data-key]').forEach(el => {
@@ -1419,7 +1457,7 @@
 
 			// ===== INIT ON DOM READY =====
 			document.addEventListener('DOMContentLoaded', () => {
-				switchLang('en');
+				switchLang('zh');
 			});
 		</script>
 	</body>
