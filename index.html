@@ -1,1464 +1,2025 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
-		<title id="pageTitle">蓬蓬 - 您的 Discord 多功能助理</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	
-		<meta name="description" content="蓬蓬 (Pong Pong) 是一個多功能的 Discord 機器人。支援即時翻譯、匯率轉換、股票查詢、天氣預報、旅遊資訊、國旗問答等豐富功能！">
-		<meta name="keywords" content="Discord機器人, 翻譯機器人, 匯率機器人, 股票查詢, 天氣預報, Discord Bot, Translation Bot, Currency Bot, 蓬蓬, Pong Pong">
-		<meta name="author" content="Hijiri">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓬蓬 - 您的 Discord 多功能助理</title>
+<meta name="description" content="蓬蓬 PongPong — 跨越語言隔閡，您的 Discord 全能助理！翻譯、匯率、股票、天氣、旅遊、國旗問答等多功能。">
+<meta property="og:title" content="蓬蓬 PongPong Bot">
+<meta property="og:description" content="跨越語言隔閡，您的 Discord 全能助理！">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cdn.discordapp.com/embed/avatars/0.png">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="sitemap" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS CUSTOM PROPERTIES & THEME
+   ============================================ */
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #0f0f2e;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.08);
+  --bg-glass: rgba(255,255,255,0.06);
+  --bg-glass-border: rgba(255,255,255,0.1);
+  --bg-nav: rgba(10,10,26,0.8);
+  --text-primary: #e8e8f0;
+  --text-secondary: #9898b0;
+  --text-muted: #5e5e7a;
+  --accent-1: #6c5ce7;
+  --accent-2: #0abde3;
+  --accent-3: #a29bfe;
+  --accent-4: #00cec9;
+  --gradient-main: linear-gradient(135deg, #6c5ce7, #0abde3);
+  --gradient-accent: linear-gradient(135deg, #a29bfe, #00cec9);
+  --gradient-glow: linear-gradient(135deg, rgba(108,92,231,0.3), rgba(10,189,227,0.3));
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 40px rgba(108,92,231,0.2);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --font-zh: 'Noto Sans TC', sans-serif;
+  --font-en: 'Inter', sans-serif;
+  --font-ja: 'Noto Sans JP', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --discord-bg: #313338;
+  --discord-darker: #1e1f22;
+  --discord-sidebar: #2b2d31;
+  --discord-text: #dbdee1;
+  --discord-muted: #949ba4;
+  --discord-accent: #5865f2;
+}
 
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="蓬蓬 - 您的 Discord 多功能助理">
-		<meta property="og:description" content="支援翻譯、匯率、股票、天氣、旅遊、國旗問答等功能。立即邀請蓬蓬加入您的伺服器！">
-		<meta property="og:url" content="https://yangpongpong.vercel.app/">
-		<meta property="og:image" content="https://yangpongpong.vercel.app/images/pic00.jpg">
-	
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-		
-		<style>
-			/* ===== CSS Custom Properties (Light Theme Default) ===== */
-			:root {
-				--bg-primary: #ffffff;
-				--bg-secondary: #f5f5f5;
-				--bg-card: #ffffff;
-				--text-primary: #333333;
-				--text-secondary: #666666;
-				--text-muted: #999999;
-				--border-color: rgba(0,0,0,0.15);
-				--code-bg: #eee;
-				--code-color: #333;
-				--shadow-card: 0 2px 15px rgba(0,0,0,0.08);
-				--accent-color: #5865F2;
-				--accent-hover: #4752c4;
-				--transition-speed: 0.3s;
-				--nav-bg: rgba(255,255,255,0.95);
-			}
+[data-theme="light"] {
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #e4e6eb;
+  --bg-card: rgba(0,0,0,0.03);
+  --bg-card-hover: rgba(0,0,0,0.06);
+  --bg-glass: rgba(255,255,255,0.7);
+  --bg-glass-border: rgba(0,0,0,0.08);
+  --bg-nav: rgba(240,242,245,0.85);
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a6a;
+  --text-muted: #8888a0;
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-glow: 0 0 40px rgba(108,92,231,0.1);
+}
 
-			/* ===== Dark Theme ===== */
-			[data-theme='dark'] {
-				--bg-primary: #1a1625;
-				--bg-secondary: #0f0d1a;
-				--bg-card: rgba(255,255,255,0.05);
-				--text-primary: #e0e0e0;
-				--text-secondary: #b0b0b0;
-				--text-muted: #777777;
-				--border-color: rgba(255,255,255,0.1);
-				--code-bg: rgba(255,255,255,0.1);
-				--code-color: #e0e0e0;
-				--shadow-card: 0 2px 15px rgba(0,0,0,0.3);
-				--accent-color: #7289da;
-				--accent-hover: #5b6eae;
-				--nav-bg: rgba(15,13,26,0.95);
-			}
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-			/* ===== Global Transitions for Theme Switch ===== */
-			html, body, article, section, div, header, footer, nav, h1, h2, h3, h4, p, a, span, li, ul, code {
-				transition: background-color var(--transition-speed) ease,
-							color var(--transition-speed) ease,
-							border-color var(--transition-speed) ease,
-							box-shadow var(--transition-speed) ease;
-			}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
 
-			/* --- Prevent horizontal scroll & base font --- */
-			html, body {
-				overflow-x: hidden !important;
-				max-width: 100% !important;
-				position: relative;
-				font-family: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-				font-weight: 400;
-				letter-spacing: 0.02em;
-				line-height: 1.85;
-				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
-			}
+html[lang="zh"] body { font-family: var(--font-zh); }
+html[lang="en"] body { font-family: var(--font-en); }
+html[lang="ja"] body { font-family: var(--font-ja); }
 
-			/* --- Per-language font settings --- */
-			html[lang='zh'], html[lang='zh'] body {
-				font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif !important;
-				font-weight: 400;
-				letter-spacing: 0.04em;
-			}
-			html[lang='zh'] h1, html[lang='zh'] h2, html[lang='zh'] h3, html[lang='zh'] h4 {
-				font-weight: 700 !important;
-			}
-			html[lang='zh'] p, html[lang='zh'] span, html[lang='zh'] li, html[lang='zh'] div {
-				font-weight: 400;
-			}
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
 
-			html[lang='en'], html[lang='en'] body {
-				font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-				font-weight: 400;
-				letter-spacing: 0.01em;
-			}
-			html[lang='en'] h1, html[lang='en'] h2, html[lang='en'] h3, html[lang='en'] h4 {
-				font-weight: 700 !important;
-			}
-			html[lang='en'] p, html[lang='en'] span, html[lang='en'] li, html[lang='en'] div {
-				font-weight: 400;
-			}
+a { color: var(--accent-2); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent-3); }
 
-			html[lang='ja'], html[lang='ja'] body {
-				font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif !important;
-				font-weight: 400;
-				letter-spacing: 0.03em;
-			}
-			html[lang='ja'] h1, html[lang='ja'] h2, html[lang='ja'] h3, html[lang='ja'] h4 {
-				font-weight: 700 !important;
-			}
-			html[lang='ja'] p, html[lang='ja'] span, html[lang='ja'] li, html[lang='ja'] div {
-				font-weight: 400;
-			}
+code { font-family: var(--font-code); background: rgba(108,92,231,0.15); padding: 2px 7px; border-radius: 4px; font-size: 0.9em; color: var(--accent-3); }
 
-			/* --- Dark mode overrides for template elements --- */
-			[data-theme='dark'] #nav {
-				background: var(--nav-bg) !important;
-			}
-			[data-theme='dark'] #nav a {
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style1 {
-				background: var(--bg-primary) !important;
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style2 {
-				background: var(--bg-secondary) !important;
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style2 header h2,
-			[data-theme='dark'] .wrapper.style2 header p {
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style3 {
-				background: var(--bg-primary) !important;
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style4 {
-				background: var(--bg-secondary) !important;
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper.style4 h2,
-			[data-theme='dark'] .wrapper.style4 h3 {
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .wrapper h1,
-			[data-theme='dark'] .wrapper h2,
-			[data-theme='dark'] .wrapper h3,
-			[data-theme='dark'] .wrapper p {
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .box.style1 {
-				background: var(--bg-card) !important;
-				border-color: var(--border-color) !important;
-			}
-			[data-theme='dark'] .box.style1 h3,
-			[data-theme='dark'] .box.style1 p {
-				color: var(--text-primary) !important;
-			}
-			[data-theme='dark'] .button {
-				color: var(--text-primary) !important;
-				border-color: var(--border-color) !important;
-			}
-			[data-theme='dark'] .button:hover {
-				background: var(--accent-color) !important;
-				color: #fff !important;
-			}
-			[data-theme='dark'] a {
-				color: var(--accent-color) !important;
-			}
-			[data-theme='dark'] hr {
-				border-color: var(--border-color) !important;
-			}
-			[data-theme='dark'] code {
-				background: var(--code-bg) !important;
-				color: var(--code-color) !important;
-			}
-			[data-theme='dark'] #copyright li {
-				color: var(--text-muted) !important;
-				border-color: var(--border-color) !important;
-			}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-			/* --- Language Switcher --- */
-			.wrapper.style1 .lang-switcher {
-				text-align: center;
-				margin-bottom: 20px; 
-				padding-top: 1em;
-				font-size: 0.9em; 
-			}
-			
-			.wrapper.style1 .lang-switcher button {
-				background: none !important; 
-				border: none !important; 
-				box-shadow: none !important; 
-				padding: 0 5px !important; 
-				margin: 0 !important; 
-				font: inherit; 
-				color: var(--text-primary) !important;
-				cursor: pointer;
-				transition: color 0.2s;
-				font-weight: normal !important; 
-				display: inline-block;
-				line-height: 1.5; 
-			}
-			.wrapper.style1 .lang-switcher button:hover { color: var(--accent-color) !important; }
-			.wrapper.style1 .lang-switcher button.active { color: var(--accent-color) !important; font-weight: bold !important; }
-			.wrapper.style1 .lang-switcher span { color: var(--text-muted); font-size: 0.9em; margin: 0 5px; }
+section {
+  padding: 100px 0;
+  position: relative;
+}
 
-			/* --- Dark Mode Toggle Button --- */
-			.theme-toggle {
-				background: none !important;
-				border: 2px solid var(--border-color) !important;
-				border-radius: 50px !important;
-				padding: 6px 14px !important;
-				margin-left: 12px !important;
-				cursor: pointer;
-				font-size: 1.1em;
-				color: var(--text-primary) !important;
-				transition: all 0.3s ease;
-				display: inline-flex;
-				align-items: center;
-				gap: 4px;
-				vertical-align: middle;
-				box-shadow: none !important;
-				line-height: 1;
-			}
-			.theme-toggle:hover {
-				border-color: var(--accent-color) !important;
-				background: rgba(88,101,242,0.1) !important;
-			}
-			.theme-toggle-label {
-				font-size: 0.75em;
-				font-weight: 500;
-			}
+.section-title {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-			/* --- Bot Status Badge --- */
-			.status-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				padding: 6px 16px;
-				border-radius: 50px;
-				background: rgba(87,242,135,0.1);
-				border: 1px solid rgba(87,242,135,0.3);
-				font-size: 0.85em;
-				margin-bottom: 1em;
-				color: #57F287;
-				font-weight: 600;
-			}
-			.status-dot {
-				width: 10px;
-				height: 10px;
-				border-radius: 50%;
-				background: #57F287;
-				display: inline-block;
-				animation: pulse-dot 2s infinite;
-			}
-			@keyframes pulse-dot {
-				0%, 100% { box-shadow: 0 0 0 0 rgba(87,242,135,0.6); }
-				50% { box-shadow: 0 0 0 8px rgba(87,242,135,0); }
-			}
+.section-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 60px;
+}
 
-			/* --- Icon sizes --- */
-			.box.style1 .icon.featured {
-				width: 100px !important; height: 100px !important; line-height: 100px !important;
-				font-size: 4em !important; margin: 0 auto 1em auto !important;
-				border-radius: 100% !important; box-shadow: inset 0 0 0 1px var(--border-color) !important;
-				display: flex !important; align-items: center; justify-content: center;
-				background: #f77777; color: #fff !important; 
-			}
-			.box.style1 .icon.solid.featured.fa-language::before { font-size: 0.8em !important; line-height: 1.2em !important; }
-			.box.style1 .icon.featured.fa-flag::before, .box.style1 .icon.featured.fa-dollar-sign::before { line-height: 1 !important; font-size: 1em !important; }
-			
-			/* --- Feature Cards Emoji Icons --- */
-			.feature-emoji-icon {
-				width: 80px;
-				height: 80px;
-				line-height: 80px;
-				font-size: 2.5em;
-				margin: 0 auto 1em auto;
-				border-radius: 50%;
-				background: linear-gradient(135deg, var(--accent-color), #7289da);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				box-shadow: 0 4px 20px rgba(88,101,242,0.3);
-				transition: transform 0.3s ease;
-			}
-			.box.style1:hover .feature-emoji-icon {
-				transform: scale(1.1);
-			}
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+.reveal-delay-7 { transition-delay: 0.7s; }
+.reveal-delay-8 { transition-delay: 0.8s; }
 
-			/* --- Feature Grid (3x3) --- */
-			.features-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 24px;
-				margin-top: 2em;
-				align-items: stretch;
-			}
-			.features-grid .box.style1 {
-				border-radius: 12px;
-				padding: 2em 1.5em;
-				box-shadow: var(--shadow-card);
-				border: 1px solid var(--border-color);
-				transition: transform 0.3s ease, box-shadow 0.3s ease;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: flex-start;
-				height: 100%;
-				min-height: 250px;
-			}
-			.features-grid .box.style1 p {
-				flex-grow: 1;
-			}
-			.features-grid .box.style1:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 8px 30px rgba(88,101,242,0.15);
-			}
-			@media (max-width: 980px) {
-				.features-grid { grid-template-columns: repeat(2, 1fr); }
-			}
-			@media (max-width: 600px) {
-				.features-grid { grid-template-columns: 1fr; }
-			}
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--bg-nav);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--bg-glass-border);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.navbar.scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.nav-logo span { font-size: 1.6rem; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  position: relative;
+  padding: 4px 0;
+  transition: color var(--transition);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: var(--gradient-main);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { width: 100%; }
 
-			/* --- Image fit --- */
-			.wrapper.style1 .image.fit {
-				margin: 0 !important; border-radius: 8px !important; overflow: hidden !important; box-shadow: none !important;
-			}
-			.wrapper.style1 .image.fit img {
-				width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; border: none !important; padding: 0 !important; background: none !important;
-			}
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lang-switcher {
+  display: flex;
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--bg-glass-border);
+}
+.lang-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+.lang-btn.active {
+  background: var(--gradient-main);
+  color: #fff;
+}
+.lang-btn:hover:not(.active) { color: var(--text-primary); background: var(--bg-card-hover); }
 
-			/* --- Code & misc --- */
-			code { background: var(--code-bg); border-radius: 5px; padding: 2px 7px; font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; color: var(--code-color); font-size: 0.88em; display: inline-block; line-height: 1.5; vertical-align: middle; }
-			.box.style1 p { margin: 0; }
-			#contact ul { list-style: none; padding-left: 0; }
-			#contact ul li { margin-bottom: 5px; }
-			#contact ul ul { list-style-type: none !important; margin-top: 10px; margin-left: 0 !important; padding-left: 0 !important; }
-			#contact ul ul li { margin-bottom: 5px; }
-			#contact h3.subsection-title { margin-top: 2em; margin-bottom: 0.8em; font-size: 1.2em; }
+.theme-toggle {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-glass-border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.theme-toggle:hover { background: var(--bg-card-hover); transform: rotate(20deg); }
 
-			/* --- Commands Section Styling --- */
-			.cmd-categories {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: 24px;
-				margin-top: 2em;
-			}
-			.cmd-category {
-				background: var(--bg-card);
-				border: 1px solid var(--border-color);
-				border-radius: 12px;
-				padding: 1.5em 1.8em;
-				box-shadow: var(--shadow-card);
-			}
-			.cmd-category h4 {
-				margin: 0 0 1em 0;
-				font-size: 1.1em;
-				color: var(--accent-color) !important;
-			}
-			.cmd-category .cmd-item {
-				margin-bottom: 0.8em;
-				font-size: 0.92em;
-				line-height: 2;
-				letter-spacing: 0.02em;
-			}
-			.cmd-category .cmd-item code {
-				font-weight: 600;
-				font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-				font-size: 0.9em;
-				background: rgba(88, 101, 242, 0.15);
-				color: var(--accent-color);
-				padding: 3px 8px;
-				border-radius: 5px;
-				margin-right: 4px;
-				display: inline-block;
-				line-height: 1.4;
-				vertical-align: middle;
-			}
-			[data-theme='dark'] .cmd-category {
-				background: var(--bg-card);
-				border-color: var(--border-color);
-			}
-			[data-theme='dark'] .cmd-category .cmd-item code {
-				background: rgba(114, 137, 218, 0.2);
-				color: #7289da;
-			}
-			@media (max-width: 736px) {
-				.cmd-categories { grid-template-columns: 1fr; }
-			}
+/* Mobile menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-			/* ===== Interactive Demo Section ===== */
-			.demo-chat-container {
-				max-width: 600px;
-				margin: 2em auto;
-				border-radius: 12px;
-				overflow: hidden;
-				box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-				background: #36393f;
-				font-family: 'Inter', 'Noto Sans TC', sans-serif;
-			}
-			.demo-chat-header {
-				background: #2f3136;
-				padding: 12px 16px;
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				border-bottom: 1px solid rgba(255,255,255,0.06);
-			}
-			.demo-chat-header .channel-hash {
-				color: #72767d;
-				font-size: 1.4em;
-				font-weight: bold;
-			}
-			.demo-chat-header .channel-name {
-				color: #fff;
-				font-weight: 600;
-				font-size: 1em;
-			}
-			.demo-chat-messages {
-				padding: 16px;
-				min-height: 300px;
-				max-height: 400px;
-				overflow-y: auto;
-			}
-			.demo-message {
-				display: flex;
-				gap: 12px;
-				margin-bottom: 16px;
-				animation: msgFadeIn 0.3s ease;
-			}
-			@keyframes msgFadeIn {
-				from { opacity: 0; transform: translateY(10px); }
-				to { opacity: 1; transform: translateY(0); }
-			}
-			.demo-avatar {
-				width: 40px;
-				height: 40px;
-				border-radius: 50%;
-				flex-shrink: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 1.2em;
-			}
-			.demo-avatar.user-avatar {
-				background: #5865F2;
-			}
-			.demo-avatar.bot-avatar {
-				background: #57F287;
-			}
-			.demo-msg-content {
-				flex: 1;
-			}
-			.demo-msg-author {
-				font-weight: 600;
-				font-size: 0.9em;
-				margin-bottom: 4px;
-			}
-			.demo-msg-author.user-name { color: #5865F2; }
-			.demo-msg-author.bot-name { color: #57F287; }
-			.demo-msg-author .bot-tag {
-				background: #5865F2;
-				color: #fff;
-				font-size: 0.65em;
-				padding: 1px 5px;
-				border-radius: 3px;
-				margin-left: 6px;
-				vertical-align: middle;
-				font-weight: 500;
-			}
-			.demo-msg-text {
-				color: #dcddde;
-				font-size: 0.9em;
-				line-height: 1.4;
-			}
-			/* Discord-like embed */
-			.demo-embed {
-				border-left: 4px solid #5865F2;
-				background: #2f3136;
-				border-radius: 4px;
-				padding: 12px;
-				margin-top: 6px;
-				max-width: 400px;
-			}
-			.demo-embed-title {
-				color: #fff;
-				font-weight: 700;
-				font-size: 0.9em;
-				margin-bottom: 8px;
-			}
-			.demo-embed-field {
-				margin-bottom: 6px;
-			}
-			.demo-embed-field-name {
-				color: #b9bbbe;
-				font-size: 0.75em;
-				font-weight: 600;
-				text-transform: uppercase;
-			}
-			.demo-embed-field-value {
-				color: #dcddde;
-				font-size: 0.85em;
-			}
-			.demo-embed-footer {
-				color: #72767d;
-				font-size: 0.7em;
-				margin-top: 8px;
-				padding-top: 8px;
-				border-top: 1px solid rgba(255,255,255,0.06);
-			}
-			.demo-chat-input-area {
-				background: #40444b;
-				padding: 12px 16px;
-				display: flex;
-				gap: 8px;
-				align-items: center;
-			}
-			.demo-chat-input {
-				flex: 1;
-				background: transparent;
-				border: none;
-				color: #dcddde;
-				font-size: 0.9em;
-				outline: none;
-				font-family: inherit;
-			}
-			.demo-chat-input::placeholder {
-				color: #72767d;
-			}
-			.demo-send-btn {
-				background: var(--accent-color) !important;
-				border: none !important;
-				color: #fff !important;
-				padding: 8px 16px !important;
-				border-radius: 6px !important;
-				cursor: pointer;
-				font-size: 0.85em;
-				font-weight: 600;
-				transition: background 0.2s;
-				box-shadow: none !important;
-			}
-			.demo-send-btn:hover {
-				background: var(--accent-hover) !important;
-			}
-			.demo-hint {
-				text-align: center;
-				margin-top: 1em;
-				font-size: 0.85em;
-				color: var(--text-muted);
-			}
-			.demo-hint code {
-				font-size: 0.9em;
-			}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-nav);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.mobile-menu.active { display: flex; opacity: 1; }
+.mobile-menu a {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.mobile-menu .nav-controls {
+  margin-top: 20px;
+  flex-direction: column;
+}
 
-			/* ===== Changelog Timeline ===== */
-			.changelog-timeline {
-				position: relative;
-				max-width: 700px;
-				margin: 2em auto;
-				padding-left: 40px;
-			}
-			.changelog-timeline::before {
-				content: '';
-				position: absolute;
-				left: 15px;
-				top: 0;
-				bottom: 0;
-				width: 3px;
-				background: var(--accent-color);
-				border-radius: 3px;
-			}
-			.changelog-entry {
-				position: relative;
-				margin-bottom: 2.5em;
-				padding-left: 1.5em;
-			}
-			.changelog-entry::before {
-				content: '';
-				position: absolute;
-				left: -32px;
-				top: 5px;
-				width: 14px;
-				height: 14px;
-				border-radius: 50%;
-				background: var(--accent-color);
-				border: 3px solid var(--bg-primary);
-				box-shadow: 0 0 0 3px var(--accent-color);
-			}
-			.changelog-version {
-				font-size: 1.3em;
-				font-weight: 700;
-				color: var(--accent-color) !important;
-				margin-bottom: 0.2em;
-			}
-			.changelog-date {
-				font-size: 0.85em;
-				color: var(--text-muted) !important;
-				margin-bottom: 0.5em;
-			}
-			.changelog-changes {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-			.changelog-changes li {
-				position: relative;
-				padding-left: 1.2em;
-				margin-bottom: 0.4em;
-				font-size: 0.95em;
-				color: var(--text-secondary) !important;
-			}
-			.changelog-changes li::before {
-				content: '✦';
-				position: absolute;
-				left: 0;
-				color: var(--accent-color);
-			}
-			[data-theme='dark'] .changelog-entry::before {
-				border-color: var(--bg-secondary);
-			}
+@media (max-width: 900px) {
+  .nav-links, .nav-controls { display: none; }
+  .hamburger { display: flex; }
+}
 
-			/* --- Mobile Responsive --- */
-			@media (max-width: 736px) { 
-				.wrapper.style1 .lang-switcher {
-					font-size: 0.75em;
-					padding-top: 1.5em;
-					white-space: nowrap;
-					width: 100%; 
-					display: flex; 
-					justify-content: center;
-					align-items: center;
-					flex-wrap: wrap;
-					gap: 4px;
-				}
-				.wrapper.style1 .lang-switcher button {
-					padding: 0 2px !important;
-					font-size: 1em !important;
-				}
-				.wrapper.style1 .lang-switcher span {
-					margin: 0 2px !important;
-				}
-				.theme-toggle {
-					margin-left: 6px !important;
-					margin-top: 0 !important;
-					padding: 4px 10px !important;
-					font-size: 0.95em;
-				}
-				.theme-toggle-label {
-					display: none;
-				}
-				.demo-chat-container {
-					margin: 1em auto;
-				}
-				.demo-chat-messages {
-					min-height: 200px;
-				}
-			}
-		</style>
-	</head>
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 70px;
+}
+#hero-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+.hero-gradient-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(108,92,231,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(10,189,227,0.1) 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+[data-theme="light"] .hero-gradient-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(108,92,231,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(10,189,227,0.06) 0%, transparent 50%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 40px 24px;
+}
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: 100px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.status-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #00b894;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,184,148,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(0,184,148,0); }
+}
 
-	<body class="is-preload">
+.hero-title {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.2); }
+}
 
-		<nav id="nav">
-			<ul class="container">
-				<li><a href="#top" class="scrolly" data-key="nav_home">首頁</a></li>
-				<li><a href="#work" class="scrolly" data-key="nav_features">主要功能</a></li>
-				<li><a href="#portfolio" class="scrolly" data-key="nav_how_to">如何使用</a></li>
-				<li><a href="#demo" class="scrolly" data-key="nav_demo">互動體驗</a></li>
-				<li><a href="#changelog" class="scrolly" data-key="nav_changelog">更新日誌</a></li>
-				<li><a href="#contact" class="scrolly" data-key="nav_support">支持與回饋</a></li>
-			</ul>
-		</nav>
+.hero-tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.5s forwards;
+}
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+}
 
-		<!-- ===== HERO SECTION ===== -->
-		<article id="top" class="wrapper style1">
-			<div class="container">
-				<div class="row">
-					<div class="col-4 col-5-large col-12-medium">
-						<span class="image fit"><img src="images/pongpongicon.jpg" alt="蓬蓬 機器人圖示" /></span>
-					</div>
-					<div class="col-8 col-7-large col-12-medium">
-						<div class="lang-switcher">
-							<button id="lang-btn-zh" class="lang-button" onclick="switchLang('zh')">繁體中文</button>
-							<span>|</span>
-							<button id="lang-btn-en" class="lang-button" onclick="switchLang('en')">English</button>
-							<span>|</span>
-							<button id="lang-btn-ja" class="lang-button" onclick="switchLang('ja')">日本語</button>
-							<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-								<span id="themeIcon">🌙</span>
-								<span class="theme-toggle-label" data-key="dark_mode_label">深色模式</span>
-							</button>
-						</div>
-						<div class="status-badge">
-							<span class="status-dot"></span>
-							<span data-key="status_online">🟢 線上運行中</span>
-						</div>
-						<header>
-							<h1 data-key="header_title">蓬蓬</h1>
-						</header>
-						<p data-key="header_tagline">跨越語言隔閡，您的 Discord 全能助理！</p>
-						<a href="https://discord.com/oauth2/authorize?client_id=1433681262584926228&permissions=68672&integration_type=0&scope=bot" class="button large" target="_blank" data-key="header_button">
-							邀請「蓬蓬」到您的伺服器
-						</a>
-					</div>
-				</div>
-			</div>
-		</article>
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--gradient-main);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  box-shadow: 0 4px 20px rgba(108,92,231,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+.hero-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(108,92,231,0.5); color: #fff; }
+.hero-cta:hover::before { left: 100%; }
 
-		<!-- ===== FEATURES SECTION (9 cards) ===== -->
-		<article id="work" class="wrapper style2">
-			<div class="container">
-				<header>
-					<h2 data-key="features_title">主要功能</h2>
-					<p data-key="features_subtitle">「蓬蓬」是您的全方位 Discord 助理</p>
-				</header>
-				<div class="features-grid">
-					<section class="box style1">
-						<div class="feature-emoji-icon">🌐</div>
-						<h3 data-key="feature_1_title">智能翻譯</h3>
-						<p data-key="feature_1_desc">使用 <code>/tr</code> 指令，自動偵測語言並翻譯，支援指定語言對。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">🏳️</div>
-						<h3 data-key="feature_2_title">國旗表情翻譯</h3>
-						<p data-key="feature_2_desc">對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">💱</div>
-						<h3 data-key="feature_3_title">即時匯率轉換</h3>
-						<p data-key="feature_3_desc">使用 <code>/cc</code> 指令查詢匯率，支援全球貨幣，內建快取加速。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">📈</div>
-						<h3 data-key="feature_4_title">股票與加密貨幣</h3>
-						<p data-key="feature_4_desc">使用 <code>/stock</code> 查詢台股、美股和加密貨幣的即時價格與走勢。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">🌤️</div>
-						<h3 data-key="feature_5_title">天氣預報</h3>
-						<p data-key="feature_5_desc">使用 <code>/weather</code> 查詢全球天氣，支援多語言城市名稱搜尋。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">✈️</div>
-						<h3 data-key="feature_6_title">旅遊助手</h3>
-						<p data-key="feature_6_desc">使用 <code>/travel</code> 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">🏁</div>
-						<h3 data-key="feature_7_title">國旗問答</h3>
-						<p data-key="feature_7_desc">使用 <code>/flagquiz</code> 開始多人國旗猜謎遊戲，測試您的地理知識！</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">📅</div>
-						<h3 data-key="feature_8_title">每日單字</h3>
-						<p data-key="feature_8_desc">自動每日推送外語單字到指定頻道，輕鬆學習新語言。</p>
-					</section>
-					<section class="box style1">
-						<div class="feature-emoji-icon">🎲</div>
-						<h3 data-key="feature_9_title">骰子與隨機選擇</h3>
-						<p data-key="feature_9_desc">使用 <code>/roll</code> 擲骰子、<code>/pick</code> 從選項中隨機選擇，趣味互動！</p>
-					</section>
-				</div>
-				<footer style="margin-top: 2em;">
-					<p data-key="features_footer_p">更多功能持續開發中！</p>
-					<a href="#portfolio" class="button large scrolly" data-key="features_footer_btn">
-						查看所有指令
-					</a>
-				</footer>
-			</div>
-		</article>
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.8s forwards;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.stat-divider {
+  width: 1px;
+  background: var(--bg-glass-border);
+  align-self: stretch;
+}
 
-		<!-- ===== COMMANDS SECTION ===== -->
-		<article id="portfolio" class="wrapper style3">
-			<div class="container">
-				<header>
-					<h2 data-key="how_to_title">指令一覽</h2>
-					<p data-key="how_to_subtitle">所有斜線指令，一目了然。</p>
-				</header>
-				<div class="cmd-categories">
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_translate">🌐 翻譯</h4>
-						<div class="cmd-item"><code>/tr</code> <span data-key="cmd_tr_desc">— 翻譯文字，自動偵測或指定語言</span></div>
-						<div class="cmd-item"><code>/setlang</code> <span data-key="cmd_setlang_desc">— 設定個人預設翻譯語言</span></div>
-						<div class="cmd-item"><code>/history</code> <span data-key="cmd_history_desc">— 查看翻譯歷史紀錄</span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_currency">💱 匯率</h4>
-						<div class="cmd-item"><code>/cc</code> <span data-key="cmd_cc_desc">— 查詢匯率轉換，如 <code>/cc 100 USD TWD</code></span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_stock">📈 股票</h4>
-						<div class="cmd-item"><code>/stock</code> <span data-key="cmd_stock_desc">— 查詢台股、美股、加密貨幣價格</span></div>
-						<div class="cmd-item"><code>/chart</code> <span data-key="cmd_chart_desc">— 查看股票或加密貨幣走勢圖</span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_weather">🌤️ 天氣</h4>
-						<div class="cmd-item"><code>/weather</code> <span data-key="cmd_weather_desc">— 查詢城市天氣預報</span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_travel">✈️ 旅遊</h4>
-						<div class="cmd-item"><code>/travel</code> <span data-key="cmd_travel_desc">— 查詢城市旅遊資訊總覽</span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_fun">🎮 趣味</h4>
-						<div class="cmd-item"><code>/flagquiz</code> <span data-key="cmd_flagquiz_desc">— 開始國旗猜謎遊戲</span></div>
-						<div class="cmd-item"><code>/quizrank</code> <span data-key="cmd_quizrank_desc">— 查看國旗問答排行榜</span></div>
-						<div class="cmd-item"><code>/roll</code> <span data-key="cmd_roll_desc">— 擲骰子</span></div>
-						<div class="cmd-item"><code>/pick</code> <span data-key="cmd_pick_desc">— 從選項中隨機選擇</span></div>
-					</div>
-					<div class="cmd-category">
-						<h4 data-key="cmd_cat_daily">📅 每日</h4>
-						<div class="cmd-item"><code>/setdaily</code> <span data-key="cmd_setdaily_desc">— 設定每日單字推送頻道</span></div>
-						<div class="cmd-item"><code>/stopdaily</code> <span data-key="cmd_stopdaily_desc">— 停止每日單字推送</span></div>
-					</div>
-				</div>
-				<footer style="margin-top: 2em;">
-					<p data-key="how_to_footer_p">想要試試看嗎？</p>
-					<a href="#demo" class="button large scrolly" data-key="how_to_footer_btn">
-						互動體驗
-					</a>
-				</footer>
-			</div>
-		</article>
+/* Floating flags */
+.floating-flags {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.flag-emoji {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.3;
+  animation: floatFlag linear infinite;
+  filter: grayscale(0.2);
+}
+[data-theme="light"] .flag-emoji { opacity: 0.5; }
 
-		<!-- ===== INTERACTIVE DEMO SECTION ===== -->
-		<article id="demo" class="wrapper style2">
-			<div class="container">
-				<header>
-					<h2 data-key="demo_title">互動體驗</h2>
-					<p data-key="demo_subtitle">在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！</p>
-				</header>
-				<div class="demo-chat-container">
-					<div class="demo-chat-header">
-						<span class="channel-hash">#</span>
-						<span class="channel-name" data-key="demo_channel">一般聊天</span>
-					</div>
-					<div class="demo-chat-messages" id="demoChatMessages">
-						<div class="demo-message">
-							<div class="demo-avatar bot-avatar">🏓</div>
-							<div class="demo-msg-content">
-								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
-								<div class="demo-msg-text" data-key="demo_welcome">👋 歡迎！試試輸入指令，例如 <code>/tr hello</code> 或 <code>/weather Tokyo</code></div>
-							</div>
-						</div>
-					</div>
-					<div class="demo-chat-input-area">
-						<input type="text" class="demo-chat-input" id="demoChatInput" data-key-placeholder="demo_input_placeholder" placeholder="輸入指令，例如 /tr hello ..." onkeydown="if(event.key==='Enter')sendDemoCommand()">
-						<button class="demo-send-btn" onclick="sendDemoCommand()" data-key="demo_send">送出</button>
-					</div>
-				</div>
-				<p class="demo-hint" data-key="demo_hint">💡 試試：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code></p>
-			</div>
-		</article>
+@keyframes floatFlag {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
 
-		<!-- ===== CHANGELOG SECTION ===== -->
-		<article id="changelog" class="wrapper style3">
-			<div class="container">
-				<header>
-					<h2 data-key="changelog_title">更新日誌</h2>
-					<p data-key="changelog_subtitle">蓬蓬的成長歷程</p>
-				</header>
-				<div class="changelog-timeline" id="changelogTimeline">
-					<!-- Rendered by JS -->
-				</div>
-			</div>
-		</article>
+/* ============================================
+   FEATURES
+   ============================================ */
+#features { background: var(--bg-secondary); transition: background var(--transition); }
 
-		<!-- ===== SUPPORT & FEEDBACK ===== -->
-		<article id="contact" class="wrapper style4">
-			<div class="container medium">
-				<header>
-					<h2 data-key="support_title">支持與回饋</h2>
-				</header>
-				<div class="row">
-					<div class="col-12">
-						<h3 data-key="support_donate_title">支持「蓬蓬」</h3>
-						<p data-key="support_donate_desc">「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！</p>
-						<a href="https://buymeacoffee.com/hijiri4005" class="button" target="_blank" data-key="support_donate_btn">
-							請我喝杯咖啡 (Buy Me a Coffee)
-						</a>
-						
-						<hr />
-						
-						<h3 class="subsection-title" data-key="contact_discord_title">Discord 支援伺服器</h3>
-						<ul>
-							<li><a href="https://discord.gg/r8grruws" target="_blank" data-key="support_feedback_discord">
-								加入我們的 Discord 支援伺服器
-							</a></li>
-						</ul>
-						
-						<h3 class="subsection-title" data-key="contact_email_title">Email</h3>
-						<ul>
-							<li>a34159@gmail.com</li>
-						</ul>
-						
-						<h3 class="subsection-title" data-key="contact_form_title">需要您的回饋</h3>
-						<ul>
-							<li>
-								<ul>
-									<li><a href="https://forms.gle/xawXwNruVatAVDJN8" target="_blank" data-key="form_zh">繁體中文</a></li>
-									<li><a href="https://forms.gle/w1GCr1TSt5FHokhm6" target="_blank" data-key="form_en">English</a></li>
-									<li><a href="https://forms.gle/8Jk1U6rJWoChnAmf7" target="_blank" data-key="form_ja">日本語</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-				
-				<footer>
-					<ul id="copyright">
-						<li>
-							<span data-key="footer_credit">由 Hijiri 開發 | 蓬蓬 Bot v2.0</span>
-						</li>
-						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
-			</div>
-		</article>
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
 
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+.feature-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-main);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(108,92,231,0.3);
+  background: var(--bg-card-hover);
+}
+.feature-card:hover::before { opacity: 1; }
 
-		<script>
-			// ===== TRANSLATIONS =====
-			const translations = {
-				zh: {
-					page_title: "蓬蓬 - 您的 Discord 多功能助理",
-					nav_home: "首頁",
-					nav_features: "主要功能",
-					nav_how_to: "指令一覽",
-					nav_demo: "互動體驗",
-					nav_changelog: "更新日誌",
-					nav_support: "支持與回饋",
-					dark_mode_label: "深色模式",
-					status_online: "🟢 線上運行中",
-					header_title: "蓬蓬",
-					header_tagline: "跨越語言隔閡，您的 Discord 全能助理！",
-					header_button: "邀請「蓬蓬」到您的伺服器",
-					features_title: "主要功能",
-					features_subtitle: "「蓬蓬」是您的全方位 Discord 助理",
-					feature_1_title: "智能翻譯",
-					feature_1_desc: "使用 <code>/tr</code> 指令，自動偵測語言並翻譯，支援指定語言對。",
-					feature_2_title: "國旗表情翻譯",
-					feature_2_desc: "對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。",
-					feature_3_title: "即時匯率轉換",
-					feature_3_desc: "使用 <code>/cc</code> 指令查詢匯率，支援全球貨幣，內建快取加速。",
-					feature_4_title: "股票與加密貨幣",
-					feature_4_desc: "使用 <code>/stock</code> 查詢台股、美股和加密貨幣的即時價格與走勢。",
-					feature_5_title: "天氣預報",
-					feature_5_desc: "使用 <code>/weather</code> 查詢全球天氣，支援多語言城市名稱搜尋。",
-					feature_6_title: "旅遊助手",
-					feature_6_desc: "使用 <code>/travel</code> 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。",
-					feature_7_title: "國旗問答",
-					feature_7_desc: "使用 <code>/flagquiz</code> 開始多人國旗猜謎遊戲，測試您的地理知識！",
-					feature_8_title: "每日單字",
-					feature_8_desc: "自動每日推送外語單字到指定頻道，輕鬆學習新語言。",
-					feature_9_title: "骰子與隨機選擇",
-					feature_9_desc: "使用 <code>/roll</code> 擲骰子、<code>/pick</code> 從選項中隨機選擇，趣味互動！",
-					features_footer_p: "更多功能持續開發中！",
-					features_footer_btn: "查看所有指令",
-					how_to_title: "指令一覽",
-					how_to_subtitle: "所有斜線指令，一目了然。",
-					cmd_cat_translate: "🌐 翻譯",
-					cmd_tr_desc: "— 翻譯文字，自動偵測或指定語言",
-					cmd_setlang_desc: "— 設定個人預設翻譯語言",
-					cmd_history_desc: "— 查看翻譯歷史紀錄",
-					cmd_cat_currency: "💱 匯率",
-					cmd_cc_desc: "— 查詢匯率轉換，如 <code>/cc 100 USD TWD</code>",
-					cmd_cat_stock: "📈 股票",
-					cmd_stock_desc: "— 查詢台股、美股、加密貨幣價格",
-					cmd_chart_desc: "— 查看股票或加密貨幣走勢圖",
-					cmd_cat_weather: "🌤️ 天氣",
-					cmd_weather_desc: "— 查詢城市天氣預報",
-					cmd_cat_travel: "✈️ 旅遊",
-					cmd_travel_desc: "— 查詢城市旅遊資訊總覽",
-					cmd_cat_fun: "🎮 趣味",
-					cmd_flagquiz_desc: "— 開始國旗猜謎遊戲",
-					cmd_quizrank_desc: "— 查看國旗問答排行榜",
-					cmd_roll_desc: "— 擲骰子",
-					cmd_pick_desc: "— 從選項中隨機選擇",
-					cmd_cat_daily: "📅 每日",
-					cmd_setdaily_desc: "— 設定每日單字推送頻道",
-					cmd_stopdaily_desc: "— 停止每日單字推送",
-					how_to_footer_p: "想要試試看嗎？",
-					how_to_footer_btn: "互動體驗",
-					demo_title: "互動體驗",
-					demo_subtitle: "在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！",
-					demo_channel: "一般聊天",
-					demo_welcome: "👋 歡迎！試試輸入指令，例如 <code>/tr hello</code> 或 <code>/weather Tokyo</code>",
-					demo_input_placeholder: "輸入指令，例如 /tr hello ...",
-					demo_send: "送出",
-					demo_hint: "💡 試試：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code>",
-					changelog_title: "更新日誌",
-					changelog_subtitle: "蓬蓬的成長歷程",
-					changelog_v2_title: "v2.0 — 全面升級",
-					changelog_v2_date: "2025-05-30",
-					changelog_v2_1: "全面升級為斜線指令 (Slash Commands)",
-					changelog_v2_2: "新增股票與加密貨幣查詢 (/stock, /chart)",
-					changelog_v2_3: "新增天氣預報功能 (/weather)",
-					changelog_v2_4: "新增旅遊助手 (/travel)",
-					changelog_v2_5: "新增國旗問答遊戲 (/flagquiz)",
-					changelog_v2_6: "新增每日單字推送 (/setdaily)",
-					changelog_v2_7: "網站新增深色模式與互動體驗",
-					changelog_v1_title: "v1.0 — 初始發佈",
-					changelog_v1_date: "2025-01-01",
-					changelog_v1_1: "基礎翻譯功能 (!tr 指令)",
-					changelog_v1_2: "國旗表情符號翻譯",
-					changelog_v1_3: "匯率查詢功能 (!cc 指令)",
-					support_title: "支持與回饋",
-					support_donate_title: "支持「蓬蓬」",
-					support_donate_desc: "「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！",
-					support_donate_btn: "請我喝杯咖啡 (Buy Me a Coffee)",
-					contact_discord_title: "Discord 支援伺服器",
-					contact_email_title: "Email",
-					contact_form_title: "需要您的回饋",
-					support_feedback_discord: "加入我們的 Discord 支援伺服器",
-					form_zh: "繁體中文",
-					form_en: "English",
-					form_ja: "日本語",
-					footer_credit: "由 Hijiri 開發 | 蓬蓬 Bot v2.0"
-				},
-				en: {
-					page_title: "Pong Pong - Your All-in-One Discord Bot",
-					nav_home: "Home",
-					nav_features: "Features",
-					nav_how_to: "Commands",
-					nav_demo: "Try It",
-					nav_changelog: "Changelog",
-					nav_support: "Support & Feedback",
-					dark_mode_label: "Dark Mode",
-					status_online: "🟢 Online",
-					header_title: "Pong Pong",
-					header_tagline: "Break language barriers — your all-in-one Discord assistant!",
-					header_button: "Invite \"Pong Pong\" to Your Server",
-					features_title: "Features",
-					features_subtitle: "\"Pong Pong\" is your all-in-one Discord assistant",
-					feature_1_title: "Smart Translation",
-					feature_1_desc: "Use <code>/tr</code> command with auto-detection or specify language pairs for translation.",
-					feature_2_title: "Reaction Translation",
-					feature_2_desc: "React to any message with 🇹🇼 🇯🇵 🇺🇸 flag emojis, and the bot will translate it instantly.",
-					feature_3_title: "Currency Exchange",
-					feature_3_desc: "Use <code>/cc</code> to check exchange rates worldwide with built-in caching for speed.",
-					feature_4_title: "Stock & Crypto",
-					feature_4_desc: "Use <code>/stock</code> to check Taiwan/US stocks and cryptocurrency prices in real-time.",
-					feature_5_title: "Weather Forecast",
-					feature_5_desc: "Use <code>/weather</code> to check global weather with multi-language city name support.",
-					feature_6_title: "Travel Assistant",
-					feature_6_desc: "Use <code>/travel</code> for complete city info including weather, currency, and attractions.",
-					feature_7_title: "Flag Quiz",
-					feature_7_desc: "Use <code>/flagquiz</code> to start a multiplayer flag guessing game. Test your geography!",
-					feature_8_title: "Daily Words",
-					feature_8_desc: "Automated daily vocabulary push to a specified channel. Learn new languages effortlessly.",
-					feature_9_title: "Dice & Pick",
-					feature_9_desc: "Use <code>/roll</code> for dice and <code>/pick</code> to randomly choose from options. Fun interactions!",
-					features_footer_p: "More features are in development!",
-					features_footer_btn: "View All Commands",
-					how_to_title: "Commands",
-					how_to_subtitle: "All slash commands at a glance.",
-					cmd_cat_translate: "🌐 Translation",
-					cmd_tr_desc: "— Translate text with auto-detection or specified languages",
-					cmd_setlang_desc: "— Set your default translation language",
-					cmd_history_desc: "— View your translation history",
-					cmd_cat_currency: "💱 Currency",
-					cmd_cc_desc: "— Convert currencies, e.g. <code>/cc 100 USD TWD</code>",
-					cmd_cat_stock: "📈 Stocks",
-					cmd_stock_desc: "— Check Taiwan/US stock and crypto prices",
-					cmd_chart_desc: "— View stock or crypto charts",
-					cmd_cat_weather: "🌤️ Weather",
-					cmd_weather_desc: "— Check weather forecast for any city",
-					cmd_cat_travel: "✈️ Travel",
-					cmd_travel_desc: "— Get a complete travel info overview for a city",
-					cmd_cat_fun: "🎮 Fun",
-					cmd_flagquiz_desc: "— Start a flag guessing game",
-					cmd_quizrank_desc: "— View flag quiz leaderboard",
-					cmd_roll_desc: "— Roll dice",
-					cmd_pick_desc: "— Randomly pick from options",
-					cmd_cat_daily: "📅 Daily",
-					cmd_setdaily_desc: "— Set daily vocabulary push channel",
-					cmd_stopdaily_desc: "— Stop daily vocabulary push",
-					how_to_footer_p: "Want to give it a try?",
-					how_to_footer_btn: "Try It Now",
-					demo_title: "Interactive Demo",
-					demo_subtitle: "Try out Pong Pong's commands in this simulated Discord chat!",
-					demo_channel: "general",
-					demo_welcome: "👋 Welcome! Try typing a command, like <code>/tr hello</code> or <code>/weather Tokyo</code>",
-					demo_input_placeholder: "Type a command, e.g. /tr hello ...",
-					demo_send: "Send",
-					demo_hint: "💡 Try: <code>/tr hello</code>, <code>/cc 100 USD TWD</code>, <code>/stock TSLA</code>, <code>/weather Tokyo</code>, <code>/roll</code>",
-					changelog_title: "Changelog",
-					changelog_subtitle: "Pong Pong's journey of growth",
-					changelog_v2_title: "v2.0 — Major Upgrade",
-					changelog_v2_date: "2025-05-30",
-					changelog_v2_1: "Full migration to Slash Commands",
-					changelog_v2_2: "Added stock & crypto tracking (/stock, /chart)",
-					changelog_v2_3: "Added weather forecast (/weather)",
-					changelog_v2_4: "Added travel assistant (/travel)",
-					changelog_v2_5: "Added flag quiz game (/flagquiz)",
-					changelog_v2_6: "Added daily vocabulary push (/setdaily)",
-					changelog_v2_7: "Website dark mode and interactive demo",
-					changelog_v1_title: "v1.0 — Initial Release",
-					changelog_v1_date: "2025-01-01",
-					changelog_v1_1: "Basic translation (!tr command)",
-					changelog_v1_2: "Flag emoji reaction translation",
-					changelog_v1_3: "Currency conversion (!cc command)",
-					support_title: "Support & Feedback",
-					support_donate_title: "Support \"Pong Pong\"",
-					support_donate_desc: "\"Pong Pong\" is a 24/7 bot relying on cloud servers and paid APIs. If you find it helpful, please consider supporting its costs!",
-					support_donate_btn: "Buy Me a Coffee",
-					contact_discord_title: "Discord Support Server",
-					contact_email_title: "Email",
-					contact_form_title: "We Need Your Feedback",
-					support_feedback_discord: "Join our Discord Support Server",
-					form_zh: "繁體中文",
-					form_en: "English",
-					form_ja: "日本語",
-					footer_credit: "Developed by Hijiri | Pong Pong Bot v2.0"
-				},
-				ja: {
-					page_title: "ポンポン - Discord 多機能アシスタント",
-					nav_home: "ホーム",
-					nav_features: "主な機能",
-					nav_how_to: "コマンド一覧",
-					nav_demo: "体験する",
-					nav_changelog: "更新履歴",
-					nav_support: "サポート",
-					dark_mode_label: "ダークモード",
-					status_online: "🟢 オンライン",
-					header_title: "ポンポン",
-					header_tagline: "言葉の壁を越え、Discordの万能アシスタント！",
-					header_button: "「ポンポン」をサーバーに招待",
-					features_title: "主な機能",
-					features_subtitle: "「ポンポン」はあなたの万能Discordアシスタント",
-					feature_1_title: "スマート翻訳",
-					feature_1_desc: "<code>/tr</code> コマンドで自動言語検出、または言語ペア指定で翻訳します。",
-					feature_2_title: "リアクション翻訳",
-					feature_2_desc: "メッセージに 🇹🇼 🇯🇵 🇺🇸 などの国旗でリアクションすると、すぐに翻訳します。",
-					feature_3_title: "リアルタイム為替",
-					feature_3_desc: "<code>/cc</code> コマンドで世界中の為替レートを照会。キャッシュで高速化。",
-					feature_4_title: "株式＆仮想通貨",
-					feature_4_desc: "<code>/stock</code> で台湾・米国株式と仮想通貨のリアルタイム価格を照会。",
-					feature_5_title: "天気予報",
-					feature_5_desc: "<code>/weather</code> で世界の天気を照会。多言語の都市名検索対応。",
-					feature_6_title: "旅行アシスタント",
-					feature_6_desc: "<code>/travel</code> で天気・為替・観光地など都市の総合旅行情報を取得。",
-					feature_7_title: "国旗クイズ",
-					feature_7_desc: "<code>/flagquiz</code> でマルチプレイヤー国旗当てゲームを開始。地理力を試そう！",
-					feature_8_title: "毎日の単語",
-					feature_8_desc: "指定チャンネルに毎日自動で外国語の単語を配信。楽しく新言語を学習。",
-					feature_9_title: "サイコロ＆ランダム選択",
-					feature_9_desc: "<code>/roll</code> でサイコロ、<code>/pick</code> で選択肢からランダムに選択。楽しいインタラクション！",
-					features_footer_p: "さらに多くの機能を開発中！",
-					features_footer_btn: "全コマンドを見る",
-					how_to_title: "コマンド一覧",
-					how_to_subtitle: "すべてのスラッシュコマンドを一覧で。",
-					cmd_cat_translate: "🌐 翻訳",
-					cmd_tr_desc: "— テキスト翻訳、自動検出または言語指定",
-					cmd_setlang_desc: "— 個人のデフォルト翻訳言語を設定",
-					cmd_history_desc: "— 翻訳履歴を表示",
-					cmd_cat_currency: "💱 為替",
-					cmd_cc_desc: "— 為替レート変換、例：<code>/cc 100 USD TWD</code>",
-					cmd_cat_stock: "📈 株式",
-					cmd_stock_desc: "— 台湾・米国株式、仮想通貨価格を照会",
-					cmd_chart_desc: "— 株式・仮想通貨チャートを表示",
-					cmd_cat_weather: "🌤️ 天気",
-					cmd_weather_desc: "— 都市の天気予報を照会",
-					cmd_cat_travel: "✈️ 旅行",
-					cmd_travel_desc: "— 都市の旅行情報総覧を取得",
-					cmd_cat_fun: "🎮 お楽しみ",
-					cmd_flagquiz_desc: "— 国旗当てゲームを開始",
-					cmd_quizrank_desc: "— 国旗クイズランキングを表示",
-					cmd_roll_desc: "— サイコロを振る",
-					cmd_pick_desc: "— 選択肢からランダムに選ぶ",
-					cmd_cat_daily: "📅 毎日",
-					cmd_setdaily_desc: "— 毎日の単語配信チャンネルを設定",
-					cmd_stopdaily_desc: "— 毎日の単語配信を停止",
-					how_to_footer_p: "試してみたいですか？",
-					how_to_footer_btn: "体験する",
-					demo_title: "インタラクティブ体験",
-					demo_subtitle: "下のDiscordチャットシミュレーターでポンポンのコマンドを試そう！",
-					demo_channel: "一般チャット",
-					demo_welcome: "👋 ようこそ！コマンドを入力してみてください。例：<code>/tr hello</code> や <code>/weather Tokyo</code>",
-					demo_input_placeholder: "コマンドを入力、例：/tr hello ...",
-					demo_send: "送信",
-					demo_hint: "💡 試してみよう：<code>/tr hello</code>、<code>/cc 100 USD TWD</code>、<code>/stock TSLA</code>、<code>/weather Tokyo</code>、<code>/roll</code>",
-					changelog_title: "更新履歴",
-					changelog_subtitle: "ポンポンの成長の軌跡",
-					changelog_v2_title: "v2.0 — メジャーアップグレード",
-					changelog_v2_date: "2025-05-30",
-					changelog_v2_1: "スラッシュコマンドに全面移行",
-					changelog_v2_2: "株式＆仮想通貨追跡を追加 (/stock, /chart)",
-					changelog_v2_3: "天気予報機能を追加 (/weather)",
-					changelog_v2_4: "旅行アシスタントを追加 (/travel)",
-					changelog_v2_5: "国旗クイズゲームを追加 (/flagquiz)",
-					changelog_v2_6: "毎日の単語配信を追加 (/setdaily)",
-					changelog_v2_7: "ウェブサイトにダークモードとインタラクティブデモを追加",
-					changelog_v1_title: "v1.0 — 初回リリース",
-					changelog_v1_date: "2025-01-01",
-					changelog_v1_1: "基本翻訳機能 (!tr コマンド)",
-					changelog_v1_2: "国旗絵文字リアクション翻訳",
-					changelog_v1_3: "為替変換機能 (!cc コマンド)",
-					support_title: "サポート＆フィードバック",
-					support_donate_title: "「ポンポン」をサポート",
-					support_donate_desc: "「ポンポン」はクラウドサーバーと有料APIで24時間稼動しています。もしこのボットが役に立つと感じたら、運営コストのサポートをご検討ください！",
-					support_donate_btn: "コーヒーをご馳走する (Buy Me a Coffee)",
-					contact_discord_title: "Discordサポートサーバー",
-					contact_email_title: "Email",
-					contact_form_title: "フィードバックのお願い",
-					support_feedback_discord: "Discordサポートサーバーに参加",
-					form_zh: "繁體中文",
-					form_en: "English",
-					form_ja: "日本語",
-					footer_credit: "開発者: Hijiri | ポンポン Bot v2.0"
-				}
-			};
+.feature-icon {
+  font-size: 2.4rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.feature-card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
 
-			// ===== CHANGELOG DATA =====
-			const changelogData = [
-				{
-					versionKey: 'changelog_v2_title',
-					dateKey: 'changelog_v2_date',
-					changesKeys: ['changelog_v2_1','changelog_v2_2','changelog_v2_3','changelog_v2_4','changelog_v2_5','changelog_v2_6','changelog_v2_7']
-				},
-				{
-					versionKey: 'changelog_v1_title',
-					dateKey: 'changelog_v1_date',
-					changesKeys: ['changelog_v1_1','changelog_v1_2','changelog_v1_3']
-				}
-			];
+/* ============================================
+   COMMANDS
+   ============================================ */
+.commands-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) { .commands-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .commands-grid { grid-template-columns: 1fr; } }
 
-			// ===== RENDER CHANGELOG =====
-			function renderChangelog(lang) {
-				const container = document.getElementById('changelogTimeline');
-				const t = translations[lang] || translations.en;
-				let html = '';
-				changelogData.forEach(entry => {
-					html += `<div class="changelog-entry">
-						<div class="changelog-version">${t[entry.versionKey] || entry.versionKey}</div>
-						<div class="changelog-date">${t[entry.dateKey] || entry.dateKey}</div>
-						<ul class="changelog-changes">`;
-					entry.changesKeys.forEach(ck => {
-						html += `<li>${t[ck] || ck}</li>`;
-					});
-					html += `</ul></div>`;
-				});
-				container.innerHTML = html;
-			}
+.cmd-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition);
+}
+.cmd-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10,189,227,0.3);
+  box-shadow: 0 0 30px rgba(10,189,227,0.1);
+}
+.cmd-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+.cmd-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cmd-list li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1.5;
+}
+.cmd-list code {
+  flex-shrink: 0;
+}
 
-			// ===== LANGUAGE SWITCHER =====
-			let currentLang = 'zh';
-			function switchLang(lang) {
-				currentLang = lang;
-				document.querySelectorAll('[data-key]').forEach(el => {
-					const key = el.getAttribute('data-key');
-					if (translations[lang] && translations[lang][key]) {
-						el.innerHTML = translations[lang][key];
-					}
-				});
-				// Handle placeholder attributes
-				document.querySelectorAll('[data-key-placeholder]').forEach(el => {
-					const key = el.getAttribute('data-key-placeholder');
-					if (translations[lang] && translations[lang][key]) {
-						el.placeholder = translations[lang][key];
-					}
-				});
-				document.documentElement.lang = lang;
-				document.getElementById('lang-btn-zh').classList.toggle('active', lang === 'zh');
-				document.getElementById('lang-btn-en').classList.toggle('active', lang === 'en');
-				document.getElementById('lang-btn-ja').classList.toggle('active', lang === 'ja');
-				document.title = translations[lang].page_title || "蓬蓬 Bot";
-				renderChangelog(lang);
-			}
+/* ============================================
+   INTERACTIVE DEMO
+   ============================================ */
+#demo { background: var(--bg-secondary); transition: background var(--transition); }
 
-			// ===== DARK MODE TOGGLE =====
-			function toggleTheme() {
-				const html = document.documentElement;
-				const isDark = html.getAttribute('data-theme') === 'dark';
-				if (isDark) {
-					html.removeAttribute('data-theme');
-					document.getElementById('themeIcon').textContent = '🌙';
-					localStorage.setItem('pongpong-theme', 'light');
-				} else {
-					html.setAttribute('data-theme', 'dark');
-					document.getElementById('themeIcon').textContent = '☀️';
-					localStorage.setItem('pongpong-theme', 'dark');
-				}
-			}
+.demo-container {
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--bg-glass-border);
+}
+.demo-header {
+  background: var(--discord-darker);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--discord-muted);
+  font-size: 0.95rem;
+}
+.demo-header .hash { color: var(--discord-muted); font-size: 1.2rem; }
+.demo-messages {
+  background: var(--discord-bg);
+  min-height: 350px;
+  max-height: 450px;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+.demo-messages::-webkit-scrollbar { width: 6px; }
+.demo-messages::-webkit-scrollbar-track { background: transparent; }
+.demo-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
 
-			// Initialize theme from localStorage
-			(function initTheme() {
-				const saved = localStorage.getItem('pongpong-theme');
-				if (saved === 'dark') {
-					document.documentElement.setAttribute('data-theme', 'dark');
-					const icon = document.getElementById('themeIcon');
-					if (icon) icon.textContent = '☀️';
-				}
-			})();
+.demo-msg {
+  display: flex;
+  gap: 12px;
+  animation: msgSlideIn 0.3s ease;
+}
+@keyframes msgSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.demo-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  background: var(--discord-sidebar);
+}
+.demo-msg-content { flex: 1; min-width: 0; }
+.demo-msg-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.demo-msg-author.user-color { color: #f1c40f; }
+.demo-msg-author.bot-color { color: var(--discord-accent); }
+.demo-msg-author .bot-tag {
+  font-size: 0.65rem;
+  background: var(--discord-accent);
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-weight: 500;
+}
+.demo-msg-text {
+  color: var(--discord-text);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
 
-			// ===== INTERACTIVE DEMO =====
-			const demoResponses = {
-				'/tr': function(args) {
-					const text = args.join(' ') || 'Hello World';
-					return {
-						embed: true,
-						color: '#5865F2',
-						title: '🌐 Translation',
-						fields: [
-							{ name: 'Original', value: text },
-							{ name: 'Translated (zh-TW)', value: text === 'Hello World' || text.toLowerCase() === 'hello' ? '你好世界' : '（翻譯結果）' },
-							{ name: 'Detected Language', value: 'English → Traditional Chinese' }
-						],
-						footer: 'PongPong Translation • Powered by Google Translate'
-					};
-				},
-				'/cc': function(args) {
-					const amount = args[0] || '1';
-					const from = (args[1] || 'USD').toUpperCase();
-					const to = (args[2] || 'TWD').toUpperCase();
-					const rate = from === 'USD' && to === 'TWD' ? 32.15 : from === 'JPY' && to === 'TWD' ? 0.213 : 1.00;
-					const result = (parseFloat(amount) * rate).toFixed(2);
-					return {
-						embed: true,
-						color: '#57F287',
-						title: '💱 Currency Exchange',
-						fields: [
-							{ name: 'Amount', value: `${amount} ${from}` },
-							{ name: 'Result', value: `${result} ${to}` },
-							{ name: 'Rate', value: `1 ${from} = ${rate} ${to}` }
-						],
-						footer: 'PongPong Currency • Rates may vary'
-					};
-				},
-				'/stock': function(args) {
-					const symbol = (args[0] || 'TSLA').toUpperCase();
-					const prices = { 'TSLA': { p: '248.50', c: '+3.2%' }, 'AAPL': { p: '195.20', c: '+0.8%' }, 'BTC': { p: '67,450', c: '+1.5%' } };
-					const data = prices[symbol] || { p: '150.00', c: '+0.5%' };
-					return {
-						embed: true,
-						color: '#FAA61A',
-						title: `📈 ${symbol}`,
-						fields: [
-							{ name: 'Price', value: `$${data.p}` },
-							{ name: 'Change', value: data.c },
-							{ name: 'Market', value: symbol === 'BTC' ? 'Crypto' : 'NASDAQ' }
-						],
-						footer: 'PongPong Stocks • Data for demo purposes'
-					};
-				},
-				'/weather': function(args) {
-					const city = args.join(' ') || 'Tokyo';
-					return {
-						embed: true,
-						color: '#3498DB',
-						title: `🌤️ Weather — ${city}`,
-						fields: [
-							{ name: 'Temperature', value: '26°C / 79°F' },
-							{ name: 'Condition', value: '☀️ Clear Sky' },
-							{ name: 'Humidity', value: '55%' },
-							{ name: 'Wind', value: '12 km/h NE' }
-						],
-						footer: 'PongPong Weather • Data for demo purposes'
-					};
-				},
-				'/roll': function(args) {
-					const max = parseInt(args[0]) || 6;
-					const result = Math.floor(Math.random() * max) + 1;
-					return {
-						text: `🎲 You rolled a **${result}** (1-${max})`
-					};
-				}
-			};
+.demo-embed {
+  margin-top: 8px;
+  border-left: 4px solid var(--discord-accent);
+  background: rgba(0,0,0,0.2);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  padding: 12px 16px;
+  max-width: 420px;
+}
+.demo-embed-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.demo-embed-field {
+  font-size: 0.85rem;
+  color: var(--discord-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.demo-embed-field strong { color: var(--discord-text); }
 
-			function sendDemoCommand() {
-				const input = document.getElementById('demoChatInput');
-				const rawValue = input.value.trim();
-				if (!rawValue) return;
-				input.value = '';
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+  color: var(--discord-muted);
+  font-size: 0.85rem;
+}
+.typing-dots {
+  display: flex;
+  gap: 3px;
+}
+.typing-dots span {
+  width: 6px; height: 6px;
+  background: var(--discord-muted);
+  border-radius: 50%;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
 
-				const messagesEl = document.getElementById('demoChatMessages');
+.demo-input-area {
+  background: var(--discord-darker);
+  padding: 14px 20px;
+  display: flex;
+  gap: 10px;
+}
+.demo-input {
+  flex: 1;
+  background: var(--discord-bg);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: var(--discord-text);
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+}
+.demo-input::placeholder { color: var(--discord-muted); }
+.demo-send-btn {
+  background: var(--discord-accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+.demo-send-btn:hover { background: #4752c4; }
+.demo-hint {
+  text-align: center;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
 
-				// Add user message
-				const userMsg = document.createElement('div');
-				userMsg.className = 'demo-message';
-				userMsg.innerHTML = `
-					<div class="demo-avatar user-avatar">👤</div>
-					<div class="demo-msg-content">
-						<div class="demo-msg-author user-name">User</div>
-						<div class="demo-msg-text">${escapeHtml(rawValue)}</div>
-					</div>`;
-				messagesEl.appendChild(userMsg);
+/* ============================================
+   CHANGELOG / TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--gradient-main);
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 50px;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-dot {
+  position: absolute;
+  left: -33px; top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gradient-main);
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 10px rgba(108,92,231,0.5);
+  z-index: 1;
+  transition: border-color var(--transition);
+}
+[data-theme="light"] .timeline-dot { border-color: var(--bg-primary); }
 
-				// Parse command
-				const parts = rawValue.split(/\s+/);
-				const cmd = parts[0].toLowerCase();
-				const args = parts.slice(1);
+.timeline-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius);
+  padding: 28px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.timeline-version {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.timeline-date {
+  color: var(--accent-2);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+.timeline-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.timeline-list li {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  padding-left: 20px;
+  position: relative;
+}
+.timeline-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--accent-3);
+  font-size: 0.7rem;
+}
 
-				// Generate bot response
-				setTimeout(() => {
-					const botMsg = document.createElement('div');
-					botMsg.className = 'demo-message';
+/* ============================================
+   SUPPORT
+   ============================================ */
+#support { background: var(--bg-secondary); transition: background var(--transition); }
 
-					const handler = demoResponses[cmd];
-					if (handler) {
-						const resp = handler(args);
-						let contentHtml = '';
-						if (resp.embed) {
-							let fieldsHtml = '';
-							resp.fields.forEach(f => {
-								fieldsHtml += `<div class="demo-embed-field">
-									<div class="demo-embed-field-name">${f.name}</div>
-									<div class="demo-embed-field-value">${f.value}</div>
-								</div>`;
-							});
-							contentHtml = `<div class="demo-embed" style="border-left-color:${resp.color}">
-								<div class="demo-embed-title">${resp.title}</div>
-								${fieldsHtml}
-								<div class="demo-embed-footer">${resp.footer}</div>
-							</div>`;
-						} else {
-							contentHtml = `<div class="demo-msg-text">${resp.text}</div>`;
-						}
-						botMsg.innerHTML = `
-							<div class="demo-avatar bot-avatar">🏓</div>
-							<div class="demo-msg-content">
-								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
-								${contentHtml}
-							</div>`;
-					} else {
-						botMsg.innerHTML = `
-							<div class="demo-avatar bot-avatar">🏓</div>
-							<div class="demo-msg-content">
-								<div class="demo-msg-author bot-name">PongPong <span class="bot-tag">BOT</span></div>
-								<div class="demo-msg-text">❓ Unknown command. Try <code>/tr</code>, <code>/cc</code>, <code>/stock</code>, <code>/weather</code>, or <code>/roll</code></div>
-							</div>`;
-					}
-					messagesEl.appendChild(botMsg);
-					messagesEl.scrollTop = messagesEl.scrollHeight;
-				}, 600);
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+@media (max-width: 768px) { .support-grid { grid-template-columns: 1fr; } }
 
-				messagesEl.scrollTop = messagesEl.scrollHeight;
-			}
+.support-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition);
+}
+.support-card:hover {
+  border-color: rgba(108,92,231,0.3);
+  box-shadow: var(--shadow-glow);
+}
+.support-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+.support-card p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
 
-			function escapeHtml(text) {
-				const div = document.createElement('div');
-				div.textContent = text;
-				return div.innerHTML;
-			}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--gradient-main);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(108,92,231,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(108,92,231,0.4); color: #fff; }
+.btn-outline {
+  border: 1px solid var(--bg-glass-border);
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+.btn-outline:hover { border-color: var(--accent-1); color: var(--accent-3); }
+.btn-coffee {
+  background: #FFDD00;
+  color: #000;
+  font-weight: 700;
+}
+.btn-coffee:hover { background: #f5d400; transform: translateY(-2px); color: #000; }
 
-			// ===== INIT ON DOM READY =====
-			document.addEventListener('DOMContentLoaded', () => {
-				switchLang('zh');
-			});
-		</script>
-	</body>
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.15);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.contact-link:hover {
+  background: rgba(108,92,231,0.1);
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+.contact-link .link-icon { font-size: 1.3rem; }
+
+.feedback-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  padding: 32px 0;
+  text-align: center;
+  border-top: 1px solid var(--bg-glass-border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.footer a {
+  color: var(--text-secondary);
+  margin: 0 8px;
+}
+.footer a:hover { color: var(--accent-2); }
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ============================================
+   MISC ANIMATIONS
+   ============================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Skip to content for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-1);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 0 0 8px 8px;
+  z-index: 10000;
+  transition: top 0.3s;
+}
+.skip-link:focus { top: 0; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: rgba(108,92,231,0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(108,92,231,0.5); }
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+@media (max-width: 600px) {
+  section { padding: 70px 0; }
+  .hero-stats { gap: 16px; }
+  .stat-divider { display: none; }
+  .stat-item { flex: 0 0 40%; }
+  .hero-cta { padding: 14px 28px; font-size: 1rem; }
+  .section-subtitle { font-size: 0.95rem; margin-bottom: 40px; }
+  .demo-container { border-radius: var(--radius-sm); }
+  .timeline { padding-left: 30px; }
+  .timeline::before { left: 10px; }
+  .timeline-dot { left: -26px; width: 12px; height: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Skip to content -->
+<a href="#hero" class="skip-link">Skip to content</a>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#hero" class="nav-logo"><span>🏓</span> <span data-i18n="header_title">蓬蓬</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" data-i18n="nav_home">首頁</a></li>
+      <li><a href="#features" data-i18n="nav_features">主要功能</a></li>
+      <li><a href="#commands" data-i18n="nav_how_to">指令一覽</a></li>
+      <li><a href="#demo" data-i18n="nav_demo">互動體驗</a></li>
+      <li><a href="#changelog" data-i18n="nav_changelog">更新日誌</a></li>
+      <li><a href="#support" data-i18n="nav_support">支持與回饋</a></li>
+    </ul>
+    <div class="nav-controls" id="navControls">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="zh">繁中</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ja">日本語</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" data-i18n="nav_home">首頁</a>
+  <a href="#features" data-i18n="nav_features">主要功能</a>
+  <a href="#commands" data-i18n="nav_how_to">指令一覽</a>
+  <a href="#demo" data-i18n="nav_demo">互動體驗</a>
+  <a href="#changelog" data-i18n="nav_changelog">更新日誌</a>
+  <a href="#support" data-i18n="nav_support">支持與回饋</a>
+  <div class="nav-controls">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="zh">繁中</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ja">日本語</button>
+    </div>
+    <button class="theme-toggle theme-toggle-mobile" aria-label="Toggle theme">🌙</button>
+  </div>
+</div>
+
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-gradient-overlay"></div>
+  <div class="floating-flags" id="floatingFlags"></div>
+  <div class="hero-content">
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      <span data-i18n="status_online">🟢 線上運行中</span>
+    </div>
+    <h1 class="hero-title" data-i18n="header_title">蓬蓬</h1>
+    <p class="hero-tagline" data-i18n="header_tagline">跨越語言隔閡，您的 Discord 全能助理！</p>
+    <a href="https://discord.com/oauth2/authorize?client_id=1433681262584926228&permissions=8&integration_type=0&scope=bot" class="hero-cta" target="_blank" rel="noopener">
+      <span data-i18n="header_button">邀請「蓬蓬」到您的伺服器</span>
+    </a>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-value" data-count="15">0</div>
+        <div class="stat-label" data-i18n="stat_commands">指令</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value" data-count="8">0</div>
+        <div class="stat-label" data-i18n="stat_modules">模組</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value" data-count="20">0</div>
+        <div class="stat-label" data-i18n="stat_languages">語言</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value">24/7</div>
+        <div class="stat-label" data-i18n="stat_uptime">運行</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FEATURES SECTION
+     ============================================ -->
+<section id="features">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="features_title">主要功能</h2>
+    <p class="section-subtitle reveal" data-i18n="features_subtitle">「蓬蓬」是您的全方位 Discord 助理</p>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">🌐</span>
+        <h3 data-i18n="feature_1_title">智能翻譯</h3>
+        <p data-i18n="feature_1_desc">使用 /tr 指令，自動偵測語言並翻譯，支援指定語言對。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-icon">🏁</span>
+        <h3 data-i18n="feature_2_title">國旗表情翻譯</h3>
+        <p data-i18n="feature_2_desc">對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feature-icon">💱</span>
+        <h3 data-i18n="feature_3_title">即時匯率轉換</h3>
+        <p data-i18n="feature_3_desc">使用 /cc 指令查詢匯率，支援全球貨幣，內建快取加速。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-4">
+        <span class="feature-icon">📈</span>
+        <h3 data-i18n="feature_4_title">股票與加密貨幣</h3>
+        <p data-i18n="feature_4_desc">使用 /stock 查詢台股、美股和加密貨幣的即時價格與走勢。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-5">
+        <span class="feature-icon">🌤️</span>
+        <h3 data-i18n="feature_5_title">天氣預報</h3>
+        <p data-i18n="feature_5_desc">使用 /weather 查詢全球天氣，支援多語言城市名稱搜尋。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-6">
+        <span class="feature-icon">✈️</span>
+        <h3 data-i18n="feature_6_title">旅遊助手</h3>
+        <p data-i18n="feature_6_desc">使用 /travel 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-7">
+        <span class="feature-icon">🏁</span>
+        <h3 data-i18n="feature_7_title">國旗問答</h3>
+        <p data-i18n="feature_7_desc">使用 /flagquiz 開始多人國旗猜謎遊戲，測試您的地理知識！</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-8">
+        <span class="feature-icon">📅</span>
+        <h3 data-i18n="feature_8_title">每日單字</h3>
+        <p data-i18n="feature_8_desc">自動每日推送外語單字到指定頻道，輕鬆學習新語言。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">🎲</span>
+        <h3 data-i18n="feature_9_title">骰子與隨機選擇</h3>
+        <p data-i18n="feature_9_desc">使用 /roll 擲骰子、/pick 從選項中隨機選擇，趣味互動！</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     COMMANDS SECTION
+     ============================================ -->
+<section id="commands">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="how_to_title">指令一覽</h2>
+    <p class="section-subtitle reveal" data-i18n="how_to_subtitle">所有斜線指令，一目了然。</p>
+    <div class="commands-grid">
+      <div class="cmd-card reveal reveal-delay-1">
+        <h3 data-i18n="cmd_cat_translate">🌐 翻譯</h3>
+        <ul class="cmd-list">
+          <li><code>/tr</code> <span data-i18n="cmd_tr_desc">— 翻譯文字，自動偵測或指定語言</span></li>
+          <li><code>/setlang</code> <span data-i18n="cmd_setlang_desc">— 設定個人預設翻譯語言</span></li>
+          <li><code>/history</code> <span data-i18n="cmd_history_desc">— 查看翻譯歷史紀錄</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-2">
+        <h3 data-i18n="cmd_cat_currency">💱 匯率</h3>
+        <ul class="cmd-list">
+          <li><code>/cc</code> <span data-i18n="cmd_cc_desc">— 查詢匯率轉換，如 /cc 100 USD TWD</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-3">
+        <h3 data-i18n="cmd_cat_stock">📈 股票</h3>
+        <ul class="cmd-list">
+          <li><code>/stock</code> <span data-i18n="cmd_stock_desc">— 查詢台股、美股、加密貨幣價格</span></li>
+          <li><code>/chart</code> <span data-i18n="cmd_chart_desc">— 查看股票或加密貨幣走勢圖</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-4">
+        <h3 data-i18n="cmd_cat_weather">🌤️ 天氣</h3>
+        <ul class="cmd-list">
+          <li><code>/weather</code> <span data-i18n="cmd_weather_desc">— 查詢城市天氣預報</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-5">
+        <h3 data-i18n="cmd_cat_travel">✈️ 旅遊</h3>
+        <ul class="cmd-list">
+          <li><code>/travel</code> <span data-i18n="cmd_travel_desc">— 查詢城市旅遊資訊總覽</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-6">
+        <h3 data-i18n="cmd_cat_fun">🎮 趣味</h3>
+        <ul class="cmd-list">
+          <li><code>/flagquiz</code> <span data-i18n="cmd_flagquiz_desc">— 開始國旗猜謎遊戲</span></li>
+          <li><code>/quizrank</code> <span data-i18n="cmd_quizrank_desc">— 查看國旗問答排行榜</span></li>
+          <li><code>/roll</code> <span data-i18n="cmd_roll_desc">— 擲骰子</span></li>
+          <li><code>/pick</code> <span data-i18n="cmd_pick_desc">— 從選項中隨機選擇</span></li>
+        </ul>
+      </div>
+      <div class="cmd-card reveal reveal-delay-7">
+        <h3 data-i18n="cmd_cat_daily">📅 每日</h3>
+        <ul class="cmd-list">
+          <li><code>/setdaily</code> <span data-i18n="cmd_setdaily_desc">— 設定每日單字推送頻道</span></li>
+          <li><code>/stopdaily</code> <span data-i18n="cmd_stopdaily_desc">— 停止每日單字推送</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     INTERACTIVE DEMO
+     ============================================ -->
+<section id="demo">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="demo_title">互動體驗</h2>
+    <p class="section-subtitle reveal" data-i18n="demo_subtitle">在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！</p>
+    <div class="demo-container reveal">
+      <div class="demo-header">
+        <span class="hash">#</span>
+        <span data-i18n="demo_channel">一般聊天</span>
+      </div>
+      <div class="demo-messages" id="demoMessages">
+        <div class="demo-msg">
+          <div class="demo-avatar">🏓</div>
+          <div class="demo-msg-content">
+            <div class="demo-msg-author bot-color">蓬蓬 <span class="bot-tag">BOT</span></div>
+            <div class="demo-msg-text" data-i18n="demo_welcome">👋 歡迎！試試輸入指令，例如 /tr hello 或 /weather Tokyo</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-input-area">
+        <input type="text" class="demo-input" id="demoInput" data-i18n-placeholder="demo_input_placeholder" placeholder="輸入指令，例如 /tr hello ...">
+        <button class="demo-send-btn" id="demoSend" data-i18n="demo_send">送出</button>
+      </div>
+    </div>
+    <p class="demo-hint reveal" data-i18n="demo_hint">💡 試試：/tr hello、/cc 100 USD TWD、/stock TSLA、/weather Tokyo、/roll</p>
+  </div>
+</section>
+
+<!-- ============================================
+     CHANGELOG
+     ============================================ -->
+<section id="changelog">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="changelog_title">更新日誌</h2>
+    <p class="section-subtitle reveal" data-i18n="changelog_subtitle">蓬蓬的成長歷程</p>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-version" data-i18n="changelog_v2_title">v2.0 — 全面升級</div>
+          <div class="timeline-date" data-i18n="changelog_v2_date">2025-05-30</div>
+          <ul class="timeline-list">
+            <li data-i18n="changelog_v2_1">全面升級為斜線指令 (Slash Commands)</li>
+            <li data-i18n="changelog_v2_2">新增股票與加密貨幣查詢 (/stock, /chart)</li>
+            <li data-i18n="changelog_v2_3">新增天氣預報功能 (/weather)</li>
+            <li data-i18n="changelog_v2_4">新增旅遊助手 (/travel)</li>
+            <li data-i18n="changelog_v2_5">新增國旗問答遊戲 (/flagquiz)</li>
+            <li data-i18n="changelog_v2_6">新增每日單字推送 (/setdaily)</li>
+            <li data-i18n="changelog_v2_7">網站新增深色模式與互動體驗</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-version" data-i18n="changelog_v1_title">v1.0 — 初始發佈</div>
+          <div class="timeline-date" data-i18n="changelog_v1_date">2025-01-01</div>
+          <ul class="timeline-list">
+            <li data-i18n="changelog_v1_1">基礎翻譯功能 (!tr 指令)</li>
+            <li data-i18n="changelog_v1_2">國旗表情符號翻譯</li>
+            <li data-i18n="changelog_v1_3">匯率查詢功能 (!cc 指令)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SUPPORT & CONTACT
+     ============================================ -->
+<section id="support">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="support_title">支持與回饋</h2>
+    <p class="section-subtitle reveal">&nbsp;</p>
+    <div class="support-grid">
+      <div class="support-card reveal">
+        <h3 data-i18n="support_donate_title">支持「蓬蓬」</h3>
+        <p data-i18n="support_donate_desc">「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！</p>
+        <a href="https://buymeacoffee.com/hijiri4005" target="_blank" rel="noopener" class="btn btn-coffee">
+          ☕ <span data-i18n="support_donate_btn">請我喝杯咖啡 (Buy Me a Coffee)</span>
+        </a>
+      </div>
+      <div class="support-card reveal reveal-delay-1">
+        <h3 data-i18n="contact_form_title">需要您的回饋</h3>
+        <div class="contact-links">
+          <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener" class="contact-link">
+            <span class="link-icon">💬</span>
+            <span data-i18n="support_feedback_discord">加入我們的 Discord 支援伺服器</span>
+          </a>
+          <a href="mailto:a34159@gmail.com" class="contact-link">
+            <span class="link-icon">📧</span>
+            <span>a34159@gmail.com</span>
+          </a>
+        </div>
+        <div class="feedback-btns">
+          <a href="https://forms.gle/xawXwNruVatAVDJN8" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="form_zh">繁體中文</a>
+          <a href="https://forms.gle/w1GCr1TSt5FHokhm6" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="form_en">English</a>
+          <a href="https://forms.gle/8Jk1U6rJWoChnAmf7" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="form_ja">日本語</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div class="container">
+    <p data-i18n="footer_credit">由 Hijiri 開發 | 蓬蓬 Bot v2.0</p>
+    <div class="footer-links">
+      <a href="https://github.com/james8976" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================
+     JAVASCRIPT — ALL SELF-CONTAINED
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================
+     TRANSLATIONS DATA
+     ============================================ */
+  const i18n = {
+    zh: {
+      page_title: '蓬蓬 - 您的 Discord 多功能助理',
+      nav_home: '首頁',
+      nav_features: '主要功能',
+      nav_how_to: '指令一覽',
+      nav_demo: '互動體驗',
+      nav_changelog: '更新日誌',
+      nav_support: '支持與回饋',
+      status_online: '🟢 線上運行中',
+      header_title: '蓬蓬',
+      header_tagline: '跨越語言隔閡，您的 Discord 全能助理！',
+      header_button: '邀請「蓬蓬」到您的伺服器',
+      stat_commands: '指令',
+      stat_modules: '模組',
+      stat_languages: '語言',
+      stat_uptime: '運行',
+      features_title: '主要功能',
+      features_subtitle: '「蓬蓬」是您的全方位 Discord 助理',
+      feature_1_title: '智能翻譯',
+      feature_1_desc: '使用 /tr 指令，自動偵測語言並翻譯，支援指定語言對。',
+      feature_2_title: '國旗表情翻譯',
+      feature_2_desc: '對訊息按下 🇹🇼 🇯🇵 🇺🇸 等國旗表情，蓬蓬就會立刻為您翻譯。',
+      feature_3_title: '即時匯率轉換',
+      feature_3_desc: '使用 /cc 指令查詢匯率，支援全球貨幣，內建快取加速。',
+      feature_4_title: '股票與加密貨幣',
+      feature_4_desc: '使用 /stock 查詢台股、美股和加密貨幣的即時價格與走勢。',
+      feature_5_title: '天氣預報',
+      feature_5_desc: '使用 /weather 查詢全球天氣，支援多語言城市名稱搜尋。',
+      feature_6_title: '旅遊助手',
+      feature_6_desc: '使用 /travel 獲取城市的完整旅遊資訊，包含天氣、匯率與景點。',
+      feature_7_title: '國旗問答',
+      feature_7_desc: '使用 /flagquiz 開始多人國旗猜謎遊戲，測試您的地理知識！',
+      feature_8_title: '每日單字',
+      feature_8_desc: '自動每日推送外語單字到指定頻道，輕鬆學習新語言。',
+      feature_9_title: '骰子與隨機選擇',
+      feature_9_desc: '使用 /roll 擲骰子、/pick 從選項中隨機選擇，趣味互動！',
+      how_to_title: '指令一覽',
+      how_to_subtitle: '所有斜線指令，一目了然。',
+      cmd_cat_translate: '🌐 翻譯',
+      cmd_tr_desc: '— 翻譯文字，自動偵測或指定語言',
+      cmd_setlang_desc: '— 設定個人預設翻譯語言',
+      cmd_history_desc: '— 查看翻譯歷史紀錄',
+      cmd_cat_currency: '💱 匯率',
+      cmd_cc_desc: '— 查詢匯率轉換，如 /cc 100 USD TWD',
+      cmd_cat_stock: '📈 股票',
+      cmd_stock_desc: '— 查詢台股、美股、加密貨幣價格',
+      cmd_chart_desc: '— 查看股票或加密貨幣走勢圖',
+      cmd_cat_weather: '🌤️ 天氣',
+      cmd_weather_desc: '— 查詢城市天氣預報',
+      cmd_cat_travel: '✈️ 旅遊',
+      cmd_travel_desc: '— 查詢城市旅遊資訊總覽',
+      cmd_cat_fun: '🎮 趣味',
+      cmd_flagquiz_desc: '— 開始國旗猜謎遊戲',
+      cmd_quizrank_desc: '— 查看國旗問答排行榜',
+      cmd_roll_desc: '— 擲骰子',
+      cmd_pick_desc: '— 從選項中隨機選擇',
+      cmd_cat_daily: '📅 每日',
+      cmd_setdaily_desc: '— 設定每日單字推送頻道',
+      cmd_stopdaily_desc: '— 停止每日單字推送',
+      demo_title: '互動體驗',
+      demo_subtitle: '在下方模擬 Discord 聊天視窗中試用蓬蓬的指令！',
+      demo_channel: '一般聊天',
+      demo_welcome: '👋 歡迎！試試輸入指令，例如 /tr hello 或 /weather Tokyo',
+      demo_input_placeholder: '輸入指令，例如 /tr hello ...',
+      demo_send: '送出',
+      demo_hint: '💡 試試：/tr hello、/cc 100 USD TWD、/stock TSLA、/weather Tokyo、/roll',
+      changelog_title: '更新日誌',
+      changelog_subtitle: '蓬蓬的成長歷程',
+      changelog_v2_title: 'v2.0 — 全面升級',
+      changelog_v2_date: '2025-05-30',
+      changelog_v2_1: '全面升級為斜線指令 (Slash Commands)',
+      changelog_v2_2: '新增股票與加密貨幣查詢 (/stock, /chart)',
+      changelog_v2_3: '新增天氣預報功能 (/weather)',
+      changelog_v2_4: '新增旅遊助手 (/travel)',
+      changelog_v2_5: '新增國旗問答遊戲 (/flagquiz)',
+      changelog_v2_6: '新增每日單字推送 (/setdaily)',
+      changelog_v2_7: '網站新增深色模式與互動體驗',
+      changelog_v1_title: 'v1.0 — 初始發佈',
+      changelog_v1_date: '2025-01-01',
+      changelog_v1_1: '基礎翻譯功能 (!tr 指令)',
+      changelog_v1_2: '國旗表情符號翻譯',
+      changelog_v1_3: '匯率查詢功能 (!cc 指令)',
+      support_title: '支持與回饋',
+      support_donate_title: '支持「蓬蓬」',
+      support_donate_desc: '「蓬蓬」是一個 24/7 運作的機器人，它依賴雲端伺服器和付費 API。如果您覺得它有幫助，可以考慮支持它的運作成本！',
+      support_donate_btn: '請我喝杯咖啡 (Buy Me a Coffee)',
+      contact_discord_title: 'Discord 支援伺服器',
+      contact_email_title: 'Email',
+      contact_form_title: '需要您的回饋',
+      support_feedback_discord: '加入我們的 Discord 支援伺服器',
+      form_zh: '繁體中文',
+      form_en: 'English',
+      form_ja: '日本語',
+      footer_credit: '由 Hijiri 開發 | 蓬蓬 Bot v2.0'
+    },
+    en: {
+      page_title: 'Pong Pong - Your All-in-One Discord Bot',
+      nav_home: 'Home',
+      nav_features: 'Features',
+      nav_how_to: 'Commands',
+      nav_demo: 'Try It',
+      nav_changelog: 'Changelog',
+      nav_support: 'Support & Feedback',
+      status_online: '🟢 Online',
+      header_title: 'Pong Pong',
+      header_tagline: 'Break language barriers — your all-in-one Discord assistant!',
+      header_button: 'Invite "Pong Pong" to Your Server',
+      stat_commands: 'Commands',
+      stat_modules: 'Modules',
+      stat_languages: 'Languages',
+      stat_uptime: 'Uptime',
+      features_title: 'Features',
+      features_subtitle: '"Pong Pong" is your all-in-one Discord assistant',
+      feature_1_title: 'Smart Translation',
+      feature_1_desc: 'Use /tr command with auto-detection or specify language pairs for translation.',
+      feature_2_title: 'Reaction Translation',
+      feature_2_desc: 'React to any message with 🇹🇼 🇯🇵 🇺🇸 flag emojis, and the bot will translate it instantly.',
+      feature_3_title: 'Currency Exchange',
+      feature_3_desc: 'Use /cc to check exchange rates worldwide with built-in caching for speed.',
+      feature_4_title: 'Stock & Crypto',
+      feature_4_desc: 'Use /stock to check Taiwan/US stocks and cryptocurrency prices in real-time.',
+      feature_5_title: 'Weather Forecast',
+      feature_5_desc: 'Use /weather to check global weather with multi-language city name support.',
+      feature_6_title: 'Travel Assistant',
+      feature_6_desc: 'Use /travel for complete city info including weather, currency, and attractions.',
+      feature_7_title: 'Flag Quiz',
+      feature_7_desc: 'Use /flagquiz to start a multiplayer flag guessing game. Test your geography!',
+      feature_8_title: 'Daily Words',
+      feature_8_desc: 'Automated daily vocabulary push to a specified channel. Learn new languages effortlessly.',
+      feature_9_title: 'Dice & Pick',
+      feature_9_desc: 'Use /roll for dice and /pick to randomly choose from options. Fun interactions!',
+      how_to_title: 'Commands',
+      how_to_subtitle: 'All slash commands at a glance.',
+      cmd_cat_translate: '🌐 Translation',
+      cmd_tr_desc: '— Translate text with auto-detection or specified languages',
+      cmd_setlang_desc: '— Set your default translation language',
+      cmd_history_desc: '— View your translation history',
+      cmd_cat_currency: '💱 Currency',
+      cmd_cc_desc: '— Convert currencies, e.g. /cc 100 USD TWD',
+      cmd_cat_stock: '📈 Stocks',
+      cmd_stock_desc: '— Check Taiwan/US stock and crypto prices',
+      cmd_chart_desc: '— View stock or crypto charts',
+      cmd_cat_weather: '🌤️ Weather',
+      cmd_weather_desc: '— Check weather forecast for any city',
+      cmd_cat_travel: '✈️ Travel',
+      cmd_travel_desc: '— Get a complete travel info overview for a city',
+      cmd_cat_fun: '🎮 Fun',
+      cmd_flagquiz_desc: '— Start a flag guessing game',
+      cmd_quizrank_desc: '— View flag quiz leaderboard',
+      cmd_roll_desc: '— Roll dice',
+      cmd_pick_desc: '— Randomly pick from options',
+      cmd_cat_daily: '📅 Daily',
+      cmd_setdaily_desc: '— Set daily vocabulary push channel',
+      cmd_stopdaily_desc: '— Stop daily vocabulary push',
+      demo_title: 'Interactive Demo',
+      demo_subtitle: 'Try out Pong Pong\'s commands in this simulated Discord chat!',
+      demo_channel: 'general',
+      demo_welcome: '👋 Welcome! Try typing a command, like /tr hello or /weather Tokyo',
+      demo_input_placeholder: 'Type a command, e.g. /tr hello ...',
+      demo_send: 'Send',
+      demo_hint: '💡 Try: /tr hello, /cc 100 USD TWD, /stock TSLA, /weather Tokyo, /roll',
+      changelog_title: 'Changelog',
+      changelog_subtitle: 'Pong Pong\'s journey of growth',
+      changelog_v2_title: 'v2.0 — Major Upgrade',
+      changelog_v2_date: '2025-05-30',
+      changelog_v2_1: 'Full migration to Slash Commands',
+      changelog_v2_2: 'Added stock & crypto tracking (/stock, /chart)',
+      changelog_v2_3: 'Added weather forecast (/weather)',
+      changelog_v2_4: 'Added travel assistant (/travel)',
+      changelog_v2_5: 'Added flag quiz game (/flagquiz)',
+      changelog_v2_6: 'Added daily vocabulary push (/setdaily)',
+      changelog_v2_7: 'Website dark mode and interactive demo',
+      changelog_v1_title: 'v1.0 — Initial Release',
+      changelog_v1_date: '2025-01-01',
+      changelog_v1_1: 'Basic translation (!tr command)',
+      changelog_v1_2: 'Flag emoji reaction translation',
+      changelog_v1_3: 'Currency conversion (!cc command)',
+      support_title: 'Support & Feedback',
+      support_donate_title: 'Support "Pong Pong"',
+      support_donate_desc: '"Pong Pong" is a 24/7 bot relying on cloud servers and paid APIs. If you find it helpful, please consider supporting its costs!',
+      support_donate_btn: 'Buy Me a Coffee',
+      contact_discord_title: 'Discord Support Server',
+      contact_email_title: 'Email',
+      contact_form_title: 'We Need Your Feedback',
+      support_feedback_discord: 'Join our Discord Support Server',
+      form_zh: '繁體中文',
+      form_en: 'English',
+      form_ja: '日本語',
+      footer_credit: 'Developed by Hijiri | Pong Pong Bot v2.0'
+    },
+    ja: {
+      page_title: 'ポンポン - Discord 多機能アシスタント',
+      nav_home: 'ホーム',
+      nav_features: '主な機能',
+      nav_how_to: 'コマンド一覧',
+      nav_demo: '体験する',
+      nav_changelog: '更新履歴',
+      nav_support: 'サポート',
+      status_online: '🟢 オンライン',
+      header_title: 'ポンポン',
+      header_tagline: '言葉の壁を越え、Discordの万能アシスタント！',
+      header_button: '「ポンポン」をサーバーに招待',
+      stat_commands: 'コマンド',
+      stat_modules: 'モジュール',
+      stat_languages: '言語',
+      stat_uptime: '稼働',
+      features_title: '主な機能',
+      features_subtitle: '「ポンポン」はあなたの万能Discordアシスタント',
+      feature_1_title: 'スマート翻訳',
+      feature_1_desc: '/tr コマンドで自動言語検出、または言語ペア指定で翻訳します。',
+      feature_2_title: 'リアクション翻訳',
+      feature_2_desc: 'メッセージに 🇹🇼 🇯🇵 🇺🇸 などの国旗でリアクションすると、すぐに翻訳します。',
+      feature_3_title: 'リアルタイム為替',
+      feature_3_desc: '/cc コマンドで世界中の為替レートを照会。キャッシュで高速化。',
+      feature_4_title: '株式＆仮想通貨',
+      feature_4_desc: '/stock で台湾・米国株式と仮想通貨のリアルタイム価格を照会。',
+      feature_5_title: '天気予報',
+      feature_5_desc: '/weather で世界の天気を照会。多言語の都市名検索対応。',
+      feature_6_title: '旅行アシスタント',
+      feature_6_desc: '/travel で天気・為替・観光地など都市の総合旅行情報を取得。',
+      feature_7_title: '国旗クイズ',
+      feature_7_desc: '/flagquiz でマルチプレイヤー国旗当てゲームを開始。地理力を試そう！',
+      feature_8_title: '毎日の単語',
+      feature_8_desc: '指定チャンネルに毎日自動で外国語の単語を配信。楽しく新言語を学習。',
+      feature_9_title: 'サイコロ＆ランダム選択',
+      feature_9_desc: '/roll でサイコロ、/pick で選択肢からランダムに選択。楽しいインタラクション！',
+      how_to_title: 'コマンド一覧',
+      how_to_subtitle: 'すべてのスラッシュコマンド一覧。',
+      cmd_cat_translate: '🌐 翻訳',
+      cmd_tr_desc: '— 自動検出または指定言語でテキスト翻訳',
+      cmd_setlang_desc: '— デフォルト翻訳言語を設定',
+      cmd_history_desc: '— 翻訳履歴を表示',
+      cmd_cat_currency: '💱 為替',
+      cmd_cc_desc: '— 為替レート変換、例：/cc 100 USD TWD',
+      cmd_cat_stock: '📈 株式',
+      cmd_stock_desc: '— 台湾・米国株式と仮想通貨の価格を照会',
+      cmd_chart_desc: '— 株式・仮想通貨チャートを表示',
+      cmd_cat_weather: '🌤️ 天気',
+      cmd_weather_desc: '— 都市の天気予報を照会',
+      cmd_cat_travel: '✈️ 旅行',
+      cmd_travel_desc: '— 都市の旅行情報総覧を取得',
+      cmd_cat_fun: '🎮 ミニゲーム',
+      cmd_flagquiz_desc: '— 国旗当てゲームを開始',
+      cmd_quizrank_desc: '— 国旗クイズランキングを表示',
+      cmd_roll_desc: '— サイコロを振る',
+      cmd_pick_desc: '— 選択肢からランダムに選択',
+      cmd_cat_daily: '📅 毎日',
+      cmd_setdaily_desc: '— 毎日の単語配信チャンネルを設定',
+      cmd_stopdaily_desc: '— 毎日の単語配信を停止',
+      demo_title: 'インタラクティブデモ',
+      demo_subtitle: 'ポンポンのコマンドをこのシミュレートされたDiscordチャットで試してみよう！',
+      demo_channel: '一般チャット',
+      demo_welcome: '👋 ようこそ！コマンドを入力してみてください。例：/tr hello または /weather Tokyo',
+      demo_input_placeholder: 'コマンドを入力、例：/tr hello ...',
+      demo_send: '送信',
+      demo_hint: '💡 試してみよう：/tr hello、/cc 100 USD TWD、/stock TSLA、/weather Tokyo、/roll',
+      changelog_title: '更新履歴',
+      changelog_subtitle: 'ポンポンの成長の軌跡',
+      changelog_v2_title: 'v2.0 — メジャーアップグレード',
+      changelog_v2_date: '2025-05-30',
+      changelog_v2_1: 'スラッシュコマンドへ完全移行',
+      changelog_v2_2: '株式・仮想通貨追跡を追加 (/stock, /chart)',
+      changelog_v2_3: '天気予報機能を追加 (/weather)',
+      changelog_v2_4: '旅行アシスタントを追加 (/travel)',
+      changelog_v2_5: '国旗クイズゲームを追加 (/flagquiz)',
+      changelog_v2_6: '毎日の単語配信を追加 (/setdaily)',
+      changelog_v2_7: 'ウェブサイトにダークモードとインタラクティブデモを追加',
+      changelog_v1_title: 'v1.0 — 初回リリース',
+      changelog_v1_date: '2025-01-01',
+      changelog_v1_1: '基本翻訳機能 (!trコマンド)',
+      changelog_v1_2: '国旗絵文字リアクション翻訳',
+      changelog_v1_3: '為替変換機能 (!ccコマンド)',
+      support_title: 'サポート',
+      support_donate_title: '「ポンポン」を支援',
+      support_donate_desc: '「ポンポン」は24時間稼働のボットで、クラウドサーバーと有料APIに依存しています。役に立つと思ったら、運用コストのサポートをご検討ください！',
+      support_donate_btn: 'コーヒーをおごる (Buy Me a Coffee)',
+      contact_discord_title: 'Discord サポートサーバー',
+      contact_email_title: 'メール',
+      contact_form_title: 'フィードバック',
+      support_feedback_discord: 'Discord サポートサーバーに参加',
+      form_zh: '繁體中文',
+      form_en: 'English',
+      form_ja: '日本語',
+      footer_credit: 'Hijiri が開発 | ポンポン Bot v2.0'
+    }
+  };
+
+  let currentLang = localStorage.getItem('pongpong-lang') || 'zh';
+  let currentTheme = localStorage.getItem('pongpong-theme') || 'dark';
+
+  /* ============================================
+     LANGUAGE SWITCHER
+     ============================================ */
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('pongpong-lang', lang);
+    document.documentElement.lang = lang;
+    document.title = i18n[lang].page_title || document.title;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang][key]) {
+        el.textContent = i18n[lang][key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (i18n[lang][key]) {
+        el.placeholder = i18n[lang][key];
+      }
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+  });
+
+  /* ============================================
+     THEME TOGGLE
+     ============================================ */
+  function setTheme(theme) {
+    currentTheme = theme;
+    localStorage.setItem('pongpong-theme', theme);
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+      btn.textContent = theme === 'light' ? '☀️' : '🌙';
+    });
+  }
+
+  document.querySelectorAll('.theme-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+  });
+
+  /* ============================================
+     INIT THEME & LANG
+     ============================================ */
+  setTheme(currentTheme);
+  setLanguage(currentLang);
+
+  /* ============================================
+     NAVBAR SCROLL EFFECT
+     ============================================ */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  /* ============================================
+     HAMBURGER MENU
+     ============================================ */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ============================================
+     SCROLL REVEAL (IntersectionObserver)
+     ============================================ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ============================================
+     STAT COUNTER ANIMATION
+     ============================================ */
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'));
+        if (!target) return;
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const interval = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          el.textContent = current + (target >= 20 ? '+' : '');
+        }, 30);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-value[data-count]').forEach(el => statObserver.observe(el));
+
+  /* ============================================
+     PARTICLE / CONSTELLATION CANVAS
+     ============================================ */
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let animId;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
+    canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+  }
+
+  function createParticles() {
+    const count = Math.min(100, Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 12000));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.offsetWidth,
+        y: Math.random() * canvas.offsetHeight,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        size: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+
+  let mouseX = -1000, mouseY = -1000;
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+  canvas.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+    const isLight = currentTheme === 'light';
+    const particleColor = isLight ? '80, 80, 120' : '162, 155, 254';
+    const lineColor = isLight ? '80, 80, 120' : '108, 92, 231';
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = canvas.offsetWidth;
+      if (p.x > canvas.offsetWidth) p.x = 0;
+      if (p.y < 0) p.y = canvas.offsetHeight;
+      if (p.y > canvas.offsetHeight) p.y = 0;
+
+      // Mouse repulsion
+      const dx = p.x - mouseX;
+      const dy = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        p.x += dx * 0.01;
+        p.y += dy * 0.01;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${particleColor}, ${p.opacity})`;
+      ctx.fill();
+
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const ddx = p.x - p2.x;
+        const ddy = p.y - p2.y;
+        const d = Math.sqrt(ddx * ddx + ddy * ddy);
+        if (d < 150) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(${lineColor}, ${0.15 * (1 - d / 150)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    animId = requestAnimationFrame(drawParticles);
+  }
+
+  function initCanvas() {
+    resizeCanvas();
+    createParticles();
+    if (animId) cancelAnimationFrame(animId);
+    drawParticles();
+  }
+
+  initCanvas();
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    createParticles();
+  });
+
+  /* ============================================
+     FLOATING FLAG EMOJIS
+     ============================================ */
+  const flags = ['🇹🇼','🇯🇵','🇺🇸','🇰🇷','🇫🇷','🇩🇪','🇬🇧','🇪🇸','🇮🇹','🇧🇷','🇦🇺','🇨🇦','🇹🇭','🇻🇳','🇮🇳','🇲🇽'];
+  const flagContainer = document.getElementById('floatingFlags');
+
+  function spawnFlag() {
+    const el = document.createElement('div');
+    el.className = 'flag-emoji';
+    el.textContent = flags[Math.floor(Math.random() * flags.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+    const duration = Math.random() * 15 + 12;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = '0s';
+    flagContainer.appendChild(el);
+    setTimeout(() => el.remove(), duration * 1000);
+  }
+
+  // Initial batch
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => spawnFlag(), i * 2000);
+  }
+  // Continuous
+  setInterval(spawnFlag, 3000);
+
+  /* ============================================
+     INTERACTIVE DEMO
+     ============================================ */
+  const demoMessages = document.getElementById('demoMessages');
+  const demoInput = document.getElementById('demoInput');
+  const demoSend = document.getElementById('demoSend');
+
+  function addUserMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'demo-msg';
+    div.innerHTML = `
+      <div class="demo-avatar">👤</div>
+      <div class="demo-msg-content">
+        <div class="demo-msg-author user-color">User</div>
+        <div class="demo-msg-text">${escapeHtml(text)}</div>
+      </div>`;
+    demoMessages.appendChild(div);
+    demoMessages.scrollTop = demoMessages.scrollHeight;
+  }
+
+  function addBotMsg(html) {
+    const div = document.createElement('div');
+    div.className = 'demo-msg';
+    div.innerHTML = `
+      <div class="demo-avatar">🏓</div>
+      <div class="demo-msg-content">
+        <div class="demo-msg-author bot-color">${i18n[currentLang].header_title || '蓬蓬'} <span class="bot-tag">BOT</span></div>
+        ${html}
+      </div>`;
+    demoMessages.appendChild(div);
+    demoMessages.scrollTop = demoMessages.scrollHeight;
+  }
+
+  function addTyping() {
+    const div = document.createElement('div');
+    div.className = 'demo-msg typing-msg';
+    div.innerHTML = `
+      <div class="demo-avatar">🏓</div>
+      <div class="demo-msg-content">
+        <div class="typing-indicator">
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+          <span>${i18n[currentLang].header_title || '蓬蓬'} is typing...</span>
+        </div>
+      </div>`;
+    demoMessages.appendChild(div);
+    demoMessages.scrollTop = demoMessages.scrollHeight;
+    return div;
+  }
+
+  function escapeHtml(t) {
+    const d = document.createElement('div');
+    d.textContent = t;
+    return d.innerHTML;
+  }
+
+  function handleDemo(cmd) {
+    const text = cmd.trim();
+    if (!text) return;
+    addUserMsg(text);
+    demoInput.value = '';
+
+    const typing = addTyping();
+
+    setTimeout(() => {
+      typing.remove();
+      const lower = text.toLowerCase();
+
+      if (lower.startsWith('/tr ')) {
+        const content = text.slice(4).trim();
+        addBotMsg(`
+          <div class="demo-embed" style="border-color:#43b581">
+            <div class="demo-embed-title">🌐 Translation Result</div>
+            <div class="demo-embed-field"><strong>Original:</strong> ${escapeHtml(content)}</div>
+            <div class="demo-embed-field"><strong>Detected:</strong> English → 繁體中文</div>
+            <div class="demo-embed-field"><strong>Translation:</strong> ${content === 'hello' ? '你好' : content === 'good morning' ? '早安' : content === 'thank you' ? '謝謝' : '（翻譯結果）'}</div>
+          </div>`);
+      } else if (lower.startsWith('/cc ')) {
+        const parts = text.slice(4).trim().split(/\s+/);
+        const amount = parts[0] || '100';
+        const from = (parts[1] || 'USD').toUpperCase();
+        const to = (parts[2] || 'TWD').toUpperCase();
+        const rates = { 'USDTWD': 31.2, 'USDJPY': 149.8, 'USDEUR': 0.92, 'USDGBP': 0.79, 'USDKRW': 1320, 'TWDUSD': 0.032 };
+        const key = from + to;
+        const rate = rates[key] || 31.2;
+        const result = (parseFloat(amount) * rate).toFixed(2);
+        addBotMsg(`
+          <div class="demo-embed" style="border-color:#f1c40f">
+            <div class="demo-embed-title">💱 Currency Exchange</div>
+            <div class="demo-embed-field"><strong>${amount} ${from}</strong> → <strong>${result} ${to}</strong></div>
+            <div class="demo-embed-field">Rate: 1 ${from} = ${rate} ${to}</div>
+            <div class="demo-embed-field" style="color:#666;font-size:0.8rem;">Data from exchangerate-api.com</div>
+          </div>`);
+      } else if (lower.startsWith('/stock ')) {
+        const symbol = text.slice(7).trim().toUpperCase();
+        const stocks = {
+          'TSLA': { p: '178.32', c: '+3.21%', n: 'Tesla, Inc.' },
+          'AAPL': { p: '195.71', c: '+1.05%', n: 'Apple Inc.' },
+          'GOOG': { p: '176.44', c: '-0.32%', n: 'Alphabet Inc.' },
+          'BTC': { p: '67,842.50', c: '+2.15%', n: 'Bitcoin' },
+          '2330': { p: '985.00', c: '+1.55%', n: 'TSMC (台積電)' }
+        };
+        const s = stocks[symbol] || { p: '142.50', c: '+0.85%', n: symbol };
+        const color = s.c.startsWith('+') ? '#43b581' : '#f04747';
+        addBotMsg(`
+          <div class="demo-embed" style="border-color:${color}">
+            <div class="demo-embed-title">📈 ${s.n}</div>
+            <div class="demo-embed-field"><strong>Price:</strong> $${s.p}</div>
+            <div class="demo-embed-field"><strong>Change:</strong> <span style="color:${color}">${s.c}</span></div>
+            <div class="demo-embed-field"><strong>Symbol:</strong> ${symbol}</div>
+          </div>`);
+      } else if (lower.startsWith('/weather ')) {
+        const city = text.slice(9).trim();
+        const weathers = {
+          'tokyo': { t: '22°C', w: '☀️ Sunny', h: '55%', c: 'Tokyo' },
+          'taipei': { t: '28°C', w: '⛅ Partly Cloudy', h: '75%', c: 'Taipei' },
+          'new york': { t: '18°C', w: '🌧️ Rain', h: '80%', c: 'New York' },
+          'paris': { t: '16°C', w: '☁️ Cloudy', h: '65%', c: 'Paris' },
+          'london': { t: '14°C', w: '🌦️ Light Rain', h: '78%', c: 'London' }
+        };
+        const w = weathers[city.toLowerCase()] || { t: '20°C', w: '⛅ Partly Cloudy', h: '60%', c: city };
+        addBotMsg(`
+          <div class="demo-embed" style="border-color:#3498db">
+            <div class="demo-embed-title">🌤️ Weather — ${escapeHtml(w.c)}</div>
+            <div class="demo-embed-field"><strong>Temperature:</strong> ${w.t}</div>
+            <div class="demo-embed-field"><strong>Condition:</strong> ${w.w}</div>
+            <div class="demo-embed-field"><strong>Humidity:</strong> ${w.h}</div>
+          </div>`);
+      } else if (lower === '/roll') {
+        const result = Math.floor(Math.random() * 6) + 1;
+        const dice = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+        addBotMsg(`<div class="demo-msg-text">🎲 ${dice[result - 1]} You rolled a <strong>${result}</strong>!</div>`);
+      } else {
+        const lang = currentLang;
+        const helpTexts = {
+          zh: '❓ 未知的指令。試試以下指令：\n• <code>/tr [文字]</code> — 翻譯\n• <code>/cc [金額] [從] [到]</code> — 匯率\n• <code>/stock [代碼]</code> — 股票\n• <code>/weather [城市]</code> — 天氣\n• <code>/roll</code> — 擲骰子',
+          en: '❓ Unknown command. Try these:\n• <code>/tr [text]</code> — Translate\n• <code>/cc [amount] [from] [to]</code> — Currency\n• <code>/stock [symbol]</code> — Stock\n• <code>/weather [city]</code> — Weather\n• <code>/roll</code> — Roll dice',
+          ja: '❓ 不明なコマンドです。以下を試してください：\n• <code>/tr [テキスト]</code> — 翻訳\n• <code>/cc [金額] [元] [先]</code> — 為替\n• <code>/stock [銘柄]</code> — 株式\n• <code>/weather [都市]</code> — 天気\n• <code>/roll</code> — サイコロ'
+        };
+        addBotMsg(`<div class="demo-msg-text" style="white-space:pre-line">${helpTexts[lang] || helpTexts.en}</div>`);
+      }
+    }, 800 + Math.random() * 600);
+  }
+
+  demoSend.addEventListener('click', () => handleDemo(demoInput.value));
+  demoInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleDemo(demoInput.value);
+  });
+
+})();
+</script>
+</body>
 </html>
