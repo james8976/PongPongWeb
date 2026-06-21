@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>支援 — PongPong Bot</title>
+<meta name="description" content="PongPong Bot 支援中心 — Discord 伺服器、Email、贊助與常見問題。">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.page-hero { padding: 140px 0 60px; text-align: center; }
+.page-hero h1 { font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 800; margin-bottom: 16px; }
+.page-hero h1 .gradient { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+
+/* Contact Cards */
+.contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; margin-bottom: 60px;
+}
+.contact-card {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 32px; text-align: center;
+  transition: all var(--transition);
+}
+.contact-card:hover { transform: translateY(-4px); border-color: rgba(108,92,231,0.3); box-shadow: var(--shadow-glow); }
+.contact-icon { font-size: 2.5rem; margin-bottom: 16px; }
+.contact-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.contact-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+.contact-card .btn { width: 100%; }
+
+/* Donate */
+.donate-section { padding: 80px 0; }
+.donate-card {
+  background: linear-gradient(135deg, rgba(255,193,7,0.08), rgba(108,92,231,0.08));
+  border: 1px solid rgba(255,193,7,0.2); border-radius: 24px;
+  padding: 48px; text-align: center; max-width: 700px; margin: 0 auto;
+}
+.donate-card h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+.donate-card p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.donate-card .btn { background: linear-gradient(135deg, #ffca28, #ff9800); }
+.donate-costs {
+  display: flex; justify-content: center; gap: 32px; margin-top: 24px;
+  flex-wrap: wrap;
+}
+.donate-cost-item { text-align: center; }
+.donate-cost-value { font-size: 1.3rem; font-weight: 700; color: #ffca28; }
+.donate-cost-label { color: var(--text-muted); font-size: 0.8rem; }
+
+/* Feedback Forms */
+.forms-section { padding: 80px 0; }
+.forms-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  max-width: 700px; margin: 0 auto;
+}
+.form-card {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 24px; text-align: center;
+  transition: all var(--transition);
+}
+.form-card:hover { transform: translateY(-4px); border-color: rgba(108,92,231,0.3); box-shadow: var(--shadow-glow); }
+.form-flag { font-size: 2rem; margin-bottom: 8px; }
+.form-card h4 { font-size: 0.95rem; margin-bottom: 12px; }
+
+/* FAQ */
+.faq-section { padding: 80px 0 100px; }
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); margin-bottom: 12px; overflow: hidden;
+  transition: all var(--transition);
+}
+.faq-item:hover { border-color: rgba(108,92,231,0.2); }
+.faq-q {
+  padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between;
+  align-items: center; font-weight: 600; font-size: 0.95rem;
+  transition: background var(--transition); user-select: none;
+}
+.faq-q:hover { background: rgba(255,255,255,0.02); }
+.faq-arrow { transition: transform var(--transition); color: var(--text-muted); }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 24px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+
+@media (max-width: 768px) {
+  .forms-grid { grid-template-columns: 1fr; }
+  .donate-costs { gap: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="ambient-bg"><div class="ambient-orb"></div><div class="ambient-orb"></div><div class="ambient-orb"></div></div>
+<nav class="navbar" id="site-nav"></nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-badge">💬 <span data-i18n="page_badge">幫助中心</span></div>
+    <h1><span class="gradient" data-i18n="page_title">支援與回饋</span></h1>
+    <p data-i18n="page_desc">遇到問題或有建議？我們隨時在這裡幫助你。</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section style="padding: 0 0 60px;">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="contact-icon">💬</div>
+        <h3 data-i18n="c1_t">Discord 支援伺服器</h3>
+        <p data-i18n="c1_d">加入我們的 Discord 支援伺服器，與開發者和其他使用者即時交流。</p>
+        <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-i18n="c1_btn">加入 Discord</a>
+      </div>
+      <div class="contact-card reveal reveal-delay-1">
+        <div class="contact-icon">📧</div>
+        <h3 data-i18n="c2_t">Email</h3>
+        <p data-i18n="c2_d">較正式的問題或合作提案，歡迎寫信給我們。</p>
+        <a href="mailto:a34159@gmail.com" class="btn btn-outline btn-sm">a34159@gmail.com</a>
+      </div>
+      <div class="contact-card reveal reveal-delay-2">
+        <div class="contact-icon">🐙</div>
+        <h3>GitHub</h3>
+        <p data-i18n="c3_d">在 GitHub 上追蹤開發進度、回報 Bug 或提交 Issue。</p>
+        <a href="https://github.com/james8976" target="_blank" rel="noopener" class="btn btn-outline btn-sm" data-i18n="c3_btn">前往 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feedback Forms -->
+<section class="forms-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="form_title">回饋表單</h2><p class="section-subtitle" data-i18n="form_desc">選擇你習慣的語言填寫回饋表單，幫助我們改進 PongPong。</p></div>
+    <div class="forms-grid">
+      <a href="https://forms.gle/placeholder_zh" target="_blank" rel="noopener" class="form-card reveal">
+        <div class="form-flag">🇹🇼</div>
+        <h4>繁體中文</h4>
+      </a>
+      <a href="https://forms.gle/placeholder_en" target="_blank" rel="noopener" class="form-card reveal reveal-delay-1">
+        <div class="form-flag">🇺🇸</div>
+        <h4>English</h4>
+      </a>
+      <a href="https://forms.gle/placeholder_ja" target="_blank" rel="noopener" class="form-card reveal reveal-delay-2">
+        <div class="form-flag">🇯🇵</div>
+        <h4>日本語</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Donate -->
+<section class="donate-section">
+  <div class="container">
+    <div class="donate-card reveal">
+      <div style="font-size:3rem; margin-bottom:16px;">☕</div>
+      <h2 data-i18n="donate_title">請我喝杯咖啡</h2>
+      <p data-i18n="donate_desc">PongPong 是 24/7 運作的免費服務，依賴雲端伺服器和付費 API。如果你覺得它有幫助，歡迎支持開發者的運營成本！</p>
+      <a href="https://buymeacoffee.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="donate_btn">☕ Buy Me a Coffee</a>
+      <div class="donate-costs">
+        <div class="donate-cost-item"><div class="donate-cost-value" data-i18n="cost1_v">$0</div><div class="donate-cost-label" data-i18n="cost1_l">伺服器費用 (Oracle Free Tier)</div></div>
+        <div class="donate-cost-item"><div class="donate-cost-value" data-i18n="cost2_v">~$5/mo</div><div class="donate-cost-label" data-i18n="cost2_l">API 費用 (Google Cloud)</div></div>
+        <div class="donate-cost-item"><div class="donate-cost-value" data-i18n="cost3_v">∞ hrs</div><div class="donate-cost-label" data-i18n="cost3_l">開發時間</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="faq_title">常見問題</h2></div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq1_q">PongPong 是免費的嗎？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq1_a">是的！PongPong 的所有基本功能完全免費。Spotify Connect 功能需要使用者自己擁有 Spotify Premium 帳號。</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq2_q">如何邀請 PongPong 到我的伺服器？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq2_a">點擊網站上的「邀請 Bot」按鈕，或使用首頁的邀請連結。授權後 PongPong 就會加入你的伺服器。</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq3_q">國旗翻譯怎麼使用？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq3_a">對任何訊息加上國旗 emoji 反應（如 🇹🇼 🇯🇵 🇺🇸），PongPong 會自動翻譯成該國語言。</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq4_q">Spotify Connect 需要什麼？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq4_a">你需要一個 Spotify Premium 帳號。使用 /spotify connect 指令後，在瀏覽器中登入你的 Spotify 帳號即可。</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq5_q">PongPong 會儲存我的訊息嗎？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq5_a">不會。PongPong 只在翻譯時即時處理文字，不會永久儲存任何訊息內容。詳情請參閱我們的隱私權政策。</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span data-i18n="fq6_q">Bot 沒有回應怎麼辦？</span><span class="faq-arrow">▼</span></div><div class="faq-a" data-i18n="fq6_a">請確認 Bot 有正確的權限（傳送訊息、嵌入連結、使用斜線指令）。若問題持續，請加入 Discord 支援伺服器回報。</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="js/shared.js"></script>
+<script>
+window.pageTitles = { zh:'支援 — PongPong', en:'Support — PongPong', ja:'サポート — PongPong' };
+window.pageI18n = {
+  zh: { page_badge:'幫助中心', page_title:'支援與回饋', page_desc:'遇到問題或有建議？我們隨時在這裡幫助你。', c1_t:'Discord 支援伺服器', c1_d:'加入我們的 Discord 支援伺服器，與開發者和其他使用者即時交流。', c1_btn:'加入 Discord', c2_t:'Email', c2_d:'較正式的問題或合作提案，歡迎寫信給我們。', c3_d:'在 GitHub 上追蹤開發進度、回報 Bug 或提交 Issue。', c3_btn:'前往 GitHub', form_title:'回饋表單', form_desc:'選擇你習慣的語言填寫回饋表單，幫助我們改進 PongPong。', donate_title:'請我喝杯咖啡', donate_desc:'PongPong 是 24/7 運作的免費服務，依賴雲端伺服器和付費 API。如果你覺得它有幫助，歡迎支持開發者的運營成本！', donate_btn:'☕ Buy Me a Coffee', cost1_v:'$0', cost1_l:'伺服器費用 (Oracle Free Tier)', cost2_v:'~$5/mo', cost2_l:'API 費用 (Google Cloud)', cost3_v:'∞ hrs', cost3_l:'開發時間', faq_title:'常見問題', fq1_q:'PongPong 是免費的嗎？', fq1_a:'是的！PongPong 的所有基本功能完全免費。Spotify Connect 功能需要使用者自己擁有 Spotify Premium 帳號。', fq2_q:'如何邀請 PongPong 到我的伺服器？', fq2_a:'點擊網站上的「邀請 Bot」按鈕，或使用首頁的邀請連結。授權後 PongPong 就會加入你的伺服器。', fq3_q:'國旗翻譯怎麼使用？', fq3_a:'對任何訊息加上國旗 emoji 反應（如 🇹🇼 🇯🇵 🇺🇸），PongPong 會自動翻譯成該國語言。', fq4_q:'Spotify Connect 需要什麼？', fq4_a:'你需要一個 Spotify Premium 帳號。使用 /spotify connect 指令後，在瀏覽器中登入你的 Spotify 帳號即可。', fq5_q:'PongPong 會儲存我的訊息嗎？', fq5_a:'不會。PongPong 只在翻譯時即時處理文字，不會永久儲存任何訊息內容。詳情請參閱我們的隱私權政策。', fq6_q:'Bot 沒有回應怎麼辦？', fq6_a:'請確認 Bot 有正確的權限（傳送訊息、嵌入連結、使用斜線指令）。若問題持續，請加入 Discord 支援伺服器回報。' },
+  en: { page_badge:'Help Center', page_title:'Support & Feedback', page_desc:'Have a question or suggestion? We\'re here to help.', c1_t:'Discord Support Server', c1_d:'Join our Discord support server to chat with the developer and other users.', c1_btn:'Join Discord', c2_t:'Email', c2_d:'For formal inquiries or collaboration proposals, feel free to email us.', c3_d:'Track development progress, report bugs, or submit issues on GitHub.', c3_btn:'Go to GitHub', form_title:'Feedback Forms', form_desc:'Choose your preferred language to fill out a feedback form and help us improve PongPong.', donate_title:'Buy Me a Coffee', donate_desc:'PongPong is a free 24/7 service that relies on cloud servers and paid APIs. If you find it helpful, consider supporting the developer!', donate_btn:'☕ Buy Me a Coffee', cost1_v:'$0', cost1_l:'Server Cost (Oracle Free Tier)', cost2_v:'~$5/mo', cost2_l:'API Cost (Google Cloud)', cost3_v:'∞ hrs', cost3_l:'Development Time', faq_title:'FAQ', fq1_q:'Is PongPong free?', fq1_a:'Yes! All basic features are completely free. Spotify Connect requires your own Spotify Premium account.', fq2_q:'How do I invite PongPong?', fq2_a:'Click the "Invite Bot" button on the website. After authorization, PongPong will join your server.', fq3_q:'How does flag translation work?', fq3_a:'React to any message with a flag emoji (like 🇹🇼 🇯🇵 🇺🇸) and PongPong will automatically translate it.', fq4_q:'What do I need for Spotify Connect?', fq4_a:'You need a Spotify Premium account. Use /spotify connect, then log in through your browser.', fq5_q:'Does PongPong store my messages?', fq5_a:'No. PongPong only processes text in real-time for translation and never permanently stores message content. See our Privacy Policy for details.', fq6_q:'Bot not responding?', fq6_a:'Make sure the Bot has proper permissions (Send Messages, Embed Links, Use Slash Commands). If the issue persists, join our Discord support server.' },
+  ja: { page_badge:'ヘルプセンター', page_title:'サポートとフィードバック', page_desc:'問題がありましたか？いつでもサポートします。', c1_t:'Discord サポートサーバー', c1_d:'Discordサポートサーバーに参加して、開発者や他のユーザーとリアルタイムで交流。', c1_btn:'Discordに参加', c2_t:'メール', c2_d:'正式な問い合わせやコラボレーションの提案はメールでどうぞ。', c3_d:'GitHubで開発進捗を追跡、バグ報告、Issue提出。', c3_btn:'GitHubへ', form_title:'フィードバックフォーム', form_desc:'お好みの言語でフィードバックフォームにご記入ください。', donate_title:'コーヒーをおごる', donate_desc:'PongPongは24時間稼働の無料サービスです。クラウドサーバーと有料APIに依存しています。', donate_btn:'☕ Buy Me a Coffee', cost1_v:'$0', cost1_l:'サーバー費用', cost2_v:'~$5/月', cost2_l:'API費用', cost3_v:'∞ 時間', cost3_l:'開発時間', faq_title:'よくある質問', fq1_q:'PongPongは無料ですか？', fq1_a:'はい！基本機能はすべて無料です。Spotify Connectには自身のSpotify Premiumアカウントが必要です。', fq2_q:'PongPongを招待するには？', fq2_a:'ウェブサイトの「Botを招待」ボタンをクリックしてください。', fq3_q:'国旗翻訳の使い方は？', fq3_a:'メッセージに国旗絵文字（🇹🇼 🇯🇵 🇺🇸など）でリアクションすると自動翻訳されます。', fq4_q:'Spotify Connectに必要なものは？', fq4_a:'Spotify Premiumアカウントが必要です。/spotify connectコマンドを使用し、ブラウザでログインしてください。', fq5_q:'メッセージは保存されますか？', fq5_a:'いいえ。翻訳時にリアルタイムで処理するだけで、メッセージ内容を永続的に保存することはありません。', fq6_q:'Botが応答しない場合は？', fq6_a:'Botに適切な権限があるか確認してください。問題が続く場合はDiscordサポートサーバーに参加してください。' }
+};
+initShared('support');
+</script>
+</body>
+</html>

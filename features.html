@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>功能介紹 — PongPong Bot</title>
+<meta name="description" content="PongPong Bot 完整功能介紹 — 翻譯、匯率、股票、天氣、旅遊、國旗問答、Spotify Connect。">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.page-hero { padding: 140px 0 60px; text-align: center; }
+.page-hero h1 { font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 800; margin-bottom: 16px; }
+.page-hero h1 .gradient { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 560px; margin: 0 auto; }
+
+.feature-full { padding: 80px 0; }
+.feature-full:nth-child(even) { background: rgba(255,255,255,0.01); }
+.feature-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.feature-row.reverse { direction: rtl; }
+.feature-row.reverse > * { direction: ltr; }
+.feature-text .section-badge { margin-bottom: 16px; }
+.feature-text h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; }
+.feature-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+.feature-list { list-style: none; }
+.feature-list li { padding: 6px 0; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 10px; }
+.feature-list li .check { color: var(--accent-2); font-weight: 700; flex-shrink: 0; }
+
+.feature-visual {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 24px; min-height: 280px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.mock-embed {
+  background: rgba(0,0,0,0.3); border-left: 3px solid var(--accent-1);
+  border-radius: 4px; padding: 16px; margin: 8px 0;
+}
+.mock-embed-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+.mock-embed-field { color: var(--text-secondary); font-size: 0.9rem; margin: 4px 0; }
+.mock-msg { color: var(--text-muted); font-size: 0.85rem; margin: 8px 0; display: flex; align-items: center; gap: 8px; }
+.mock-flag { font-size: 1.5rem; }
+
+.lang-cloud { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0; }
+.lang-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; background: rgba(108,92,231,0.12); color: var(--accent-3); border: 1px solid rgba(108,92,231,0.2); }
+
+.spotify-mock { border-color: rgba(29,185,84,0.3) !important; }
+.spotify-mock .mock-embed { border-color: #1DB954; }
+
+@media (max-width: 768px) {
+  .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+  .feature-row.reverse > * { direction: ltr; }
+  .page-hero { padding: 120px 0 40px; }
+}
+</style>
+</head>
+<body>
+<div class="ambient-bg"><div class="ambient-orb"></div><div class="ambient-orb"></div><div class="ambient-orb"></div></div>
+<nav class="navbar" id="site-nav"></nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-badge">✨ <span data-i18n="page_badge">完整功能列表</span></div>
+    <h1><span class="gradient" data-i18n="page_title">功能介紹</span></h1>
+    <p data-i18n="page_desc">PongPong 整合了 9 大功能模組，涵蓋語言翻譯、金融資訊、生活查詢、趣味遊戲與音樂串流。</p>
+  </div>
+</section>
+
+<!-- Translation -->
+<section class="feature-full"><div class="container"><div class="feature-row reveal">
+  <div class="feature-text">
+    <div class="section-badge">🌐</div>
+    <h2 data-i18n="ft1_t">智能翻譯</h2>
+    <p data-i18n="ft1_d">支援 100 種以上的語言，搭載 Google Cloud Translation API。自動偵測來源語言，或手動指定語言對。</p>
+    <ul class="feature-list">
+      <li><span class="check">✓</span> <span data-i18n="ft1_l1">/tr 指令 — 輸入文字即可翻譯</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft1_l2">國旗 emoji 反應 — 對訊息加上 🇹🇼 🇯🇵 🇺🇸 即可翻譯</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft1_l3">/setlang — 設定個人預設翻譯語言</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft1_l4">/history — 查看翻譯歷史紀錄</span></li>
+    </ul>
+  </div>
+  <div class="feature-visual">
+    <div class="mock-msg">👤 User: Hello, how are you?</div>
+    <div class="mock-msg"><span class="mock-flag">🇹🇼</span> <span style="color:var(--text-muted)">reacted</span></div>
+    <div class="mock-embed" style="border-color:#43b581">
+      <div class="mock-embed-title">🌐 Translation Result</div>
+      <div class="mock-embed-field"><b>Original:</b> Hello, how are you?</div>
+      <div class="mock-embed-field"><b>Detected:</b> English → 繁體中文</div>
+      <div class="mock-embed-field"><b>Translation:</b> 你好，你好嗎？</div>
+    </div>
+    <div class="lang-cloud">
+      <span class="lang-tag">English</span><span class="lang-tag">日本語</span><span class="lang-tag">한국어</span><span class="lang-tag">Français</span><span class="lang-tag">Deutsch</span><span class="lang-tag">Español</span><span class="lang-tag">Português</span><span class="lang-tag">中文</span><span class="lang-tag">+92 more</span>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- Currency -->
+<section class="feature-full"><div class="container"><div class="feature-row reverse reveal">
+  <div class="feature-text">
+    <div class="section-badge">💱</div>
+    <h2 data-i18n="ft2_t">即時匯率兌換</h2>
+    <p data-i18n="ft2_d">使用 /cc 指令即時查詢全球匯率，支援所有主流貨幣。內建智能快取，確保回應速度。</p>
+    <ul class="feature-list">
+      <li><span class="check">✓</span> <span data-i18n="ft2_l1">支援 150+ 種貨幣</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft2_l2">即時匯率數據</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft2_l3">簡潔的格式化輸出</span></li>
+    </ul>
+  </div>
+  <div class="feature-visual">
+    <div class="mock-msg">👤 /cc 100 USD TWD</div>
+    <div class="mock-embed" style="border-color:#f1c40f">
+      <div class="mock-embed-title">💱 Currency Exchange</div>
+      <div class="mock-embed-field"><b>100 USD</b> → <b>3,120.00 TWD</b></div>
+      <div class="mock-embed-field">Rate: 1 USD = 31.20 TWD</div>
+      <div class="mock-embed-field" style="font-size:0.8rem;color:var(--text-muted)">Data from exchangerate-api.com</div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- Stock -->
+<section class="feature-full"><div class="container"><div class="feature-row reveal">
+  <div class="feature-text">
+    <div class="section-badge">📈</div>
+    <h2 data-i18n="ft3_t">股票與加密貨幣</h2>
+    <p data-i18n="ft3_d">即時查詢台灣、美國股票及加密貨幣的最新報價。支援 K 線圖表視覺化。</p>
+    <ul class="feature-list">
+      <li><span class="check">✓</span> <span data-i18n="ft3_l1">/stock — 查詢股價（如 TSLA、2330）</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft3_l2">/chart — 查看 K 線圖表</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft3_l3">支援加密貨幣（BTC、ETH 等）</span></li>
+    </ul>
+  </div>
+  <div class="feature-visual">
+    <div class="mock-msg">👤 /stock TSLA</div>
+    <div class="mock-embed" style="border-color:#43b581">
+      <div class="mock-embed-title">📈 Tesla, Inc. (TSLA)</div>
+      <div class="mock-embed-field"><b>Price:</b> $178.32</div>
+      <div class="mock-embed-field"><b>Change:</b> <span style="color:#43b581">+3.21% ▲</span></div>
+      <div class="mock-embed-field"><b>Volume:</b> 52.4M</div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- Weather -->
+<section class="feature-full"><div class="container"><div class="feature-row reverse reveal">
+  <div class="feature-text">
+    <div class="section-badge">🌤️</div>
+    <h2 data-i18n="ft4_t">全球天氣預報</h2>
+    <p data-i18n="ft4_d">查詢全球任何城市的即時天氣，支援多語言城市名稱輸入。</p>
+    <ul class="feature-list">
+      <li><span class="check">✓</span> <span data-i18n="ft4_l1">溫度、濕度、風速等完整資訊</span></li>
+      <li><span class="check">✓</span> <span data-i18n="ft4_l2">多語言城市名稱（東京 = Tokyo = 东京）</span></li>
+    </ul>
+  </div>
+  <div class="feature-visual">
+    <div class="mock-msg">👤 /weather 東京</div>
+    <div class="mock-embed" style="border-color:#3498db">
+      <div class="mock-embed-title">🌤️ Tokyo, JP</div>
+      <div class="mock-embed-field"><b>🌡️ Temp:</b> 22°C (feels like 24°C)</div>
+      <div class="mock-embed-field"><b>☀️ Condition:</b> Clear sky</div>
+      <div class="mock-embed-field"><b>💧 Humidity:</b> 55%</div>
+      <div class="mock-embed-field"><b>💨 Wind:</b> 3.2 m/s</div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- Travel, Flag Quiz, Daily, Spotify — condensed -->
+<section class="feature-full"><div class="container">
+  <div class="section-header" style="margin-bottom:40px;">
+    <h2 class="section-title" data-i18n="more_title">更多功能</h2>
+  </div>
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:20px;">
+    <div class="card reveal"><div style="font-size:2rem;margin-bottom:12px;">✈️</div><h3 data-i18n="ft5_t">旅遊助手</h3><p style="color:var(--text-secondary);font-size:0.9rem;margin-top:8px;" data-i18n="ft5_d">使用 /travel 一次取得城市的天氣、貨幣、時區、語言與景點推薦。</p></div>
+    <div class="card reveal reveal-delay-1"><div style="font-size:2rem;margin-bottom:12px;">🏁</div><h3 data-i18n="ft6_t">國旗問答</h3><p style="color:var(--text-secondary);font-size:0.9rem;margin-top:8px;" data-i18n="ft6_d">使用 /flagquiz 開始多人國旗猜謎遊戲，內建排行榜。</p></div>
+    <div class="card reveal reveal-delay-2"><div style="font-size:2rem;margin-bottom:12px;">📅</div><h3 data-i18n="ft7_t">每日單字</h3><p style="color:var(--text-secondary);font-size:0.9rem;margin-top:8px;" data-i18n="ft7_d">使用 /setdaily 設定頻道，每天自動推播新單字，輕鬆學語言。</p></div>
+    <div class="card reveal reveal-delay-3"><div style="font-size:2rem;margin-bottom:12px;">🎲</div><h3 data-i18n="ft8_t">骰子與抽籤</h3><p style="color:var(--text-secondary);font-size:0.9rem;margin-top:8px;" data-i18n="ft8_d">使用 /roll 擲骰子、/pick 隨機抽選。聚餐選餐廳？交給蓬蓬！</p></div>
+  </div>
+</div></section>
+
+<!-- Spotify Section -->
+<section class="feature-full" style="padding-bottom:100px;"><div class="container"><div class="feature-row reveal">
+  <div class="feature-text">
+    <div class="section-badge" style="background:rgba(29,185,84,0.12);border-color:rgba(29,185,84,0.25);color:#1DB954;">🎵 NEW</div>
+    <h2 style="color:#1DB954;" data-i18n="ft9_t">Spotify Connect</h2>
+    <p data-i18n="ft9_d">透過 Spotify Connect 技術，將你的 Spotify 音樂直接串流到 Discord 語音頻道，享受 320kbps 無損音質。需要 Spotify Premium。</p>
+    <ul class="feature-list">
+      <li><span class="check" style="color:#1DB954">✓</span> <span data-i18n="ft9_l1">/spotify connect — 連接你的 Spotify 帳號</span></li>
+      <li><span class="check" style="color:#1DB954">✓</span> <span data-i18n="ft9_l2">每個伺服器獨立的 Spotify Connect 裝置</span></li>
+      <li><span class="check" style="color:#1DB954">✓</span> <span data-i18n="ft9_l3">即時 Now Playing 曲目資訊與專輯封面</span></li>
+      <li><span class="check" style="color:#1DB954">✓</span> <span data-i18n="ft9_l4">/spotify disconnect — 安全斷開連線</span></li>
+    </ul>
+  </div>
+  <div class="feature-visual spotify-mock">
+    <div style="color:#1DB954;font-weight:600;margin-bottom:12px;">📡 PongPong Radio — My Server</div>
+    <div class="mock-embed" style="border-color:#1DB954">
+      <div class="mock-embed-title">🎵 正在播放</div>
+      <div class="mock-embed-field"><b>🎤 歌手:</b> The Weeknd</div>
+      <div class="mock-embed-field"><b>💿 專輯:</b> After Hours</div>
+      <div class="mock-embed-field"><b>⏱️ 時長:</b> 3:20</div>
+      <div style="margin-top:8px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden"><div style="height:100%;width:45%;background:#1DB954;border-radius:2px"></div></div>
+    </div>
+    <div class="mock-embed-field" style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">📡 PongPong Radio  •  👤 Hijiri  •  🎧 320 kbps</div>
+  </div>
+</div></div></section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="js/shared.js"></script>
+<script>
+window.pageTitles = { zh:'功能介紹 — PongPong', en:'Features — PongPong', ja:'機能紹介 — PongPong' };
+window.pageI18n = {
+  zh: { page_badge:'完整功能列表', page_title:'功能介紹', page_desc:'PongPong 整合了 9 大功能模組，涵蓋語言翻譯、金融資訊、生活查詢、趣味遊戲與音樂串流。', ft1_t:'智能翻譯', ft1_d:'支援 100 種以上的語言，搭載 Google Cloud Translation API。自動偵測來源語言，或手動指定語言對。', ft1_l1:'/tr 指令 — 輸入文字即可翻譯', ft1_l2:'國旗 emoji 反應 — 對訊息加上 🇹🇼 🇯🇵 🇺🇸 即可翻譯', ft1_l3:'/setlang — 設定個人預設翻譯語言', ft1_l4:'/history — 查看翻譯歷史紀錄', ft2_t:'即時匯率兌換', ft2_d:'使用 /cc 指令即時查詢全球匯率，支援所有主流貨幣。內建智能快取，確保回應速度。', ft2_l1:'支援 150+ 種貨幣', ft2_l2:'即時匯率數據', ft2_l3:'簡潔的格式化輸出', ft3_t:'股票與加密貨幣', ft3_d:'即時查詢台灣、美國股票及加密貨幣的最新報價。支援 K 線圖表視覺化。', ft3_l1:'/stock — 查詢股價（如 TSLA、2330）', ft3_l2:'/chart — 查看 K 線圖表', ft3_l3:'支援加密貨幣（BTC、ETH 等）', ft4_t:'全球天氣預報', ft4_d:'查詢全球任何城市的即時天氣，支援多語言城市名稱輸入。', ft4_l1:'溫度、濕度、風速等完整資訊', ft4_l2:'多語言城市名稱（東京 = Tokyo = 东京）', more_title:'更多功能', ft5_t:'旅遊助手', ft5_d:'使用 /travel 一次取得城市的天氣、貨幣、時區、語言與景點推薦。', ft6_t:'國旗問答', ft6_d:'使用 /flagquiz 開始多人國旗猜謎遊戲，內建排行榜。', ft7_t:'每日單字', ft7_d:'使用 /setdaily 設定頻道，每天自動推播新單字，輕鬆學語言。', ft8_t:'骰子與抽籤', ft8_d:'使用 /roll 擲骰子、/pick 隨機抽選。聚餐選餐廳？交給蓬蓬！', ft9_t:'Spotify Connect', ft9_d:'透過 Spotify Connect 技術，將你的 Spotify 音樂直接串流到 Discord 語音頻道，享受 320kbps 無損音質。需要 Spotify Premium。', ft9_l1:'/spotify connect — 連接你的 Spotify 帳號', ft9_l2:'每個伺服器獨立的 Spotify Connect 裝置', ft9_l3:'即時 Now Playing 曲目資訊與專輯封面', ft9_l4:'/spotify disconnect — 安全斷開連線' },
+  en: { page_badge:'Full Feature List', page_title:'Features', page_desc:'PongPong integrates 9 feature modules covering translation, finance, lifestyle, gaming, and music streaming.', ft1_t:'Smart Translation', ft1_d:'100+ languages powered by Google Cloud Translation API. Auto-detect source language or specify language pairs.', ft1_l1:'/tr command — translate any text', ft1_l2:'Flag emoji reactions — react with 🇹🇼 🇯🇵 🇺🇸 to translate', ft1_l3:'/setlang — set your default language', ft1_l4:'/history — view translation history', ft2_t:'Currency Exchange', ft2_d:'Real-time global exchange rates with /cc command. Supports all major currencies with smart caching.', ft2_l1:'150+ currencies supported', ft2_l2:'Real-time exchange data', ft2_l3:'Clean formatted output', ft3_t:'Stocks & Crypto', ft3_d:'Live Taiwan/US stock and cryptocurrency quotes with K-line chart visualization.', ft3_l1:'/stock — check prices (TSLA, 2330, etc.)', ft3_l2:'/chart — view K-line charts', ft3_l3:'Crypto support (BTC, ETH, etc.)', ft4_t:'Weather Forecast', ft4_d:'Check weather for any city worldwide with multilingual city name support.', ft4_l1:'Temperature, humidity, wind speed & more', ft4_l2:'Multilingual city names (東京 = Tokyo = 东京)', more_title:'More Features', ft5_t:'Travel Assistant', ft5_d:'Use /travel to get weather, currency, timezone, language & attraction info for any city.', ft6_t:'Flag Quiz', ft6_d:'Start a multiplayer flag guessing game with /flagquiz. Built-in leaderboard.', ft7_t:'Daily Words', ft7_d:'Set up automatic daily vocabulary with /setdaily. Learn languages effortlessly.', ft8_t:'Dice & Pick', ft8_d:'Use /roll for dice, /pick for random selection. Can\'t decide where to eat? Let PongPong choose!', ft9_t:'Spotify Connect', ft9_d:'Stream your Spotify music directly to Discord voice channels via Spotify Connect. 320kbps high-quality audio. Requires Spotify Premium.', ft9_l1:'/spotify connect — link your Spotify account', ft9_l2:'Independent Spotify Connect device per server', ft9_l3:'Real-time Now Playing with album art', ft9_l4:'/spotify disconnect — safely disconnect' },
+  ja: { page_badge:'全機能リスト', page_title:'機能紹介', page_desc:'PongPongは翻訳、金融、ライフスタイル、ゲーム、音楽ストリーミングの9つの機能モジュールを統合。', ft1_t:'スマート翻訳', ft1_d:'Google Cloud Translation APIで100以上の言語に対応。言語を自動検出、または手動で指定。', ft1_l1:'/tr コマンド — テキストを翻訳', ft1_l2:'国旗絵文字リアクション — 🇹🇼 🇯🇵 🇺🇸 で即座に翻訳', ft1_l3:'/setlang — デフォルト言語を設定', ft1_l4:'/history — 翻訳履歴を表示', ft2_t:'為替レート', ft2_d:'/cc コマンドでリアルタイムの為替レートを取得。主要通貨すべてに対応。', ft2_l1:'150以上の通貨に対応', ft2_l2:'リアルタイムデータ', ft2_l3:'見やすいフォーマット', ft3_t:'株式・暗号通貨', ft3_d:'台湾・米国株式と暗号通貨のリアルタイム相場。Kラインチャート対応。', ft3_l1:'/stock — 株価を確認', ft3_l2:'/chart — Kラインチャートを表示', ft3_l3:'暗号通貨対応（BTC、ETHなど）', ft4_t:'天気予報', ft4_d:'世界中の都市の天気を多言語の都市名で検索。', ft4_l1:'気温、湿度、風速などの詳細情報', ft4_l2:'多言語都市名対応', more_title:'その他の機能', ft5_t:'旅行アシスタント', ft5_d:'/travel で天気、通貨、タイムゾーン、観光スポットを一括取得。', ft6_t:'国旗クイズ', ft6_d:'/flagquiz でマルチプレイヤー国旗クイズ開始。ランキング付き。', ft7_t:'毎日の単語', ft7_d:'/setdaily で自動デイリー単語プッシュを設定。', ft8_t:'サイコロ＆抽選', ft8_d:'/roll でサイコロ、/pick でランダム選択。', ft9_t:'Spotify Connect', ft9_d:'Spotify Connect技術でDiscordボイスチャンネルに直接音楽をストリーミング。320kbps高品質。Premium必要。', ft9_l1:'/spotify connect — Spotifyアカウントを接続', ft9_l2:'サーバーごとの独立Spotify Connectデバイス', ft9_l3:'リアルタイムNow Playing通知', ft9_l4:'/spotify disconnect — 安全に切断' }
+};
+initShared('features');
+</script>
+</body>
+</html>

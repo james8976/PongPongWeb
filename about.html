@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關於 — PongPong Bot</title>
+<meta name="description" content="關於 PongPong Bot — 品牌故事、開發者介紹與技術棧。">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.page-hero { padding: 140px 0 60px; text-align: center; }
+.page-hero h1 { font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 800; margin-bottom: 16px; }
+.page-hero h1 .gradient { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+/* Story */
+.story-section { padding: 60px 0 80px; }
+.story-card {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: 24px; padding: 48px; max-width: 800px; margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+.story-card::before {
+  content: '"'; position: absolute; top: -20px; left: 20px; font-size: 8rem;
+  color: rgba(108,92,231,0.08); font-family: serif; line-height: 1;
+}
+.story-card p { color: var(--text-secondary); line-height: 2; margin-bottom: 16px; font-size: 1.05rem; }
+
+/* Developer */
+.dev-section { padding: 80px 0; }
+.dev-card {
+  display: flex; align-items: center; gap: 40px;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: 24px; padding: 40px; max-width: 700px; margin: 0 auto;
+}
+.dev-avatar {
+  width: 120px; height: 120px; border-radius: 50%; flex-shrink: 0;
+  background: var(--gradient-main); display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; border: 3px solid rgba(108,92,231,0.4);
+  overflow: hidden;
+}
+.dev-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.dev-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+.dev-info .dev-role { color: var(--accent-2); font-size: 0.9rem; margin-bottom: 12px; }
+.dev-info p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px; }
+.dev-links { display: flex; gap: 12px; }
+.dev-link {
+  padding: 8px 16px; border-radius: 8px; font-size: 0.85rem;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  color: var(--text-secondary); transition: all var(--transition);
+}
+.dev-link:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+
+/* Tech Stack */
+.tech-section { padding: 80px 0; }
+.tech-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px; max-width: 800px; margin: 0 auto;
+}
+.tech-item {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 24px; text-align: center;
+  transition: all var(--transition);
+}
+.tech-item:hover { transform: translateY(-4px); border-color: rgba(108,92,231,0.3); box-shadow: var(--shadow-glow); }
+.tech-icon { font-size: 2rem; margin-bottom: 8px; }
+.tech-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+.tech-desc { color: var(--text-muted); font-size: 0.75rem; }
+
+/* Timeline */
+.timeline-section { padding: 80px 0 100px; }
+.timeline { max-width: 600px; margin: 0 auto; position: relative; padding-left: 40px; }
+.timeline::before {
+  content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+  width: 2px; background: var(--bg-glass-border);
+}
+.tl-item { position: relative; margin-bottom: 36px; }
+.tl-dot {
+  position: absolute; left: -40px; top: 4px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gradient-main); display: flex; align-items: center;
+  justify-content: center; font-size: 0.7rem; color: white; z-index: 1;
+}
+.tl-date { color: var(--accent-2); font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; }
+.tl-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; }
+.tl-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .dev-card { flex-direction: column; text-align: center; }
+  .dev-links { justify-content: center; }
+  .story-card { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="ambient-bg"><div class="ambient-orb"></div><div class="ambient-orb"></div><div class="ambient-orb"></div></div>
+<nav class="navbar" id="site-nav"></nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-badge">🏢 <span data-i18n="page_badge">關於我們</span></div>
+    <h1><span class="gradient" data-i18n="page_title">關於 PongPong</span></h1>
+    <p data-i18n="page_desc">一個從「想讓 Discord 更好用」出發的個人專案，如今成為涵蓋翻譯、金融、生活、娛樂與音樂的全能助理。</p>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="story-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="story_title">品牌故事</h2></div>
+    <div class="story-card reveal">
+      <p data-i18n="story_1">PongPong 誕生於 2025 年底。起初只是一個簡單的翻譯機器人 — 在國際化的 Discord 伺服器中，語言隔閡總是最大的問題。一個用國旗 emoji 就能觸發翻譯的機器人，似乎是個不錯的解決方案。</p>
+      <p data-i18n="story_2">隨著使用者回饋的累積，PongPong 逐漸長出了更多功能：匯率查詢、股票報價、天氣預報、旅遊資訊、國旗問答遊戲、每日單字推播…… 每一個功能，都來自真實使用者的真實需求。</p>
+      <p data-i18n="story_3">2026 年，PongPong 迎來了最大的挑戰 — Spotify Connect 整合。透過開源的 librespot 技術，讓 Discord 語音頻道也能成為 Spotify 的播放裝置。這不僅是技術上的突破，更代表了 PongPong 從「工具」到「體驗」的進化。</p>
+      <p data-i18n="story_4">PongPong 的名字來自蓬蓬（澎澎）的諧音 — 像球一樣有彈性，能在不同功能之間靈活跳轉。它不只是一個機器人，更是讓每個 Discord 伺服器都變得更有趣、更便利的夥伴。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Developer -->
+<section class="dev-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="dev_title">開發者</h2></div>
+    <div class="dev-card reveal">
+      <div class="dev-avatar"><img src="images/pongpongicon.jpg" alt="Hijiri"></div>
+      <div class="dev-info">
+        <h3>Hijiri</h3>
+        <div class="dev-role" data-i18n="dev_role">獨立開發者 / Full-Stack Developer</div>
+        <p data-i18n="dev_bio">熱衷於打造有用且有趣的工具。PongPong 是 Hijiri 的個人專案，從後端架構到前端設計，從 API 整合到伺服器維運，全部一人完成。</p>
+        <div class="dev-links">
+          <a href="https://github.com/james8976" target="_blank" rel="noopener" class="dev-link">🐙 GitHub</a>
+          <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener" class="dev-link">💬 Discord</a>
+          <a href="mailto:a34159@gmail.com" class="dev-link">📧 Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section class="tech-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="tech_title">技術棧</h2></div>
+    <div class="tech-grid">
+      <div class="tech-item reveal"><div class="tech-icon">🐍</div><div class="tech-name">Python 3.11</div><div class="tech-desc" data-i18n="tc1">核心語言</div></div>
+      <div class="tech-item reveal reveal-delay-1"><div class="tech-icon">🤖</div><div class="tech-name">Discord.py</div><div class="tech-desc" data-i18n="tc2">Bot 框架</div></div>
+      <div class="tech-item reveal reveal-delay-2"><div class="tech-icon">☁️</div><div class="tech-name">Google Cloud</div><div class="tech-desc" data-i18n="tc3">翻譯 API</div></div>
+      <div class="tech-item reveal reveal-delay-3"><div class="tech-icon">🎵</div><div class="tech-name">librespot</div><div class="tech-desc" data-i18n="tc4">Spotify Connect</div></div>
+      <div class="tech-item reveal"><div class="tech-icon">🎬</div><div class="tech-name">FFmpeg</div><div class="tech-desc" data-i18n="tc5">音訊處理</div></div>
+      <div class="tech-item reveal reveal-delay-1"><div class="tech-icon">🏗️</div><div class="tech-name">Oracle Cloud</div><div class="tech-desc" data-i18n="tc6">伺服器託管</div></div>
+      <div class="tech-item reveal reveal-delay-2"><div class="tech-icon">🗄️</div><div class="tech-name">SQLite</div><div class="tech-desc" data-i18n="tc7">資料儲存</div></div>
+      <div class="tech-item reveal reveal-delay-3"><div class="tech-icon">🔒</div><div class="tech-name">HTTPS/SSL</div><div class="tech-desc" data-i18n="tc8">安全傳輸</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title" data-i18n="tl_title">發展歷程</h2></div>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="tl-dot">🚀</div><div class="tl-date">2026.06</div><div class="tl-title" data-i18n="tl3_t">v2.1 — Spotify Connect</div><div class="tl-desc" data-i18n="tl3_d">整合 Spotify Connect 音樂串流、OAuth 認證、HTTPS 支援、多語言網站上線。</div></div>
+      <div class="tl-item reveal"><div class="tl-dot">⭐</div><div class="tl-date">2026.05</div><div class="tl-title" data-i18n="tl2_t">v2.0 — 大版本升級</div><div class="tl-desc" data-i18n="tl2_d">全面遷移至斜線指令。新增股票、天氣、旅遊、國旗問答、每日單字等功能。官方網站上線。</div></div>
+      <div class="tl-item reveal"><div class="tl-dot">🌱</div><div class="tl-date">2025.11</div><div class="tl-title" data-i18n="tl1_t">v1.0 — 初始發佈</div><div class="tl-desc" data-i18n="tl1_d">基礎翻譯功能 (!tr)、國旗 emoji 翻譯、匯率查詢 (!cc)。PongPong 正式誕生。</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="js/shared.js"></script>
+<script>
+window.pageTitles = { zh:'關於 — PongPong', en:'About — PongPong', ja:'概要 — PongPong' };
+window.pageI18n = {
+  zh: { page_badge:'關於我們', page_title:'關於 PongPong', page_desc:'一個從「想讓 Discord 更好用」出發的個人專案，如今成為涵蓋翻譯、金融、生活、娛樂與音樂的全能助理。', story_title:'品牌故事', story_1:'PongPong 誕生於 2025 年底。起初只是一個簡單的翻譯機器人 — 在國際化的 Discord 伺服器中，語言隔閡總是最大的問題。一個用國旗 emoji 就能觸發翻譯的機器人，似乎是個不錯的解決方案。', story_2:'隨著使用者回饋的累積，PongPong 逐漸長出了更多功能：匯率查詢、股票報價、天氣預報、旅遊資訊、國旗問答遊戲、每日單字推播…… 每一個功能，都來自真實使用者的真實需求。', story_3:'2026 年，PongPong 迎來了最大的挑戰 — Spotify Connect 整合。透過開源的 librespot 技術，讓 Discord 語音頻道也能成為 Spotify 的播放裝置。這不僅是技術上的突破，更代表了 PongPong 從「工具」到「體驗」的進化。', story_4:'PongPong 的名字來自蓬蓬（澎澎）的諧音 — 像球一樣有彈性，能在不同功能之間靈活跳轉。它不只是一個機器人，更是讓每個 Discord 伺服器都變得更有趣、更便利的夥伴。', dev_title:'開發者', dev_role:'獨立開發者 / Full-Stack Developer', dev_bio:'熱衷於打造有用且有趣的工具。PongPong 是 Hijiri 的個人專案，從後端架構到前端設計，從 API 整合到伺服器維運，全部一人完成。', tech_title:'技術棧', tc1:'核心語言', tc2:'Bot 框架', tc3:'翻譯 API', tc4:'Spotify Connect', tc5:'音訊處理', tc6:'伺服器託管', tc7:'資料儲存', tc8:'安全傳輸', tl_title:'發展歷程', tl3_t:'v2.1 — Spotify Connect', tl3_d:'整合 Spotify Connect 音樂串流、OAuth 認證、HTTPS 支援、多語言網站上線。', tl2_t:'v2.0 — 大版本升級', tl2_d:'全面遷移至斜線指令。新增股票、天氣、旅遊、國旗問答、每日單字等功能。官方網站上線。', tl1_t:'v1.0 — 初始發佈', tl1_d:'基礎翻譯功能 (!tr)、國旗 emoji 翻譯、匯率查詢 (!cc)。PongPong 正式誕生。' },
+  en: { page_badge:'About Us', page_title:'About PongPong', page_desc:'A personal project born from "making Discord better", now an all-in-one assistant covering translation, finance, lifestyle, entertainment, and music.', story_title:'Our Story', story_1:'PongPong was born in late 2025. It started as a simple translation bot — in international Discord servers, language barriers are always the biggest challenge. A bot that translates when you react with a flag emoji seemed like a great solution.', story_2:'As user feedback accumulated, PongPong grew more features: currency exchange, stock quotes, weather forecasts, travel info, flag quiz games, daily vocabulary... Every feature came from real needs of real users.', story_3:'In 2026, PongPong faced its biggest challenge — Spotify Connect integration. Using the open-source librespot technology, Discord voice channels became Spotify playback devices. This wasn\'t just a technical breakthrough, but an evolution from "tool" to "experience".', story_4:'The name PongPong comes from the bouncy nature of a ball — flexible and able to jump between different functions. It\'s not just a bot, but a companion that makes every Discord server more fun and convenient.', dev_title:'Developer', dev_role:'Independent Developer / Full-Stack Developer', dev_bio:'Passionate about building useful and fun tools. PongPong is Hijiri\'s personal project — from backend architecture to frontend design, from API integration to server operations, all done by one person.', tech_title:'Tech Stack', tc1:'Core Language', tc2:'Bot Framework', tc3:'Translation API', tc4:'Spotify Connect', tc5:'Audio Processing', tc6:'Server Hosting', tc7:'Data Storage', tc8:'Secure Transport', tl_title:'Journey', tl3_t:'v2.1 — Spotify Connect', tl3_d:'Spotify Connect streaming, OAuth authentication, HTTPS support, multilingual website launch.', tl2_t:'v2.0 — Major Upgrade', tl2_d:'Full migration to slash commands. Added stocks, weather, travel, flag quiz, daily vocabulary. Official website launch.', tl1_t:'v1.0 — Initial Release', tl1_d:'Basic translation (!tr), flag emoji translation, currency exchange (!cc). PongPong is born.' },
+  ja: { page_badge:'私たちについて', page_title:'PongPongについて', page_desc:'「Discordをもっと便利に」から始まった個人プロジェクト。翻訳、金融、ライフスタイル、エンタメ、音楽をカバーする多機能アシスタント。', story_title:'ストーリー', story_1:'PongPongは2025年末に誕生しました。最初は単純な翻訳Botでした — 国際的なDiscordサーバーでは、言語の壁が最大の課題です。', story_2:'ユーザーのフィードバックが蓄積されるにつれ、為替、株式、天気、旅行、国旗クイズ、毎日の単語など多くの機能が追加されました。', story_3:'2026年、PongPongはSpotify Connect統合という最大の挑戦に直面しました。オープンソースのlibrespot技術により、Discordボイスチャンネルがspotify再生デバイスになりました。', story_4:'PongPongという名前はボールのような弾力性に由来し、異なる機能の間を柔軟にジャンプできることを意味しています。', dev_title:'開発者', dev_role:'独立開発者 / フルスタックデベロッパー', dev_bio:'便利で楽しいツールの開発に情熱を持つ。PongPongはHijiriの個人プロジェクトで、バックエンドからフロントエンドまですべて一人で開発。', tech_title:'技術スタック', tc1:'コア言語', tc2:'Botフレームワーク', tc3:'翻訳API', tc4:'Spotify Connect', tc5:'オーディオ処理', tc6:'サーバーホスティング', tc7:'データストレージ', tc8:'セキュア通信', tl_title:'開発の歩み', tl3_t:'v2.1 — Spotify Connect', tl3_d:'Spotify Connectストリーミング、OAuth認証、HTTPS対応、多言語ウェブサイト公開。', tl2_t:'v2.0 — メジャーアップグレード', tl2_d:'スラッシュコマンドへの完全移行。株式、天気、旅行、国旗クイズ、毎日の単語を追加。', tl1_t:'v1.0 — 初回リリース', tl1_d:'基本翻訳機能、国旗絵文字翻訳、為替レート。PongPong誕生。' }
+};
+initShared('about');
+</script>
+</body>
+</html>
