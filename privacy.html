@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隱私權政策 — PongPong Bot</title>
+<meta name="description" content="PongPong Discord Bot 隱私權政策 — 了解我們如何收集、使用與保護您的資料。">
+<meta property="og:title" content="隱私權政策 — PongPong Bot">
+<meta property="og:description" content="PongPong Discord Bot 隱私權政策">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/pongpongicon.jpg">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #0f0f2e;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --bg-glass: rgba(255,255,255,0.06);
+  --bg-glass-border: rgba(255,255,255,0.1);
+  --bg-nav: rgba(10,10,26,0.85);
+  --text-primary: #e8e8f0;
+  --text-secondary: #9898b0;
+  --text-muted: #5e5e7a;
+  --accent-1: #6c5ce7;
+  --accent-2: #0abde3;
+  --accent-3: #a29bfe;
+  --gradient-main: linear-gradient(135deg, #6c5ce7, #0abde3);
+  --gradient-accent: linear-gradient(135deg, #a29bfe, #00cec9);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 40px rgba(108,92,231,0.15);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-zh: 'Noto Sans TC', sans-serif;
+  --font-en: 'Inter', sans-serif;
+  --font-ja: 'Noto Sans JP', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html[lang="zh"] body { font-family: var(--font-zh); }
+html[lang="en"] body { font-family: var(--font-en); }
+html[lang="ja"] body { font-family: var(--font-ja); }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a { color: var(--accent-2); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent-3); }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Ambient Background ── */
+.ambient-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1; overflow: hidden;
+}
+.ambient-orb {
+  position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.12;
+  animation: orbFloat 20s ease-in-out infinite alternate;
+}
+.ambient-orb:nth-child(1) { width: 600px; height: 600px; background: #0abde3; top: -200px; right: -100px; }
+.ambient-orb:nth-child(2) { width: 500px; height: 500px; background: #6c5ce7; bottom: -150px; left: -100px; animation-delay: -10s; }
+.ambient-orb:nth-child(3) { width: 300px; height: 300px; background: #00cec9; top: 50%; left: 40%; animation-delay: -5s; }
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.05); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--bg-nav);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--bg-glass-border);
+  transition: box-shadow var(--transition);
+}
+.navbar.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+.navbar .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 70px; max-width: 1200px;
+}
+.nav-logo {
+  font-size: 1.4rem; font-weight: 700; color: var(--text-primary);
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.nav-logo img {
+  width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+  border: 2px solid rgba(108,92,231,0.4);
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-back {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--text-secondary); font-size: 0.9rem;
+  padding: 8px 16px; border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  transition: all var(--transition);
+}
+.nav-back:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+.lang-switcher { display: flex; gap: 4px; }
+.lang-btn {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid var(--bg-glass-border);
+  background: transparent; color: var(--text-secondary); cursor: pointer;
+  font-size: 0.8rem; font-family: inherit; transition: all var(--transition);
+}
+.lang-btn:hover, .lang-btn.active {
+  background: var(--accent-1); color: white; border-color: var(--accent-1);
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 140px 0 60px; text-align: center; position: relative;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: 50px;
+  background: rgba(10,189,227,0.15); border: 1px solid rgba(10,189,227,0.3);
+  color: var(--accent-2); font-size: 0.85rem; font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700;
+  background: var(--gradient-main);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 16px;
+}
+.hero .subtitle {
+  color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto;
+}
+.hero .update-date {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-muted); font-size: 0.85rem; margin-top: 20px;
+  padding: 6px 16px; border-radius: 20px;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+}
+
+/* ── TOC ── */
+.toc {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 28px 32px; margin-bottom: 40px;
+}
+.toc h3 {
+  font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.toc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.toc-list a {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--text-secondary); font-size: 0.9rem;
+  padding: 8px 12px; border-radius: 8px;
+  transition: all var(--transition);
+}
+.toc-list a:hover { color: var(--accent-2); background: rgba(10,189,227,0.08); }
+.toc-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+  background: var(--gradient-main); color: white; font-size: 0.75rem; font-weight: 600;
+}
+
+/* ── Section Cards ── */
+.legal-section {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  transition: all var(--transition);
+  opacity: 0; transform: translateY(30px);
+}
+.legal-section.visible { opacity: 1; transform: translateY(0); }
+.legal-section:hover { border-color: rgba(10,189,227,0.3); box-shadow: 0 0 40px rgba(10,189,227,0.1); }
+.section-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--bg-glass-border);
+}
+.section-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: var(--gradient-main); font-size: 1.2rem;
+}
+.section-header h2 {
+  font-size: 1.25rem; font-weight: 600; color: var(--text-primary);
+}
+.legal-section p {
+  color: var(--text-secondary); margin-bottom: 12px; line-height: 1.9;
+}
+.legal-section ul {
+  list-style: none; padding: 0; margin: 12px 0;
+}
+.legal-section ul li {
+  color: var(--text-secondary); padding: 8px 0 8px 28px; position: relative;
+  line-height: 1.7;
+}
+.legal-section ul li::before {
+  content: ''; position: absolute; left: 8px; top: 16px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gradient-main);
+}
+.legal-section .highlight-box {
+  background: rgba(10,189,227,0.08); border: 1px solid rgba(10,189,227,0.2);
+  border-radius: var(--radius-sm); padding: 16px 20px; margin: 16px 0;
+  color: var(--text-secondary); font-size: 0.95rem;
+}
+
+/* ── Data Table ── */
+.data-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border-radius: var(--radius-sm); overflow: hidden; margin: 16px 0;
+  border: 1px solid var(--bg-glass-border);
+}
+.data-table th {
+  background: rgba(108,92,231,0.15); color: var(--text-primary);
+  padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.9rem;
+}
+.data-table td {
+  padding: 12px 16px; color: var(--text-secondary); font-size: 0.9rem;
+  border-top: 1px solid var(--bg-glass-border);
+}
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ── Footer ── */
+.footer {
+  padding: 40px 0; text-align: center;
+  border-top: 1px solid var(--bg-glass-border);
+  margin-top: 40px;
+}
+.footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+.footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.footer-links a {
+  color: var(--text-secondary); font-size: 0.85rem;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--accent-2); }
+
+/* ── Back to Top ── */
+.back-to-top {
+  position: fixed; bottom: 30px; right: 30px; z-index: 999;
+  width: 48px; height: 48px; border-radius: 14px;
+  background: var(--gradient-main); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1.2rem; box-shadow: 0 4px 20px rgba(108,92,231,0.4);
+  opacity: 0; transform: translateY(20px); pointer-events: none;
+  transition: all var(--transition);
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-3px); box-shadow: 0 6px 30px rgba(108,92,231,0.6); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .toc-list { grid-template-columns: 1fr; }
+  .legal-section { padding: 24px 20px; }
+  .nav-back span { display: none; }
+  .hero h1 { font-size: 2rem; }
+  .data-table { font-size: 0.85rem; }
+  .data-table th, .data-table td { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-bg">
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/pongpongicon.jpg" alt="PongPong">
+      <span>PongPong</span>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back">← <span data-i18n="nav_back">返回首頁</span></a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+        <button class="lang-btn" onclick="switchLang('ja')">日本語</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🔒 <span data-i18n="hero_badge">資料保護</span></div>
+    <h1 data-i18n="hero_title">隱私權政策</h1>
+    <p class="subtitle" data-i18n="hero_subtitle">我們重視您的隱私。本政策說明 PongPong Bot 如何收集、使用與保護您的資料。</p>
+    <div class="update-date">🕐 <span data-i18n="last_updated">最後更新：2026 年 6 月 12 日</span></div>
+  </div>
+</section>
+
+<!-- Content -->
+<main class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>📋 <span data-i18n="toc_title">目錄</span></h3>
+    <ul class="toc-list">
+      <li><a href="#s1"><span class="toc-num">1</span> <span data-i18n="p1_title">我們收集的資料</span></a></li>
+      <li><a href="#s2"><span class="toc-num">2</span> <span data-i18n="p2_title">資料使用方式</span></a></li>
+      <li><a href="#s3"><span class="toc-num">3</span> <span data-i18n="p3_title">資料儲存與保留</span></a></li>
+      <li><a href="#s4"><span class="toc-num">4</span> <span data-i18n="p4_title">第三方服務</span></a></li>
+      <li><a href="#s5"><span class="toc-num">5</span> <span data-i18n="p5_title">資料安全</span></a></li>
+      <li><a href="#s6"><span class="toc-num">6</span> <span data-i18n="p6_title">使用者權利</span></a></li>
+      <li><a href="#s7"><span class="toc-num">7</span> <span data-i18n="p7_title">Cookie 政策</span></a></li>
+      <li><a href="#s8"><span class="toc-num">8</span> <span data-i18n="p8_title">未成年人保護</span></a></li>
+      <li><a href="#s9"><span class="toc-num">9</span> <span data-i18n="p9_title">政策更新</span></a></li>
+      <li><a href="#s10"><span class="toc-num">10</span> <span data-i18n="p10_title">聯繫我們</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="legal-section" id="s1">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <h2 data-i18n="p1_title">我們收集的資料</h2>
+    </div>
+    <p data-i18n="p1_p1">為提供核心功能，PongPong Bot 會收集以下有限的資料：</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th data-i18n="table_data">資料類型</th>
+          <th data-i18n="table_purpose">用途</th>
+          <th data-i18n="table_retention">保留方式</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-i18n="d1_type">Discord 使用者 ID</td>
+          <td data-i18n="d1_use">指令路由、翻譯歷史歸屬</td>
+          <td data-i18n="d1_keep">本地資料庫</td>
+        </tr>
+        <tr>
+          <td data-i18n="d2_type">Discord 伺服器 ID</td>
+          <td data-i18n="d2_use">伺服器設定（語言、每日推播頻道）</td>
+          <td data-i18n="d2_keep">本地資料庫</td>
+        </tr>
+        <tr>
+          <td data-i18n="d3_type">翻譯歷史</td>
+          <td data-i18n="d3_use">提供 /history 指令查詢</td>
+          <td data-i18n="d3_keep">本地 SQLite 資料庫</td>
+        </tr>
+        <tr>
+          <td data-i18n="d4_type">Spotify OAuth Token</td>
+          <td data-i18n="d4_use">Spotify Connect 驗證</td>
+          <td data-i18n="d4_keep">僅暫存於記憶體，斷線即清除</td>
+        </tr>
+        <tr>
+          <td data-i18n="d5_type">指令使用紀錄</td>
+          <td data-i18n="d5_use">功能運作與錯誤診斷</td>
+          <td data-i18n="d5_keep">伺服器日誌（定期清除）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" data-i18n="p1_note">
+      ✅ 我們不會永久儲存您的訊息內容。翻譯功能僅即時處理文字，不會保留原始訊息。
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="legal-section" id="s2">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <h2 data-i18n="p2_title">資料使用方式</h2>
+    </div>
+    <p data-i18n="p2_p1">我們收集的資料僅用於以下目的：</p>
+    <ul>
+      <li data-i18n="p2_u1">✅ 提供機器人核心功能（翻譯、天氣、匯率、股票等）</li>
+      <li data-i18n="p2_u2">✅ 改善服務品質與使用者體驗</li>
+      <li data-i18n="p2_u3">✅ 診斷技術問題與錯誤</li>
+      <li data-i18n="p2_u4">✅ 維護服務安全性</li>
+    </ul>
+    <div class="highlight-box" data-i18n="p2_note">
+      🚫 我們絕不會將您的資料用於廣告投放，也絕不會出售給任何第三方。
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="legal-section" id="s3">
+    <div class="section-header">
+      <div class="section-icon">🗄️</div>
+      <h2 data-i18n="p3_title">資料儲存與保留</h2>
+    </div>
+    <ul>
+      <li data-i18n="p3_s1">翻譯歷史儲存於伺服器上的本地 SQLite 資料庫中</li>
+      <li data-i18n="p3_s2">Spotify OAuth Token 僅暫存於伺服器記憶體，使用者斷線後立即清除</li>
+      <li data-i18n="p3_s3">伺服器託管於 Oracle Cloud Infrastructure (OCI)，位於日本東京區域</li>
+      <li data-i18n="p3_s4">資料僅在提供功能所需的時間內保留</li>
+      <li data-i18n="p3_s5">使用者可隨時要求刪除與其相關的所有資料</li>
+    </ul>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="legal-section" id="s4">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <h2 data-i18n="p4_title">第三方服務</h2>
+    </div>
+    <p data-i18n="p4_p1">本機器人使用以下第三方服務。當您使用相關功能時，您的資料可能會依其隱私權政策被處理：</p>
+    <ul>
+      <li data-i18n="p4_s1">🌐 Google Cloud Translation API — 翻譯文字會被傳送至 Google 伺服器處理</li>
+      <li data-i18n="p4_s2">🎵 Spotify Web API — OAuth 授權會與 Spotify 伺服器通訊</li>
+      <li data-i18n="p4_s3">🌤️ OpenWeatherMap API — 查詢城市名稱會被傳送至其伺服器</li>
+      <li data-i18n="p4_s4">💱 ExchangeRate-API — 匯率查詢不涉及個人資料</li>
+      <li data-i18n="p4_s5">📈 Alpha Vantage API — 股票查詢不涉及個人資料</li>
+    </ul>
+    <p data-i18n="p4_p2">我們建議您閱讀這些第三方服務各自的隱私權政策。</p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="legal-section" id="s5">
+    <div class="section-header">
+      <div class="section-icon">🛡️</div>
+      <h2 data-i18n="p5_title">資料安全</h2>
+    </div>
+    <p data-i18n="p5_p1">我們採取以下措施保護您的資料：</p>
+    <ul>
+      <li data-i18n="p5_m1">🔐 所有資料傳輸使用 HTTPS 加密</li>
+      <li data-i18n="p5_m2">📉 遵循最小化收集原則 — 只收集提供功能所必需的資料</li>
+      <li data-i18n="p5_m3">🔑 伺服器存取權限僅限機器人開發者</li>
+      <li data-i18n="p5_m4">🔄 定期進行安全性更新與維護</li>
+      <li data-i18n="p5_m5">🗑️ Spotify Token 等敏感資料不會寫入磁碟</li>
+    </ul>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="legal-section" id="s6">
+    <div class="section-header">
+      <div class="section-icon">👤</div>
+      <h2 data-i18n="p6_title">使用者權利</h2>
+    </div>
+    <p data-i18n="p6_p1">您對自己的資料擁有以下權利：</p>
+    <ul>
+      <li data-i18n="p6_r1">📋 有權了解我們儲存了哪些與您相關的資料</li>
+      <li data-i18n="p6_r2">🗑️ 有權要求刪除所有與您相關的資料</li>
+      <li data-i18n="p6_r3">📤 有權要求匯出您的資料</li>
+      <li data-i18n="p6_r4">⏱️ 資料刪除請求將於 30 天內處理</li>
+    </ul>
+    <div class="highlight-box" data-i18n="p6_note">
+      📬 如需行使上述權利，請透過 Email (a34159@gmail.com) 或 Discord 支援伺服器聯繫我們。
+    </div>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="legal-section" id="s7">
+    <div class="section-header">
+      <div class="section-icon">🍪</div>
+      <h2 data-i18n="p7_title">Cookie 政策</h2>
+    </div>
+    <p data-i18n="p7_p1">PongPong 網站本身不使用追蹤型 Cookie。</p>
+    <p data-i18n="p7_p2">我們僅使用瀏覽器的 LocalStorage 儲存您的語言偏好設定（中文/英文/日文），以改善瀏覽體驗。此資料完全儲存在您的裝置上，不會傳送至任何伺服器。</p>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="legal-section" id="s8">
+    <div class="section-header">
+      <div class="section-icon">🧒</div>
+      <h2 data-i18n="p8_title">未成年人保護</h2>
+    </div>
+    <p data-i18n="p8_p1">本機器人不針對 13 歲以下的兒童提供服務。我們不會刻意收集兒童的個人資料。</p>
+    <p data-i18n="p8_p2">若我們得知有 13 歲以下的使用者使用了本機器人，我們將立即採取措施刪除其相關資料。如果您認為有兒童正在使用本機器人，請聯繫我們。</p>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="legal-section" id="s9">
+    <div class="section-header">
+      <div class="section-icon">📢</div>
+      <h2 data-i18n="p9_title">政策更新</h2>
+    </div>
+    <p data-i18n="p9_p1">我們可能會不定期更新本隱私權政策。重大更新將透過以下方式通知：</p>
+    <ul>
+      <li data-i18n="p9_n1">📣 Discord 支援伺服器公告</li>
+      <li data-i18n="p9_n2">📅 本頁面頂部的「最後更新」日期變更</li>
+    </ul>
+    <p data-i18n="p9_p2">在政策更新後繼續使用本機器人，即表示您接受更新後的隱私權政策。</p>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="legal-section" id="s10">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <h2 data-i18n="p10_title">聯繫我們</h2>
+    </div>
+    <p data-i18n="p10_p1">如果您對本隱私權政策有任何疑問、意見或資料處理請求，歡迎透過以下方式聯繫我們：</p>
+    <ul>
+      <li>📧 Email：<a href="mailto:a34159@gmail.com">a34159@gmail.com</a></li>
+      <li>💬 Discord：<a href="https://discord.gg/r8grruws" target="_blank" rel="noopener">PongPong 支援伺服器</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2025–2026 PongPong. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="index.html" data-i18n="footer_home">首頁</a>
+      <a href="terms.html" data-i18n="footer_terms">服務條款</a>
+      <a href="https://github.com/james8976" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function() {
+  'use strict';
+
+  const i18n = {
+    zh: {
+      nav_back:'返回首頁', hero_badge:'資料保護', hero_title:'隱私權政策',
+      hero_subtitle:'我們重視您的隱私。本政策說明 PongPong Bot 如何收集、使用與保護您的資料。',
+      last_updated:'最後更新：2026 年 6 月 12 日', toc_title:'目錄',
+      p1_title:'我們收集的資料', p2_title:'資料使用方式', p3_title:'資料儲存與保留',
+      p4_title:'第三方服務', p5_title:'資料安全', p6_title:'使用者權利',
+      p7_title:'Cookie 政策', p8_title:'未成年人保護', p9_title:'政策更新', p10_title:'聯繫我們',
+      p1_p1:'為提供核心功能，PongPong Bot 會收集以下有限的資料：',
+      table_data:'資料類型', table_purpose:'用途', table_retention:'保留方式',
+      d1_type:'Discord 使用者 ID', d1_use:'指令路由、翻譯歷史歸屬', d1_keep:'本地資料庫',
+      d2_type:'Discord 伺服器 ID', d2_use:'伺服器設定（語言、每日推播頻道）', d2_keep:'本地資料庫',
+      d3_type:'翻譯歷史', d3_use:'提供 /history 指令查詢', d3_keep:'本地 SQLite 資料庫',
+      d4_type:'Spotify OAuth Token', d4_use:'Spotify Connect 驗證', d4_keep:'僅暫存於記憶體，斷線即清除',
+      d5_type:'指令使用紀錄', d5_use:'功能運作與錯誤診斷', d5_keep:'伺服器日誌（定期清除）',
+      p1_note:'✅ 我們不會永久儲存您的訊息內容。翻譯功能僅即時處理文字，不會保留原始訊息。',
+      p2_p1:'我們收集的資料僅用於以下目的：',
+      p2_u1:'✅ 提供機器人核心功能（翻譯、天氣、匯率、股票等）',
+      p2_u2:'✅ 改善服務品質與使用者體驗', p2_u3:'✅ 診斷技術問題與錯誤', p2_u4:'✅ 維護服務安全性',
+      p2_note:'🚫 我們絕不會將您的資料用於廣告投放，也絕不會出售給任何第三方。',
+      p3_s1:'翻譯歷史儲存於伺服器上的本地 SQLite 資料庫中',
+      p3_s2:'Spotify OAuth Token 僅暫存於伺服器記憶體，使用者斷線後立即清除',
+      p3_s3:'伺服器託管於 Oracle Cloud Infrastructure (OCI)，位於日本東京區域',
+      p3_s4:'資料僅在提供功能所需的時間內保留', p3_s5:'使用者可隨時要求刪除與其相關的所有資料',
+      p4_p1:'本機器人使用以下第三方服務。當您使用相關功能時，您的資料可能會依其隱私權政策被處理：',
+      p4_s1:'🌐 Google Cloud Translation API — 翻譯文字會被傳送至 Google 伺服器處理',
+      p4_s2:'🎵 Spotify Web API — OAuth 授權會與 Spotify 伺服器通訊',
+      p4_s3:'🌤️ OpenWeatherMap API — 查詢城市名稱會被傳送至其伺服器',
+      p4_s4:'💱 ExchangeRate-API — 匯率查詢不涉及個人資料',
+      p4_s5:'📈 Alpha Vantage API — 股票查詢不涉及個人資料',
+      p4_p2:'我們建議您閱讀這些第三方服務各自的隱私權政策。',
+      p5_p1:'我們採取以下措施保護您的資料：',
+      p5_m1:'🔐 所有資料傳輸使用 HTTPS 加密', p5_m2:'📉 遵循最小化收集原則 — 只收集提供功能所必需的資料',
+      p5_m3:'🔑 伺服器存取權限僅限機器人開發者', p5_m4:'🔄 定期進行安全性更新與維護',
+      p5_m5:'🗑️ Spotify Token 等敏感資料不會寫入磁碟',
+      p6_p1:'您對自己的資料擁有以下權利：',
+      p6_r1:'📋 有權了解我們儲存了哪些與您相關的資料', p6_r2:'🗑️ 有權要求刪除所有與您相關的資料',
+      p6_r3:'📤 有權要求匯出您的資料', p6_r4:'⏱️ 資料刪除請求將於 30 天內處理',
+      p6_note:'📬 如需行使上述權利，請透過 Email (a34159@gmail.com) 或 Discord 支援伺服器聯繫我們。',
+      p7_p1:'PongPong 網站本身不使用追蹤型 Cookie。',
+      p7_p2:'我們僅使用瀏覽器的 LocalStorage 儲存您的語言偏好設定（中文/英文/日文），以改善瀏覽體驗。此資料完全儲存在您的裝置上，不會傳送至任何伺服器。',
+      p8_p1:'本機器人不針對 13 歲以下的兒童提供服務。我們不會刻意收集兒童的個人資料。',
+      p8_p2:'若我們得知有 13 歲以下的使用者使用了本機器人，我們將立即採取措施刪除其相關資料。如果您認為有兒童正在使用本機器人，請聯繫我們。',
+      p9_p1:'我們可能會不定期更新本隱私權政策。重大更新將透過以下方式通知：',
+      p9_n1:'📣 Discord 支援伺服器公告', p9_n2:'📅 本頁面頂部的「最後更新」日期變更',
+      p9_p2:'在政策更新後繼續使用本機器人，即表示您接受更新後的隱私權政策。',
+      p10_p1:'如果您對本隱私權政策有任何疑問、意見或資料處理請求，歡迎透過以下方式聯繫我們：',
+      footer_home:'首頁', footer_terms:'服務條款'
+    },
+    en: {
+      nav_back:'Back to Home', hero_badge:'Data Protection', hero_title:'Privacy Policy',
+      hero_subtitle:'We value your privacy. This policy explains how PongPong Bot collects, uses, and protects your data.',
+      last_updated:'Last Updated: June 12, 2026', toc_title:'Table of Contents',
+      p1_title:'Data We Collect', p2_title:'How We Use Data', p3_title:'Data Storage & Retention',
+      p4_title:'Third-Party Services', p5_title:'Data Security', p6_title:'Your Rights',
+      p7_title:'Cookie Policy', p8_title:'Children\'s Privacy', p9_title:'Policy Updates', p10_title:'Contact Us',
+      p1_p1:'To provide its core features, PongPong Bot collects the following limited data:',
+      table_data:'Data Type', table_purpose:'Purpose', table_retention:'Retention',
+      d1_type:'Discord User ID', d1_use:'Command routing, translation history', d1_keep:'Local database',
+      d2_type:'Discord Server ID', d2_use:'Server settings (language, daily push channel)', d2_keep:'Local database',
+      d3_type:'Translation History', d3_use:'Provides /history command', d3_keep:'Local SQLite database',
+      d4_type:'Spotify OAuth Token', d4_use:'Spotify Connect authentication', d4_keep:'Memory only, cleared on disconnect',
+      d5_type:'Command Usage Logs', d5_use:'Functionality & error diagnostics', d5_keep:'Server logs (periodically cleared)',
+      p1_note:'✅ We do not permanently store your message content. Translation processes text in real-time without retaining the original message.',
+      p2_p1:'The data we collect is used solely for the following purposes:',
+      p2_u1:'✅ Providing core bot features (translation, weather, currency, stocks, etc.)',
+      p2_u2:'✅ Improving service quality and user experience',
+      p2_u3:'✅ Diagnosing technical issues and errors', p2_u4:'✅ Maintaining service security',
+      p2_note:'🚫 We will never use your data for advertising, and we will never sell it to any third party.',
+      p3_s1:'Translation history is stored in a local SQLite database on the server',
+      p3_s2:'Spotify OAuth Tokens are stored in server memory only, cleared immediately upon disconnect',
+      p3_s3:'Server is hosted on Oracle Cloud Infrastructure (OCI), Tokyo Japan region',
+      p3_s4:'Data is retained only as long as needed for functionality',
+      p3_s5:'Users may request deletion of all their associated data at any time',
+      p4_p1:'The Bot uses the following third-party services. When using related features, your data may be processed according to their privacy policies:',
+      p4_s1:'🌐 Google Cloud Translation API — Translated text is sent to Google servers',
+      p4_s2:'🎵 Spotify Web API — OAuth authorization communicates with Spotify servers',
+      p4_s3:'🌤️ OpenWeatherMap API — City names are sent to their servers',
+      p4_s4:'💱 ExchangeRate-API — Currency queries don\'t involve personal data',
+      p4_s5:'📈 Alpha Vantage API — Stock queries don\'t involve personal data',
+      p4_p2:'We recommend reading the privacy policies of these third-party services.',
+      p5_p1:'We take the following measures to protect your data:',
+      p5_m1:'🔐 All data transmission encrypted via HTTPS',
+      p5_m2:'📉 Minimal data collection principle — only what\'s necessary',
+      p5_m3:'🔑 Server access restricted to bot developer only',
+      p5_m4:'🔄 Regular security updates and maintenance',
+      p5_m5:'🗑️ Sensitive data like Spotify tokens never written to disk',
+      p6_p1:'You have the following rights regarding your data:',
+      p6_r1:'📋 Right to know what data we store about you',
+      p6_r2:'🗑️ Right to request deletion of all your data',
+      p6_r3:'📤 Right to request a data export',
+      p6_r4:'⏱️ Data deletion requests processed within 30 days',
+      p6_note:'📬 To exercise these rights, contact us via Email (a34159@gmail.com) or our Discord support server.',
+      p7_p1:'The PongPong website does not use tracking cookies.',
+      p7_p2:'We only use browser LocalStorage to save your language preference (Chinese/English/Japanese) for a better browsing experience. This data is stored entirely on your device and is never sent to any server.',
+      p8_p1:'The Bot is not intended for children under 13. We do not knowingly collect personal data from children.',
+      p8_p2:'If we learn that a user under 13 has used the Bot, we will immediately take steps to delete their data. If you believe a child is using the Bot, please contact us.',
+      p9_p1:'We may update this Privacy Policy from time to time. Major updates will be announced via:',
+      p9_n1:'📣 Discord support server announcements', p9_n2:'📅 Updated "Last Updated" date at the top of this page',
+      p9_p2:'Continued use of the Bot after a policy update constitutes acceptance of the updated Privacy Policy.',
+      p10_p1:'If you have any questions, comments, or data processing requests regarding this Privacy Policy, please contact us:',
+      footer_home:'Home', footer_terms:'Terms of Service'
+    },
+    ja: {
+      nav_back:'ホームに戻る', hero_badge:'データ保護', hero_title:'プライバシーポリシー',
+      hero_subtitle:'私たちはあなたのプライバシーを大切にしています。本ポリシーでは、PongPong Botがどのようにデータを収集、使用、保護するかを説明します。',
+      last_updated:'最終更新日：2026年6月12日', toc_title:'目次',
+      p1_title:'収集するデータ', p2_title:'データの使用方法', p3_title:'データの保存と保持',
+      p4_title:'サードパーティサービス', p5_title:'データセキュリティ', p6_title:'ユーザーの権利',
+      p7_title:'Cookieポリシー', p8_title:'未成年者の保護', p9_title:'ポリシーの更新', p10_title:'お問い合わせ',
+      p1_p1:'コア機能を提供するために、PongPong Botは以下の限定的なデータを収集します：',
+      table_data:'データ種別', table_purpose:'目的', table_retention:'保持方法',
+      d1_type:'Discord ユーザーID', d1_use:'コマンドルーティング、翻訳履歴', d1_keep:'ローカルDB',
+      d2_type:'Discord サーバーID', d2_use:'サーバー設定（言語、デイリープッシュ）', d2_keep:'ローカルDB',
+      d3_type:'翻訳履歴', d3_use:'/history コマンド', d3_keep:'ローカルSQLite DB',
+      d4_type:'Spotify OAuth Token', d4_use:'Spotify Connect認証', d4_keep:'メモリのみ、切断時に消去',
+      d5_type:'コマンド使用ログ', d5_use:'機能動作・エラー診断', d5_keep:'サーバーログ（定期消去）',
+      p1_note:'✅ メッセージ内容を永続的に保存することはありません。翻訳機能はテキストをリアルタイムで処理し、元のメッセージは保持しません。',
+      p2_p1:'収集したデータは以下の目的にのみ使用されます：',
+      p2_u1:'✅ Botのコア機能（翻訳、天気、為替、株式など）の提供',
+      p2_u2:'✅ サービス品質とユーザー体験の向上',
+      p2_u3:'✅ 技術的な問題やエラーの診断', p2_u4:'✅ サービスセキュリティの維持',
+      p2_note:'🚫 お客様のデータを広告目的で使用したり、第三者に販売することは絶対にありません。',
+      p3_s1:'翻訳履歴はサーバー上のローカルSQLiteデータベースに保存',
+      p3_s2:'Spotify OAuth Tokenはサーバーメモリにのみ一時保存、切断時に即座に消去',
+      p3_s3:'サーバーはOracle Cloud Infrastructure (OCI)の東京リージョンにホスティング',
+      p3_s4:'データは機能提供に必要な期間のみ保持', p3_s5:'ユーザーはいつでも関連データの削除を要求可能',
+      p4_p1:'本Botは以下のサードパーティサービスを使用しています。関連機能の利用時、データはそれぞれのプライバシーポリシーに従って処理される場合があります：',
+      p4_s1:'🌐 Google Cloud Translation API — 翻訳テキストがGoogleサーバーに送信されます',
+      p4_s2:'🎵 Spotify Web API — OAuth認証がSpotifyサーバーと通信します',
+      p4_s3:'🌤️ OpenWeatherMap API — 都市名がサーバーに送信されます',
+      p4_s4:'💱 ExchangeRate-API — 為替クエリに個人データは含まれません',
+      p4_s5:'📈 Alpha Vantage API — 株式クエリに個人データは含まれません',
+      p4_p2:'これらのサードパーティサービスのプライバシーポリシーもお読みになることをお勧めします。',
+      p5_p1:'データを保護するために以下の措置を講じています：',
+      p5_m1:'🔐 すべてのデータ転送をHTTPSで暗号化',
+      p5_m2:'📉 最小限のデータ収集原則 — 機能提供に必要なもののみ',
+      p5_m3:'🔑 サーバーアクセスはBot開発者のみに制限',
+      p5_m4:'🔄 定期的なセキュリティアップデートとメンテナンス',
+      p5_m5:'🗑️ Spotify Tokenなどの機密データはディスクに書き込まない',
+      p6_p1:'お客様のデータに関して以下の権利があります：',
+      p6_r1:'📋 保存されているデータを知る権利', p6_r2:'🗑️ すべてのデータの削除を要求する権利',
+      p6_r3:'📤 データのエクスポートを要求する権利', p6_r4:'⏱️ データ削除リクエストは30日以内に処理',
+      p6_note:'📬 これらの権利を行使するには、Email (a34159@gmail.com) またはDiscordサポートサーバーにご連絡ください。',
+      p7_p1:'PongPongウェブサイトはトラッキングCookieを使用しません。',
+      p7_p2:'ブラウジング体験向上のため、ブラウザのLocalStorageに言語設定（中国語/英語/日本語）のみ保存します。このデータはお使いのデバイスにのみ保存され、サーバーに送信されることはありません。',
+      p8_p1:'本Botは13歳未満の児童を対象としていません。児童の個人データを意図的に収集することはありません。',
+      p8_p2:'13歳未満のユーザーが本Botを利用していることが判明した場合、直ちにそのデータを削除する措置を講じます。児童が本Botを利用していると思われる場合は、ご連絡ください。',
+      p9_p1:'本プライバシーポリシーは随時更新される場合があります。重要な更新は以下の方法で通知されます：',
+      p9_n1:'📣 Discordサポートサーバーでの告知', p9_n2:'📅 本ページ上部の「最終更新日」の変更',
+      p9_p2:'ポリシー更新後も本Botの利用を継続することで、更新されたプライバシーポリシーに同意したものとみなされます。',
+      p10_p1:'本プライバシーポリシーに関するご質問、ご意見、またはデータ処理のリクエストがある場合は、以下の方法でお問い合わせください：',
+      footer_home:'ホーム', footer_terms:'利用規約'
+    }
+  };
+
+  let currentLang = localStorage.getItem('pongpong-lang') || 'zh';
+
+  function switchLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('pongpong-lang', lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="switchLang('${lang}')"]`).classList.add('active');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+    document.title = lang === 'en' ? 'Privacy Policy — PongPong Bot' :
+                     lang === 'ja' ? 'プライバシーポリシー — PongPong Bot' : '隱私權政策 — PongPong Bot';
+  }
+
+  window.switchLang = switchLang;
+  switchLang(currentLang);
+
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.legal-section').forEach(s => observer.observe(s));
+})();
+</script>
+</body>
+</html>

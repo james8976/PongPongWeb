@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服務條款 — PongPong Bot</title>
+<meta name="description" content="PongPong Discord Bot 服務條款 — 使用本機器人前請閱讀。">
+<meta property="og:title" content="服務條款 — PongPong Bot">
+<meta property="og:description" content="PongPong Discord Bot 服務條款">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/pongpongicon.jpg">
+<link rel="icon" type="image/jpeg" href="images/pongpongicon.jpg">
+<meta name="theme-color" content="#0a0a1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #0f0f2e;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --bg-glass: rgba(255,255,255,0.06);
+  --bg-glass-border: rgba(255,255,255,0.1);
+  --bg-nav: rgba(10,10,26,0.85);
+  --text-primary: #e8e8f0;
+  --text-secondary: #9898b0;
+  --text-muted: #5e5e7a;
+  --accent-1: #6c5ce7;
+  --accent-2: #0abde3;
+  --accent-3: #a29bfe;
+  --gradient-main: linear-gradient(135deg, #6c5ce7, #0abde3);
+  --gradient-accent: linear-gradient(135deg, #a29bfe, #00cec9);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 40px rgba(108,92,231,0.15);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-zh: 'Noto Sans TC', sans-serif;
+  --font-en: 'Inter', sans-serif;
+  --font-ja: 'Noto Sans JP', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html[lang="zh"] body { font-family: var(--font-zh); }
+html[lang="en"] body { font-family: var(--font-en); }
+html[lang="ja"] body { font-family: var(--font-ja); }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a { color: var(--accent-2); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent-3); }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Ambient Background ── */
+.ambient-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1; overflow: hidden;
+}
+.ambient-orb {
+  position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.12;
+  animation: orbFloat 20s ease-in-out infinite alternate;
+}
+.ambient-orb:nth-child(1) { width: 600px; height: 600px; background: #6c5ce7; top: -200px; left: -100px; }
+.ambient-orb:nth-child(2) { width: 500px; height: 500px; background: #0abde3; bottom: -150px; right: -100px; animation-delay: -10s; }
+.ambient-orb:nth-child(3) { width: 300px; height: 300px; background: #a29bfe; top: 40%; left: 60%; animation-delay: -5s; }
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.05); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--bg-nav);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--bg-glass-border);
+  transition: box-shadow var(--transition);
+}
+.navbar.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+.navbar .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 70px; max-width: 1200px;
+}
+.nav-logo {
+  font-size: 1.4rem; font-weight: 700; color: var(--text-primary);
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.nav-logo img {
+  width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+  border: 2px solid rgba(108,92,231,0.4);
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-back {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--text-secondary); font-size: 0.9rem;
+  padding: 8px 16px; border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  transition: all var(--transition);
+}
+.nav-back:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+.lang-switcher { display: flex; gap: 4px; }
+.lang-btn {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid var(--bg-glass-border);
+  background: transparent; color: var(--text-secondary); cursor: pointer;
+  font-size: 0.8rem; font-family: inherit; transition: all var(--transition);
+}
+.lang-btn:hover, .lang-btn.active {
+  background: var(--accent-1); color: white; border-color: var(--accent-1);
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 140px 0 60px; text-align: center; position: relative;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: 50px;
+  background: rgba(108,92,231,0.15); border: 1px solid rgba(108,92,231,0.3);
+  color: var(--accent-3); font-size: 0.85rem; font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700;
+  background: var(--gradient-main);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 16px;
+}
+.hero .subtitle {
+  color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; margin: 0 auto;
+}
+.hero .update-date {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-muted); font-size: 0.85rem; margin-top: 20px;
+  padding: 6px 16px; border-radius: 20px;
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+}
+
+/* ── TOC ── */
+.toc {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 28px 32px; margin-bottom: 40px;
+}
+.toc h3 {
+  font-size: 1rem; color: var(--text-primary); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.toc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.toc-list a {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--text-secondary); font-size: 0.9rem;
+  padding: 8px 12px; border-radius: 8px;
+  transition: all var(--transition);
+}
+.toc-list a:hover { color: var(--accent-2); background: rgba(10,189,227,0.08); }
+.toc-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+  background: var(--gradient-main); color: white; font-size: 0.75rem; font-weight: 600;
+}
+
+/* ── Section Cards ── */
+.legal-section {
+  background: var(--bg-card); border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  transition: all var(--transition);
+  opacity: 0; transform: translateY(30px);
+}
+.legal-section.visible { opacity: 1; transform: translateY(0); }
+.legal-section:hover { border-color: rgba(108,92,231,0.3); box-shadow: var(--shadow-glow); }
+.section-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--bg-glass-border);
+}
+.section-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: var(--gradient-main); font-size: 1.2rem;
+}
+.section-header h2 {
+  font-size: 1.25rem; font-weight: 600; color: var(--text-primary);
+}
+.legal-section p {
+  color: var(--text-secondary); margin-bottom: 12px; line-height: 1.9;
+}
+.legal-section ul {
+  list-style: none; padding: 0; margin: 12px 0;
+}
+.legal-section ul li {
+  color: var(--text-secondary); padding: 8px 0 8px 28px; position: relative;
+  line-height: 1.7;
+}
+.legal-section ul li::before {
+  content: ''; position: absolute; left: 8px; top: 16px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gradient-main);
+}
+.legal-section .highlight-box {
+  background: rgba(108,92,231,0.08); border: 1px solid rgba(108,92,231,0.2);
+  border-radius: var(--radius-sm); padding: 16px 20px; margin: 16px 0;
+  color: var(--text-secondary); font-size: 0.95rem;
+}
+.legal-section .highlight-box a { font-weight: 500; }
+
+/* ── Footer ── */
+.footer {
+  padding: 40px 0; text-align: center;
+  border-top: 1px solid var(--bg-glass-border);
+  margin-top: 40px;
+}
+.footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+.footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+.footer-links a {
+  color: var(--text-secondary); font-size: 0.85rem;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--accent-2); }
+
+/* ── Back to Top ── */
+.back-to-top {
+  position: fixed; bottom: 30px; right: 30px; z-index: 999;
+  width: 48px; height: 48px; border-radius: 14px;
+  background: var(--gradient-main); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1.2rem; box-shadow: 0 4px 20px rgba(108,92,231,0.4);
+  opacity: 0; transform: translateY(20px); pointer-events: none;
+  transition: all var(--transition);
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-3px); box-shadow: 0 6px 30px rgba(108,92,231,0.6); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .toc-list { grid-template-columns: 1fr; }
+  .legal-section { padding: 24px 20px; }
+  .nav-back span { display: none; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient-bg">
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+  <div class="ambient-orb"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/pongpongicon.jpg" alt="PongPong">
+      <span>PongPong</span>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back">← <span data-i18n="nav_back">返回首頁</span></a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+        <button class="lang-btn" onclick="switchLang('ja')">日本語</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">📜 <span data-i18n="hero_badge">法律文件</span></div>
+    <h1 data-i18n="hero_title">服務條款</h1>
+    <p class="subtitle" data-i18n="hero_subtitle">使用 PongPong Bot 前，請詳閱以下條款。繼續使用即表示您同意這些條款。</p>
+    <div class="update-date">🕐 <span data-i18n="last_updated">最後更新：2026 年 6 月 12 日</span></div>
+  </div>
+</section>
+
+<!-- Content -->
+<main class="container">
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <h3>📋 <span data-i18n="toc_title">目錄</span></h3>
+    <ul class="toc-list">
+      <li><a href="#s1"><span class="toc-num">1</span> <span data-i18n="t1_title">服務說明</span></a></li>
+      <li><a href="#s2"><span class="toc-num">2</span> <span data-i18n="t2_title">使用規範</span></a></li>
+      <li><a href="#s3"><span class="toc-num">3</span> <span data-i18n="t3_title">年齡限制</span></a></li>
+      <li><a href="#s4"><span class="toc-num">4</span> <span data-i18n="t4_title">資料收集</span></a></li>
+      <li><a href="#s5"><span class="toc-num">5</span> <span data-i18n="t5_title">第三方服務</span></a></li>
+      <li><a href="#s6"><span class="toc-num">6</span> <span data-i18n="t6_title">免責聲明</span></a></li>
+      <li><a href="#s7"><span class="toc-num">7</span> <span data-i18n="t7_title">智慧財產權</span></a></li>
+      <li><a href="#s8"><span class="toc-num">8</span> <span data-i18n="t8_title">修改與終止</span></a></li>
+      <li><a href="#s9"><span class="toc-num">9</span> <span data-i18n="t9_title">適用法律</span></a></li>
+      <li><a href="#s10"><span class="toc-num">10</span> <span data-i18n="t10_title">聯繫方式</span></a></li>
+    </ul>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="legal-section" id="s1">
+    <div class="section-header">
+      <div class="section-icon">📡</div>
+      <h2 data-i18n="t1_title">服務說明</h2>
+    </div>
+    <p data-i18n="t1_p1">PongPong（以下簡稱「本機器人」）是一款運行於 Discord 平台的多功能機器人，由開發者 Hijiri 獨立開發與維護。</p>
+    <p data-i18n="t1_p2">本機器人提供以下功能，但不限於：</p>
+    <ul>
+      <li data-i18n="t1_f1">🌐 智能翻譯（支援 100+ 種語言、國旗表情符號快速翻譯）</li>
+      <li data-i18n="t1_f2">💱 即時匯率兌換查詢</li>
+      <li data-i18n="t1_f3">📈 股票與加密貨幣報價</li>
+      <li data-i18n="t1_f4">🌤️ 全球天氣預報</li>
+      <li data-i18n="t1_f5">✈️ 旅遊城市資訊</li>
+      <li data-i18n="t1_f6">🏁 國旗問答遊戲</li>
+      <li data-i18n="t1_f7">📅 每日單字推播</li>
+      <li data-i18n="t1_f8">🎵 Spotify Connect 音樂串流（需 Spotify Premium）</li>
+    </ul>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="legal-section" id="s2">
+    <div class="section-header">
+      <div class="section-icon">✅</div>
+      <h2 data-i18n="t2_title">使用規範</h2>
+    </div>
+    <p data-i18n="t2_p1">使用本機器人時，您同意遵守以下規範：</p>
+    <ul>
+      <li data-i18n="t2_r1">❌ 不得濫用或以自動化腳本大量發送指令（spam）</li>
+      <li data-i18n="t2_r2">❌ 不得嘗試反向工程、破解或干擾機器人的運作</li>
+      <li data-i18n="t2_r3">❌ 不得將本機器人用於任何違法目的</li>
+      <li data-i18n="t2_r4">❌ 不得利用本機器人騷擾、詐騙或侵害他人權益</li>
+      <li data-i18n="t2_r5">❌ 不得向其他使用者索取 Discord 帳號密碼或 Token</li>
+      <li data-i18n="t2_r6">✅ 使用者須同時遵守 Discord 服務條款及社群守則</li>
+    </ul>
+    <div class="highlight-box" data-i18n="t2_note">
+      ⚠️ 違反上述規範的使用者，開發者保留限制或永久封鎖其使用權限的權利，恕不另行通知。
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="legal-section" id="s3">
+    <div class="section-header">
+      <div class="section-icon">🔞</div>
+      <h2 data-i18n="t3_title">年齡限制</h2>
+    </div>
+    <p data-i18n="t3_p1">依據 Discord 服務條款，您必須年滿 13 歲（或您所在國家/地區規定的最低年齡）才能使用 Discord 及本機器人。</p>
+    <p data-i18n="t3_p2">若我們發現未滿最低年齡的使用者正在使用本機器人，我們會立即刪除其相關資料。</p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="legal-section" id="s4">
+    <div class="section-header">
+      <div class="section-icon">🗃️</div>
+      <h2 data-i18n="t4_title">資料收集</h2>
+    </div>
+    <p data-i18n="t4_p1">本機器人會收集有限的使用者資料，以提供核心功能。詳細說明請參閱我們的隱私權政策。</p>
+    <div class="highlight-box">
+      🔗 <a href="privacy.html" data-i18n="t4_link">點擊此處查看完整的隱私權政策 →</a>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="legal-section" id="s5">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <h2 data-i18n="t5_title">第三方服務</h2>
+    </div>
+    <p data-i18n="t5_p1">本機器人使用以下第三方 API 提供服務。使用本機器人的相關功能時，您同時受該第三方服務條款的約束：</p>
+    <ul>
+      <li data-i18n="t5_s1">Google Cloud Translation API — 翻譯功能</li>
+      <li data-i18n="t5_s2">Spotify Web API — 音樂串流功能</li>
+      <li data-i18n="t5_s3">ExchangeRate-API — 匯率查詢</li>
+      <li data-i18n="t5_s4">OpenWeatherMap API — 天氣預報</li>
+      <li data-i18n="t5_s5">Alpha Vantage API — 股票報價</li>
+    </ul>
+    <p data-i18n="t5_p2">本機器人不對第三方服務的資料準確性、可用性或安全性負責。</p>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="legal-section" id="s6">
+    <div class="section-header">
+      <div class="section-icon">⚖️</div>
+      <h2 data-i18n="t6_title">免責聲明</h2>
+    </div>
+    <p data-i18n="t6_p1">本機器人以「原樣 (AS-IS)」提供，不附帶任何明示或暗示的保證。開發者不保證：</p>
+    <ul>
+      <li data-i18n="t6_d1">服務將不間斷、即時或無錯誤</li>
+      <li data-i18n="t6_d2">所提供的資訊（翻譯、匯率、股價、天氣等）100% 準確</li>
+      <li data-i18n="t6_d3">服務能夠滿足您的特定需求</li>
+    </ul>
+    <p data-i18n="t6_p2">在法律允許的最大範圍內，開發者不對因使用或無法使用本機器人所造成的任何直接、間接、附帶或衍生性損害負責。</p>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="legal-section" id="s7">
+    <div class="section-header">
+      <div class="section-icon">©️</div>
+      <h2 data-i18n="t7_title">智慧財產權</h2>
+    </div>
+    <p data-i18n="t7_p1">本機器人的程式碼、設計、名稱「PongPong」及相關視覺元素均為開發者 Hijiri 的智慧財產。</p>
+    <p data-i18n="t7_p2">未經書面授權，不得複製、修改、散布或以任何方式使用本機器人的原始碼或品牌元素於商業用途。</p>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="legal-section" id="s8">
+    <div class="section-header">
+      <div class="section-icon">🔄</div>
+      <h2 data-i18n="t8_title">修改與終止</h2>
+    </div>
+    <p data-i18n="t8_p1">開發者保留以下權利：</p>
+    <ul>
+      <li data-i18n="t8_m1">隨時修改、更新本服務條款</li>
+      <li data-i18n="t8_m2">隨時新增、修改或移除機器人的功能</li>
+      <li data-i18n="t8_m3">暫停或永久終止本機器人的運作</li>
+      <li data-i18n="t8_m4">限制或終止違反規範的使用者之存取權限</li>
+    </ul>
+    <p data-i18n="t8_p2">服務條款的重大修改將透過 Discord 支援伺服器公告。繼續使用本機器人即表示您接受更新後的條款。</p>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="legal-section" id="s9">
+    <div class="section-header">
+      <div class="section-icon">🏛️</div>
+      <h2 data-i18n="t9_title">適用法律</h2>
+    </div>
+    <p data-i18n="t9_p1">本服務條款受中華民國（臺灣）法律管轄。因本條款引起的任何爭議，雙方同意以臺灣臺北地方法院為第一審管轄法院。</p>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="legal-section" id="s10">
+    <div class="section-header">
+      <div class="section-icon">💬</div>
+      <h2 data-i18n="t10_title">聯繫方式</h2>
+    </div>
+    <p data-i18n="t10_p1">如對本服務條款有任何疑問，歡迎透過以下方式聯繫我們：</p>
+    <ul>
+      <li>📧 Email：<a href="mailto:a34159@gmail.com">a34159@gmail.com</a></li>
+      <li>💬 Discord：<a href="https://discord.gg/r8grruws" target="_blank" rel="noopener">PongPong 支援伺服器</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2025–2026 PongPong. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="index.html" data-i18n="footer_home">首頁</a>
+      <a href="privacy.html" data-i18n="footer_privacy">隱私權政策</a>
+      <a href="https://github.com/james8976" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://discord.gg/r8grruws" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── i18n ──
+  const i18n = {
+    zh: {
+      nav_back: '返回首頁', hero_badge: '法律文件', hero_title: '服務條款',
+      hero_subtitle: '使用 PongPong Bot 前，請詳閱以下條款。繼續使用即表示您同意這些條款。',
+      last_updated: '最後更新：2026 年 6 月 12 日', toc_title: '目錄',
+      t1_title: '服務說明', t2_title: '使用規範', t3_title: '年齡限制',
+      t4_title: '資料收集', t5_title: '第三方服務', t6_title: '免責聲明',
+      t7_title: '智慧財產權', t8_title: '修改與終止', t9_title: '適用法律', t10_title: '聯繫方式',
+      t1_p1: 'PongPong（以下簡稱「本機器人」）是一款運行於 Discord 平台的多功能機器人，由開發者 Hijiri 獨立開發與維護。',
+      t1_p2: '本機器人提供以下功能，但不限於：',
+      t1_f1: '🌐 智能翻譯（支援 100+ 種語言、國旗表情符號快速翻譯）',
+      t1_f2: '💱 即時匯率兌換查詢', t1_f3: '📈 股票與加密貨幣報價',
+      t1_f4: '🌤️ 全球天氣預報', t1_f5: '✈️ 旅遊城市資訊',
+      t1_f6: '🏁 國旗問答遊戲', t1_f7: '📅 每日單字推播',
+      t1_f8: '🎵 Spotify Connect 音樂串流（需 Spotify Premium）',
+      t2_p1: '使用本機器人時，您同意遵守以下規範：',
+      t2_r1: '❌ 不得濫用或以自動化腳本大量發送指令（spam）',
+      t2_r2: '❌ 不得嘗試反向工程、破解或干擾機器人的運作',
+      t2_r3: '❌ 不得將本機器人用於任何違法目的',
+      t2_r4: '❌ 不得利用本機器人騷擾、詐騙或侵害他人權益',
+      t2_r5: '❌ 不得向其他使用者索取 Discord 帳號密碼或 Token',
+      t2_r6: '✅ 使用者須同時遵守 Discord 服務條款及社群守則',
+      t2_note: '⚠️ 違反上述規範的使用者，開發者保留限制或永久封鎖其使用權限的權利，恕不另行通知。',
+      t3_p1: '依據 Discord 服務條款，您必須年滿 13 歲（或您所在國家/地區規定的最低年齡）才能使用 Discord 及本機器人。',
+      t3_p2: '若我們發現未滿最低年齡的使用者正在使用本機器人，我們會立即刪除其相關資料。',
+      t4_p1: '本機器人會收集有限的使用者資料，以提供核心功能。詳細說明請參閱我們的隱私權政策。',
+      t4_link: '點擊此處查看完整的隱私權政策 →',
+      t5_p1: '本機器人使用以下第三方 API 提供服務。使用本機器人的相關功能時，您同時受該第三方服務條款的約束：',
+      t5_s1: 'Google Cloud Translation API — 翻譯功能', t5_s2: 'Spotify Web API — 音樂串流功能',
+      t5_s3: 'ExchangeRate-API — 匯率查詢', t5_s4: 'OpenWeatherMap API — 天氣預報',
+      t5_s5: 'Alpha Vantage API — 股票報價',
+      t5_p2: '本機器人不對第三方服務的資料準確性、可用性或安全性負責。',
+      t6_p1: '本機器人以「原樣 (AS-IS)」提供，不附帶任何明示或暗示的保證。開發者不保證：',
+      t6_d1: '服務將不間斷、即時或無錯誤', t6_d2: '所提供的資訊（翻譯、匯率、股價、天氣等）100% 準確',
+      t6_d3: '服務能夠滿足您的特定需求',
+      t6_p2: '在法律允許的最大範圍內，開發者不對因使用或無法使用本機器人所造成的任何直接、間接、附帶或衍生性損害負責。',
+      t7_p1: '本機器人的程式碼、設計、名稱「PongPong」及相關視覺元素均為開發者 Hijiri 的智慧財產。',
+      t7_p2: '未經書面授權，不得複製、修改、散布或以任何方式使用本機器人的原始碼或品牌元素於商業用途。',
+      t8_p1: '開發者保留以下權利：',
+      t8_m1: '隨時修改、更新本服務條款', t8_m2: '隨時新增、修改或移除機器人的功能',
+      t8_m3: '暫停或永久終止本機器人的運作', t8_m4: '限制或終止違反規範的使用者之存取權限',
+      t8_p2: '服務條款的重大修改將透過 Discord 支援伺服器公告。繼續使用本機器人即表示您接受更新後的條款。',
+      t9_p1: '本服務條款受中華民國（臺灣）法律管轄。因本條款引起的任何爭議，雙方同意以臺灣臺北地方法院為第一審管轄法院。',
+      t10_p1: '如對本服務條款有任何疑問，歡迎透過以下方式聯繫我們：',
+      footer_home: '首頁', footer_privacy: '隱私權政策'
+    },
+    en: {
+      nav_back: 'Back to Home', hero_badge: 'Legal Document', hero_title: 'Terms of Service',
+      hero_subtitle: 'Please read these terms before using PongPong Bot. By continuing to use the bot, you agree to these terms.',
+      last_updated: 'Last Updated: June 12, 2026', toc_title: 'Table of Contents',
+      t1_title: 'Service Description', t2_title: 'Acceptable Use', t3_title: 'Age Requirements',
+      t4_title: 'Data Collection', t5_title: 'Third-Party Services', t6_title: 'Disclaimer',
+      t7_title: 'Intellectual Property', t8_title: 'Modifications & Termination', t9_title: 'Governing Law', t10_title: 'Contact Us',
+      t1_p1: 'PongPong (hereinafter "the Bot") is a multi-function Discord bot independently developed and maintained by the developer Hijiri.',
+      t1_p2: 'The Bot provides the following features, including but not limited to:',
+      t1_f1: '🌐 Smart Translation (100+ languages, flag emoji quick translate)',
+      t1_f2: '💱 Real-time currency exchange', t1_f3: '📈 Stock & cryptocurrency quotes',
+      t1_f4: '🌤️ Global weather forecasts', t1_f5: '✈️ Travel city information',
+      t1_f6: '🏁 Flag quiz game', t1_f7: '📅 Daily vocabulary push',
+      t1_f8: '🎵 Spotify Connect streaming (requires Spotify Premium)',
+      t2_p1: 'By using the Bot, you agree to the following rules:',
+      t2_r1: '❌ Do not abuse or spam bot commands with automated scripts',
+      t2_r2: '❌ Do not attempt to reverse-engineer, hack, or interfere with the Bot',
+      t2_r3: '❌ Do not use the Bot for any illegal purposes',
+      t2_r4: '❌ Do not use the Bot to harass, scam, or infringe on others\' rights',
+      t2_r5: '❌ Do not solicit Discord passwords or tokens from other users',
+      t2_r6: '✅ Users must comply with Discord\'s Terms of Service and Community Guidelines',
+      t2_note: '⚠️ The developer reserves the right to restrict or permanently ban users who violate these rules without prior notice.',
+      t3_p1: 'Per Discord\'s Terms of Service, you must be at least 13 years old (or the minimum age required in your country) to use Discord and this Bot.',
+      t3_p2: 'If we discover a user under the minimum age is using the Bot, we will immediately delete their associated data.',
+      t4_p1: 'The Bot collects limited user data to provide its core features. For details, please refer to our Privacy Policy.',
+      t4_link: 'Click here to view the full Privacy Policy →',
+      t5_p1: 'The Bot uses the following third-party APIs. When using related features, you are also subject to their terms:',
+      t5_s1: 'Google Cloud Translation API — Translation', t5_s2: 'Spotify Web API — Music streaming',
+      t5_s3: 'ExchangeRate-API — Currency exchange', t5_s4: 'OpenWeatherMap API — Weather',
+      t5_s5: 'Alpha Vantage API — Stock quotes',
+      t5_p2: 'The Bot is not responsible for the accuracy, availability, or security of third-party services.',
+      t6_p1: 'The Bot is provided "AS-IS" without any express or implied warranties. The developer does not guarantee:',
+      t6_d1: 'Uninterrupted, timely, or error-free service',
+      t6_d2: '100% accuracy of provided information (translations, rates, prices, weather, etc.)',
+      t6_d3: 'The service will meet your specific requirements',
+      t6_p2: 'To the fullest extent permitted by law, the developer shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use the Bot.',
+      t7_p1: 'The Bot\'s code, design, the name "PongPong", and related visual elements are the intellectual property of the developer Hijiri.',
+      t7_p2: 'Without written authorization, you may not copy, modify, distribute, or use the Bot\'s source code or brand elements for commercial purposes.',
+      t8_p1: 'The developer reserves the right to:',
+      t8_m1: 'Modify or update these Terms of Service at any time',
+      t8_m2: 'Add, modify, or remove Bot features at any time',
+      t8_m3: 'Suspend or permanently terminate the Bot',
+      t8_m4: 'Restrict or terminate access for users who violate these terms',
+      t8_p2: 'Major changes to these terms will be announced via the Discord support server. Continued use of the Bot constitutes acceptance of the updated terms.',
+      t9_p1: 'These Terms of Service are governed by the laws of the Republic of China (Taiwan). Any disputes arising from these terms shall be subject to the jurisdiction of the Taipei District Court.',
+      t10_p1: 'If you have any questions about these Terms of Service, please contact us:',
+      footer_home: 'Home', footer_privacy: 'Privacy Policy'
+    },
+    ja: {
+      nav_back: 'ホームに戻る', hero_badge: '法的文書', hero_title: '利用規約',
+      hero_subtitle: 'PongPong Bot をご利用になる前に、以下の利用規約をお読みください。利用を継続することで、これらの規約に同意したものとみなされます。',
+      last_updated: '最終更新日：2026年6月12日', toc_title: '目次',
+      t1_title: 'サービス説明', t2_title: '利用規範', t3_title: '年齢制限',
+      t4_title: 'データ収集', t5_title: 'サードパーティサービス', t6_title: '免責事項',
+      t7_title: '知的財産権', t8_title: '変更と終了', t9_title: '準拠法', t10_title: 'お問い合わせ',
+      t1_p1: 'PongPong（以下「本Bot」）は、Discord プラットフォーム上で動作する多機能Botであり、開発者 Hijiri が独自に開発・運営しています。',
+      t1_p2: '本Botは以下の機能を提供しますが、これらに限定されません：',
+      t1_f1: '🌐 スマート翻訳（100以上の言語対応、国旗絵文字クイック翻訳）',
+      t1_f2: '💱 リアルタイム為替レート', t1_f3: '📈 株式・暗号通貨相場',
+      t1_f4: '🌤️ 世界の天気予報', t1_f5: '✈️ 旅行都市情報',
+      t1_f6: '🏁 国旗クイズゲーム', t1_f7: '📅 毎日の単語プッシュ',
+      t1_f8: '🎵 Spotify Connect ストリーミング（Spotify Premium 必要）',
+      t2_p1: '本Botを利用する際、以下の規範に同意するものとします：',
+      t2_r1: '❌ 自動化スクリプトによるコマンドの乱用やスパム行為の禁止',
+      t2_r2: '❌ リバースエンジニアリング、ハッキング、またはBotの動作妨害の禁止',
+      t2_r3: '❌ 違法な目的での使用の禁止',
+      t2_r4: '❌ 他のユーザーへの嫌がらせ、詐欺、権利侵害の禁止',
+      t2_r5: '❌ 他のユーザーからDiscordのパスワードやトークンを要求することの禁止',
+      t2_r6: '✅ ユーザーはDiscordの利用規約およびコミュニティガイドラインを遵守する必要があります',
+      t2_note: '⚠️ 上記の規範に違反したユーザーに対し、開発者は事前の通知なく利用を制限または永久停止する権利を留保します。',
+      t3_p1: 'Discordの利用規約に従い、Discordおよび本Botを利用するには13歳以上（またはお住まいの国で定められた最低年齢以上）である必要があります。',
+      t3_p2: '最低年齢未満のユーザーの利用が判明した場合、関連データを直ちに削除します。',
+      t4_p1: '本Botはコア機能を提供するために限定的なユーザーデータを収集します。詳細はプライバシーポリシーをご参照ください。',
+      t4_link: 'プライバシーポリシーの全文はこちら →',
+      t5_p1: '本Botは以下のサードパーティAPIを使用しています。関連機能の利用時には、各サービスの利用規約も適用されます：',
+      t5_s1: 'Google Cloud Translation API — 翻訳', t5_s2: 'Spotify Web API — 音楽ストリーミング',
+      t5_s3: 'ExchangeRate-API — 為替レート', t5_s4: 'OpenWeatherMap API — 天気予報',
+      t5_s5: 'Alpha Vantage API — 株式相場',
+      t5_p2: '本Botはサードパーティサービスのデータの正確性、可用性、セキュリティについて責任を負いません。',
+      t6_p1: '本Botは「現状のまま（AS-IS）」提供され、明示的または黙示的ないかなる保証も付帯しません。開発者は以下を保証しません：',
+      t6_d1: 'サービスが中断なく、タイムリーに、またはエラーなく動作すること',
+      t6_d2: '提供する情報（翻訳、為替、株価、天気等）が100%正確であること',
+      t6_d3: 'サービスがお客様の特定のニーズを満たすこと',
+      t6_p2: '法律で許可される最大限の範囲において、開発者は本Botの使用または使用不能に起因するいかなる直接的、間接的、付随的、または結果的損害についても責任を負いません。',
+      t7_p1: '本Botのコード、デザイン、「PongPong」の名称および関連する視覚的要素は、開発者 Hijiri の知的財産です。',
+      t7_p2: '書面による許可なく、本Botのソースコードやブランド要素を商業目的で複製、改変、配布、またはその他の方法で使用することはできません。',
+      t8_p1: '開発者は以下の権利を留保します：',
+      t8_m1: '本利用規約をいつでも変更・更新すること',
+      t8_m2: 'Botの機能をいつでも追加、変更、または削除すること',
+      t8_m3: '本Botの運営を一時停止または永久終了すること',
+      t8_m4: '規約に違反したユーザーのアクセスを制限または終了すること',
+      t8_p2: '本規約の重要な変更はDiscordサポートサーバーで告知されます。本Botの継続利用は、更新された規約への同意を意味します。',
+      t9_p1: '本利用規約は中華民国（台湾）の法律に準拠します。本規約に起因するいかなる紛争も、台湾台北地方裁判所を第一審の管轄裁判所とすることに合意します。',
+      t10_p1: '本利用規約についてご質問がある場合は、以下の方法でお問い合わせください：',
+      footer_home: 'ホーム', footer_privacy: 'プライバシーポリシー'
+    }
+  };
+
+  let currentLang = localStorage.getItem('pongpong-lang') || 'zh';
+
+  function switchLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('pongpong-lang', lang);
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="switchLang('${lang}')"]`).classList.add('active');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+    });
+    // Update page title
+    document.title = lang === 'en' ? 'Terms of Service — PongPong Bot' :
+                     lang === 'ja' ? '利用規約 — PongPong Bot' : '服務條款 — PongPong Bot';
+  }
+
+  // Init language
+  window.switchLang = switchLang;
+  switchLang(currentLang);
+
+  // ── Scroll effects ──
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // ── Reveal on scroll ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.legal-section').forEach(s => observer.observe(s));
+})();
+</script>
+</body>
+</html>
